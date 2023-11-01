@@ -26,7 +26,7 @@ function Menu({ collapsed }) {
 
   return (
     <div className={`menu ${collapsed ? "active" : ""}`}>
-      <ul className="d-flex flex-column gap-2 list-unstyled box-menu">
+      <ul className="d-flex flex-column gap-2 list-unstyled box-menu pt-2">
         {list.map((item, idx) => {
           if (item.sub) {
             return (
@@ -36,13 +36,15 @@ function Menu({ collapsed }) {
                   onClick={() => activeSubItem(idx)}
                 >
                   <div className="d-flex align-items-center gap-2">
-                    {item.icon}
+                    <span className="text-center" style={{ width: "24px" }}>
+                      {item.icon}
+                    </span>
                     {item.label}
                   </div>
                   {item.isVisible ? (
-                    <i class="fas fa-chevron-up"></i>
+                    <i className="fas fa-chevron-up"></i>
                   ) : (
-                    <i class="fas fa-chevron-down"></i>
+                    <i className="fas fa-chevron-down"></i>
                   )}
                 </Link>
                 <ul
@@ -66,7 +68,9 @@ function Menu({ collapsed }) {
             <li className="px-3" key={idx}>
               <NavLink to={`${item.src}`}>
                 <div className="d-flex align-items-center gap-2">
-                  {item.icon}
+                  <span className="text-center" style={{ width: "24px" }}>
+                    {item.icon}
+                  </span>
                   {item.label}
                 </div>
               </NavLink>

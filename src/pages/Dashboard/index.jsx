@@ -68,24 +68,24 @@ function Dashboard(props) {
             width="100%"
           />
         </div>
-      
-      <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
-        <h2> Doanh thu 2023</h2>
-        <Chart
-          options={state.options}
-          series={state.series}
-          type="line"
-          width="100%"
-        />
-      </div>
-      <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
-        <h2>Tổng số sản phẩm đã bán ra</h2>
-        <Chart
-          options={circle.options}
-          series={circle.series}
-          type="radialBar"
-          width="100%"
-        />
+
+        <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
+          <h2> Doanh thu 2023</h2>
+          <Chart
+            options={state.options}
+            series={state.series}
+            type="line"
+            width="100%"
+          />
+        </div>
+        <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
+          <h2>Tổng số sản phẩm đã bán ra</h2>
+          <Chart
+            options={circle.options}
+            series={circle.series}
+            type="radialBar"
+            width="100%"
+          />
         </div>
       </div>
     </>

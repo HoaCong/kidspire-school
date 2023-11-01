@@ -6,7 +6,6 @@ const MENU = [
     src: ROUTES.DASHBOARD,
     icon: <i className="fas fa-home"></i>,
   },
-
   {
     label: "Người dùng",
     active: false,
@@ -24,22 +23,41 @@ const MENU = [
     ],
   },
   {
-    label: "Thông Báo",
+    label: "Topic",
     active: false,
-    icon: <i className="fas fa-bell"></i>,
-    src: ROUTES.MESSAGES,
+    src: ROUTES.TOPIC,
+    icon: <i class="fas fa-shapes"></i>,
   },
   {
-    label: "Cài Đặt",
+    label: "Category",
     active: false,
-    icon: <i className="fas fa-cog"></i>,
-    src: ROUTES.SETTING,
+    src: ROUTES.CATEGORY,
+    icon: <i class="fas fa-sitemap"></i>,
   },
   {
-    label: "Sign Out",
+    label: "Lesson",
     active: false,
-    icon: <i className="fas fa-sign-out-alt"></i>,
-    src: ROUTES.SIGNOUT,
+    src: ROUTES.LESSON,
+    icon: <i class="fas fa-book-open"></i>,
   },
+
+  // {
+  //   label: "Thông Báo",
+  //   active: false,
+  //   icon: <i className="fas fa-bell"></i>,
+  //   src: ROUTES.MESSAGES,
+  // },
+  // {
+  //   label: "Cài Đặt",
+  //   active: false,
+  //   icon: <i className="fas fa-cog"></i>,
+  //   src: ROUTES.SETTING,
+  // },
+  // {
+  //   label: "Sign Out",
+  //   active: false,
+  //   icon: <i className="fas fa-sign-out-alt"></i>,
+  //   src: ROUTES.SIGNOUT,
+  // },
 ];
 export default MENU;

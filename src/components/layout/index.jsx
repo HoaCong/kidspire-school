@@ -25,7 +25,7 @@ function Layout(props) {
         <Menu collapsed={collapsed} />
         <main className="w-100">
           <div className="layout">
-            <div className="h-100">
+            <div className="min-h-100">
               <Outlet />
             </div>
             <Footer />

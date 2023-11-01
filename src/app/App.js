@@ -1,11 +1,11 @@
-import React,{ useCallback } from "react";
-import { Routes, Route } from "react-router-dom";
-import { routers } from "router/router";
+import React, { useCallback } from "react";
+import { Route, Routes } from "react-router-dom";
+import { publicRoutes } from "router";
 
 function App() {
-  const renderRoutes = useCallback((routers) => {
-    return routers.map((route, index) => {
-      if (route.children && route.children.length > 0) {
+  const renderRoutes = useCallback((publicRoutes) => {
+    return publicRoutes.map((route, index) => {
+      if (route.children?.length > 0) {
         return (
           <Route path={route.path} element={route.element} key={index}>
             {renderRoutes(route.children)}
@@ -21,7 +21,7 @@ function App() {
     });
   }, []);
 
-  return <Routes>{renderRoutes(routers)}</Routes>;
+  return <Routes>{renderRoutes(publicRoutes)}</Routes>;
 }
 
 export default App;
