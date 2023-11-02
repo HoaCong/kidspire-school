@@ -1,7 +1,7 @@
 .bg-login {
   background-image: url("../../assets/images/childhood.png");
   background-repeat: no-repeat;
-  background-position: center top -70px;
+  background-position: center top -150px;
 }
 .form-login {
   width: 100%;
@@ -10,7 +10,7 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -45%);
+  transform: translate(-50%, -50%);
 }
 .divider:after,
 .divider:before {
@@ -21,6 +21,9 @@
 }
 .h-custom {
   height: calc(100% - 72px);
+}
+.-mt-3 {
+  margin-top: -18px;
 }
 @media (max-width: 450px) {
   .h-custom {

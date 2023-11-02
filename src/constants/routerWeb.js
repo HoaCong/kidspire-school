@@ -8,6 +8,7 @@ export const ROUTES = {
   ADD_CATEGORY: "/add_category",
   UPDATE_CATEGORY: "/update_category",
   LOGIN: "/login",
+  REGISTER: "/register",
   TOPIC: "/topics",
   LESSON: "/lessons",
   SIGNOUT: "/singout",

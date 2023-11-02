@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Route, Routes } from "react-router-dom";
 import { publicRoutes } from "router";
-
+import "./index.scss";
 function App() {
   const renderRoutes = useCallback((publicRoutes) => {
     return publicRoutes.map((route, index) => {

@@ -5,12 +5,14 @@ import Dashboard from "pages/Dashboard";
 import Lesson from "pages/Lesson";
 import Login from "pages/Login";
 import NotFoundPage from "pages/NotFoundPage";
+import Register from "pages/Register";
 import Topic from "pages/Topic";
 import Users from "pages/Users";
 import CreUpUser from "pages/Users/CreUpUser";
 
 export const publicRoutes = [
   { path: ROUTES.LOGIN, name: "Login Page", element: <Login /> },
+  { path: ROUTES.REGISTER, name: "Register Page", element: <Register /> },
   {
     path: ROUTES.HOME_PAGE,
     name: "Layout",

@@ -26,19 +26,19 @@ const MENU = [
     label: "Topic",
     active: false,
     src: ROUTES.TOPIC,
-    icon: <i class="fas fa-shapes"></i>,
+    icon: <i className="fas fa-shapes"></i>,
   },
   {
     label: "Category",
     active: false,
     src: ROUTES.CATEGORY,
-    icon: <i class="fas fa-sitemap"></i>,
+    icon: <i className="fas fa-sitemap"></i>,
   },
   {
     label: "Lesson",
     active: false,
     src: ROUTES.LESSON,
-    icon: <i class="fas fa-book-open"></i>,
+    icon: <i className="fas fa-book-open"></i>,
   },
 
   // {
