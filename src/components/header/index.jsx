@@ -1,11 +1,22 @@
 import avatar from "assets/images/avatar.png";
 import logo from "assets/images/logo-kid.png";
+import { ROUTES } from "constants/routerWeb";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { actionLogout } from "store/Login/action";
 import "./header.scss";
 function Footer() {
-  const [isActive, setIsActive] = useState(false);
+  const dispatch = useDispatch();
+  const onLogout = () => dispatch(actionLogout());
 
+  const navigate = useNavigate();
+
+  const [isActive, setIsActive] = useState(false);
+  const handleLogout = () => {
+    onLogout();
+    navigate(ROUTES.LOGIN);
+  };
   return (
     <div className="header">
       <div className="d-flex h-100 justify-content-between align-items-center px-2">
@@ -38,7 +49,7 @@ function Footer() {
                 <Link>My Profile</Link>
               </li>
               <li>
-                <Link>Logout</Link>
+                <Link onClick={handleLogout}>Logout</Link>
               </li>
             </ul>
           </div>

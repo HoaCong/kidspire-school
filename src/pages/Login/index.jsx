@@ -1,16 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ROUTES } from "constants/routerWeb";
 import _capitalize from "lodash/capitalize";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { actionLogin } from "store/Login/action";
 import "./index.scss";
 function Login() {
+  // state store
   const loginState = useSelector((state) => state.loginReducer);
+  // action store
   const dispatch = useDispatch();
-  const onLogin = (body) => dispatch(actionLogin(body));
-  console.log("Login  loginState:", loginState);
-  const [data, setData] = useState({
+  const onLogin = (body, isRemember) => dispatch(actionLogin(body, isRemember));
+  const { isLoading, isSuccess, isFailure, data } = loginState;
+
+  // state local
+  const navigate = useNavigate();
+  const [isRemember, setRemember] = useState(false);
+  const [formdata, setData] = useState({
     username: "",
     password: "",
   });
@@ -19,6 +26,19 @@ function Login() {
     password: "",
   });
 
+  useEffect(() => {
+    if (isSuccess) navigate(ROUTES.DASHBOARD);
+  }, [navigate, isSuccess]);
+
+  useEffect(() => {
+    if (isFailure)
+      setError((prevError) => ({
+        ...prevError,
+        password: data?.error,
+      }));
+  }, [isFailure]);
+
+  // function local
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
@@ -26,10 +46,10 @@ function Login() {
   };
 
   const handleSubmit = () => {
-    const tmpKey = Object.keys(data);
+    const tmpKey = Object.keys(formdata);
     let validates = true;
     tmpKey.forEach((key) => {
-      if (data[key] === "") {
+      if (formdata[key] === "") {
         setError((prevError) => ({
           ...prevError,
           [key]: `${_capitalize(key)} required`,
@@ -39,7 +59,10 @@ function Login() {
     });
     if (validates) {
       // dispatch
-      onLogin({ email: data.username, password: data.password });
+      onLogin(
+        { email: formdata.username, password: formdata.password },
+        isRemember
+      );
     }
   };
 
@@ -90,6 +113,7 @@ function Login() {
                 type="checkbox"
                 value=""
                 id="remember"
+                onChange={() => setRemember((prev) => !prev)}
               />
               <label
                 className="form-check-label text-black-50"
@@ -107,10 +131,16 @@ function Login() {
           <div className="text-center">
             <button
               type="button"
-              className="btn btn-secondary btn-lg px-3 w-100"
-              style={{ width: 200 }}
+              className="btn btn-secondary btn-lg px-3 w-100 d-flex justify-content-center"
               onClick={handleSubmit}
+              disabled={isLoading}
             >
+              {isLoading && (
+                <div
+                  className="spinner-border text-white me-2"
+                  role="status"
+                ></div>
+              )}
               SIGN IN
             </button>
           </div>

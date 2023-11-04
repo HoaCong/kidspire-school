@@ -1,8 +1,9 @@
 import * as ActionTypes from "./constant";
 
-export const actionLogin = (params) => ({
+export const actionLogin = (params, isRemember = false) => ({
   type: ActionTypes.LOGIN,
   params,
+  isRemember,
 });
 
 export const actionLoginSuccess = (payload) => ({
@@ -10,11 +11,11 @@ export const actionLoginSuccess = (payload) => ({
   payload,
 });
 
-export const actionLoginFailed = (payload) => ({
+export const actionLoginFailed = (error) => ({
   type: ActionTypes.LOGIN_FAILED,
-  payload,
+  error,
 });
 
-export const actionReset = () => ({
-  type: ActionTypes.RESET_LOGIN,
+export const actionLogout = () => ({
+  type: ActionTypes.LOGOUT,
 });

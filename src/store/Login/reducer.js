@@ -6,7 +6,7 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   isFailure: false,
-  data: { token: "" },
+  data: { access_token: localStorage.getItem("access_token") || "", error: "" },
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -27,11 +27,19 @@ const loginReducer = (state = initialState, action) => {
       case ActionTypes.LOGIN_FAILED:
         draft.isLoading = false;
         draft.isFailure = true;
-        draft.data = { token: "" };
+        draft.data = { access_token: "", error: action.error };
         break;
 
-      case ActionTypes.RESET_LOGIN:
-        return initialState;
+      case ActionTypes.LOGOUT:
+        localStorage.removeItem("access_token");
+        draft.isLoading = false;
+        draft.isSuccess = false;
+        draft.isFailure = false;
+        draft.data = {
+          access_token: "",
+          error: "",
+        };
+        break;
 
       default:
         return state;

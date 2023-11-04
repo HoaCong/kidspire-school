@@ -1,7 +1,9 @@
+import CheckTokenMiddleware from "middleware/checkToken";
 import React, { useCallback } from "react";
 import { Route, Routes } from "react-router-dom";
 import { publicRoutes } from "router";
 import "./index.scss";
+
 function App() {
   const renderRoutes = useCallback((publicRoutes) => {
     return publicRoutes.map((route, index) => {
@@ -21,7 +23,11 @@ function App() {
     });
   }, []);
 
-  return <Routes>{renderRoutes(publicRoutes)}</Routes>;
+  return (
+    <CheckTokenMiddleware>
+      <Routes>{renderRoutes(publicRoutes)}</Routes>
+    </CheckTokenMiddleware>
+  );
 }
 
 export default App;
