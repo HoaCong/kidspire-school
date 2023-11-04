@@ -4,7 +4,7 @@ import Category from "pages/Category";
 import Dashboard from "pages/Dashboard";
 import Lesson from "pages/Lesson";
 import Login from "pages/Login";
-import NotFoundPage from "pages/NotFoundPage";
+import PageNotFound from "pages/NotFoundPage";
 import Register from "pages/Register";
 import Topic from "pages/Topic";
 import Users from "pages/Users";
@@ -46,7 +46,7 @@ export const publicRoutes = [
         name: "Category",
         element: <Lesson />,
       },
-      { path: "*", name: "Not Found Page", element: <NotFoundPage /> },
+      { path: "*", name: "Not Found Page", element: <PageNotFound /> },
     ],
   },
 ];
