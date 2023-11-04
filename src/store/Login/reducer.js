@@ -41,6 +41,23 @@ const loginReducer = (state = initialState, action) => {
         };
         break;
 
+      case ActionTypes.REGISTER:
+        draft.isLoading = true;
+        draft.isSuccess = false;
+        draft.isFailure = false;
+        break;
+
+      case ActionTypes.REGISTER_SUCCESS:
+        draft.isLoading = false;
+        draft.isSuccess = true;
+        break;
+
+      case ActionTypes.REGISTER_FAILED:
+        draft.isLoading = false;
+        draft.isFailure = true;
+        draft.data = { access_token: "", error: action.error };
+        break;
+
       default:
         return state;
     }

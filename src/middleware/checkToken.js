@@ -13,10 +13,11 @@ const CheckTokenMiddleware = ({ children }) => {
 
   useEffect(() => {
     if (!access_token) {
-      if (pathname === ROUTES.LOGIN) return;
+      if (pathname === ROUTES.LOGIN || pathname === ROUTES.REGISTER) return;
       return navigate(ROUTES.LOGIN);
     } else {
-      if (pathname === ROUTES.LOGIN) return navigate("/");
+      if (pathname === ROUTES.LOGIN || pathname === ROUTES.REGISTER)
+        return navigate("/");
     }
   }, [access_token, pathname]);
 

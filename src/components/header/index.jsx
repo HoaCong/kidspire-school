@@ -48,8 +48,8 @@ function Footer() {
               <li>
                 <Link>My Profile</Link>
               </li>
-              <li>
-                <Link onClick={handleLogout}>Logout</Link>
+              <li onClick={handleLogout}>
+                <Link>Logout</Link>
               </li>
             </ul>
           </div>

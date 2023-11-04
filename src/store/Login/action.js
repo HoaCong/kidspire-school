@@ -19,3 +19,18 @@ export const actionLoginFailed = (error) => ({
 export const actionLogout = () => ({
   type: ActionTypes.LOGOUT,
 });
+
+export const actionRegister = (params) => ({
+  type: ActionTypes.REGISTER,
+  params,
+});
+
+export const actionRegisterSuccess = (payload) => ({
+  type: ActionTypes.REGISTER_SUCCESS,
+  payload,
+});
+
+export const actionRegisterFailed = (error) => ({
+  type: ActionTypes.REGISTER_FAILED,
+  error,
+});

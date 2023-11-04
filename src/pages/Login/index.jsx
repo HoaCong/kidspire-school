@@ -77,7 +77,7 @@ function Login() {
           <div className="form-floating mb-3">
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${!!error.username && "is-invalid"}`}
               name="username"
               id="username"
               onChange={handleChange}
@@ -93,7 +93,9 @@ function Login() {
           <div className="form-floating mb-3">
             <input
               type="password"
-              className="form-control"
+              className={`form-control ${
+                !!error.password && !isFailure && "is-invalid"
+              }`}
               name="password"
               id="pwd"
               onChange={handleChange}

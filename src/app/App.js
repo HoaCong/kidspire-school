@@ -1,3 +1,4 @@
+import ToastSnackbar from "components/common/ToastSnackbar";
 import CheckTokenMiddleware from "middleware/checkToken";
 import React, { useCallback } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -24,9 +25,12 @@ function App() {
   }, []);
 
   return (
-    <CheckTokenMiddleware>
-      <Routes>{renderRoutes(publicRoutes)}</Routes>
-    </CheckTokenMiddleware>
+    <>
+      <CheckTokenMiddleware>
+        <Routes>{renderRoutes(publicRoutes)}</Routes>
+      </CheckTokenMiddleware>
+      <ToastSnackbar />
+    </>
   );
 }
 
