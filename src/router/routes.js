@@ -24,7 +24,7 @@ export const publicRoutes = [
         name: "Dashboard Page",
         element: <Dashboard />,
       },
-      { path: ROUTES.USER, name: "Add User", element: <Users /> },
+      { path: ROUTES.USER, name: "Users", element: <Users /> },
       { path: ROUTES.ADD_USER, name: "Add User", element: <CreUpUser /> },
       {
         path: ROUTES.UPDATE_USER,
