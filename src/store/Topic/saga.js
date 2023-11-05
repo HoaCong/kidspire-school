@@ -16,10 +16,8 @@ import * as ActionTypes from "./constant";
 function* callApiListTopic({ params }) {
   try {
     const response = yield call(get, ENDPOINT.LIST_TOPIC, params);
-    console.log("function*callApiListTopic  response:", response);
     yield put(actionGetListSuccess(response.data));
   } catch (error) {
-    console.log("function*callApiListTopic  error:", error);
     yield put(actionGetListFailed(error.response.data.error));
   }
 }
@@ -27,7 +25,6 @@ function* callApiListTopic({ params }) {
 function* callApiAddTopic({ params }) {
   try {
     const response = yield call(post, ENDPOINT.ADD_TOPIC, params);
-    console.log("function*callApiEditTopic  response:", response);
     yield put(actionAddTopicSuccess(response.data.data));
     yield put(
       addToast({
@@ -37,7 +34,6 @@ function* callApiAddTopic({ params }) {
       })
     );
   } catch (error) {
-    console.log("function*callApiListTopic  error:", error);
     yield put(actionAddTopicFailed(error.response.data.error));
     yield put(
       addToast({
@@ -56,7 +52,6 @@ function* callApiEditTopic({ params }) {
       name,
       image,
     });
-    console.log("function*callApiEditTopic  response:", response);
     yield put(actionEditTopicSuccess(response.data.data));
     yield put(
       addToast({
@@ -66,7 +61,6 @@ function* callApiEditTopic({ params }) {
       })
     );
   } catch (error) {
-    console.log("function*callApiListTopic  error:", error);
     yield put(actionEditTopicFailed(error.response.data.error));
     yield put(
       addToast({
@@ -81,7 +75,6 @@ function* callApiEditTopic({ params }) {
 function* callApiDeleteTopic({ id }) {
   try {
     const response = yield call(remove, ENDPOINT.DELETE_TOPIC + id);
-    console.log("function*callApiEditTopic  response:", response);
     yield put(actionDeleteTopicSuccess(id));
     yield put(
       addToast({
@@ -91,7 +84,6 @@ function* callApiDeleteTopic({ id }) {
       })
     );
   } catch (error) {
-    console.log("function*callApiListTopic  error:", error);
     yield put(actionDeleteTopicFailed(error.response.data.error));
     yield put(
       addToast({

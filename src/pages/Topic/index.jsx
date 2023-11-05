@@ -4,7 +4,7 @@ import CustomPagination from "components/common/CustomPagination";
 import LazyLoadImage from "components/common/LazyLoadImage";
 import TemplateContent from "components/layout/TemplateContent";
 import _size from "lodash/size";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Overlay, Spinner, Tooltip } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionDeleteTopic, actionGetList } from "store/Topic/action";
@@ -23,7 +23,7 @@ function Topic(props) {
   const onDeleteTopic = (body) => dispatch(actionDeleteTopic(body));
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState({
+  const [detail, setDetail] = useState({
     topic: {},
     visible: false,
     type: "",
@@ -61,7 +61,7 @@ function Topic(props) {
         showNew
         btnProps={{
           onClick: () =>
-            setData((prev) => ({ ...prev, visible: true, type: "create" })),
+            setDetail((prev) => ({ ...prev, visible: true, type: "create" })),
         }}
       >
         <table className="table">
@@ -89,7 +89,7 @@ function Topic(props) {
               </tr>
             )}
             {list.map((item, index) => (
-              <tr key={item.id}>
+              <tr key={item.updatedat}>
                 <th scope="row" className="align-middle">
                   {index + 1}
                 </th>
@@ -105,10 +105,10 @@ function Topic(props) {
                 <td className="align-middle" style={{ width: 200 }}>
                   <ActionTable
                     onDetail={() =>
-                      setData({ topic: item, visible: true, type: "detail" })
+                      setDetail({ topic: item, visible: true, type: "detail" })
                     }
                     onEdit={() =>
-                      setData({ topic: item, visible: true, type: "edit" })
+                      setDetail({ topic: item, visible: true, type: "edit" })
                     }
                     onDelete={(e) => {
                       setTooltip((prev) => {
@@ -134,8 +134,8 @@ function Topic(props) {
         />
       </TemplateContent>
       <FormTopic
-        data={data}
-        onClear={() => setData({ topic: {}, visible: false })}
+        data={detail}
+        onClear={() => setDetail({ topic: {}, visible: false, type: "" })}
       />
 
       <Overlay target={tooltip.target} show={tooltip.visible} placement="top">

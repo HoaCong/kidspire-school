@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
 import ModalBlock from "components/common/Modal";
 import UploadImage from "components/common/UploadImage";
 import _capitalize from "lodash/capitalize";
@@ -8,6 +7,10 @@ import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { actionAddTopic, actionEditTopic } from "store/Topic/action";
+const initialData = {
+  name: "",
+  image: "",
+};
 function FormTopic({ data: { type, visible, topic }, onClear }) {
   const {
     actionStatus: { isLoading, isSuccess },
@@ -17,55 +20,27 @@ function FormTopic({ data: { type, visible, topic }, onClear }) {
   const onAddTopic = (body) => dispatch(actionAddTopic(body));
   const onEditTopic = (body) => dispatch(actionEditTopic(body));
 
-  const [data, setData] = useState({
-    name: "",
-    image:
-      "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
-  });
+  const [data, setData] = useState(initialData);
 
-  const [error, setError] = useState({
-    name: "",
-    image: "",
-  });
+  const [error, setError] = useState(initialData);
 
   useEffect(() => {
     if (!_isEmpty(topic)) setData(topic);
   }, [topic]);
 
   useEffect(() => {
-    if (isSuccess) onClear();
-  }, [isSuccess]);
-
-  const handleUploadImage = (event) => {
-    const selectedFile = event.target.files[0];
-
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append("image", selectedFile);
-
-      // Sử dụng Axios để gửi yêu cầu POST
-      axios
-        .post("https://kubtool.000webhostapp.com/upload.php", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then((response) => {
-          // Xử lý phản hồi từ máy chủ (server response)
-          console.log(response.data);
-        })
-        .catch((error) => {
-          // Xử lý lỗi (error)
-          console.error("Error uploading image:", error);
-        });
+    if (isSuccess) {
+      onClear();
+      setData(initialData);
     }
-  };
+  }, [isSuccess]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
     setError((prevError) => ({ ...prevError, [name]: "" }));
   };
+
   const handleSubmit = () => {
     const tmpKey = Object.keys(data);
     let validates = true;
@@ -83,12 +58,17 @@ function FormTopic({ data: { type, visible, topic }, onClear }) {
       if (type === "edit") onEditTopic(data);
     }
   };
+  const handleClose = () => {
+    onClear();
+    setData(initialData);
+    setError(initialData);
+  };
 
   return (
     <ModalBlock
       title={type === "edit" ? "Chỉnh sửa chủ đề" : "Thông tin chủ đề"}
       show={visible}
-      onClose={onClear}
+      onClose={handleClose}
       onSave={handleSubmit}
       hideSave={type === "detail"}
       loading={isLoading}
@@ -119,8 +99,16 @@ function FormTopic({ data: { type, visible, topic }, onClear }) {
           <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
           <UploadImage
             image={topic.image}
-            callback={(url) => console.log(url)}
+            callback={(url) =>
+              handleChange({
+                target: {
+                  name: "image",
+                  value: url,
+                },
+              })
+            }
             geometry="radius"
+            showUpload={type !== "detail"}
           />
           {error.image && (
             <Form.Text
@@ -130,20 +118,6 @@ function FormTopic({ data: { type, visible, topic }, onClear }) {
             >
               {error.image}
             </Form.Text>
-          )}
-          {type !== "detail" && (
-            <label
-              htmlFor="uploadImage"
-              className="btn btn-outline-secondary mt-3"
-            >
-              Upload Image
-              <input
-                id="uploadImage"
-                type="file"
-                onChange={handleUploadImage}
-                hidden
-              />
-            </label>
           )}
         </div>
       </form>

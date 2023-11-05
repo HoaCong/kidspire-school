@@ -65,6 +65,8 @@ const topicReducer = (state = initialState, action) => {
         draft.list = state.list.map((item) =>
           item.id === action.payload.id ? action.payload : item
         );
+        console.log("111", action.payload, draft.list);
+
         break;
 
       case ActionTypes.EDIT_FAILED:
@@ -82,7 +84,6 @@ const topicReducer = (state = initialState, action) => {
         draft.actionStatus.isLoading = false;
         draft.actionStatus.isSuccess = true;
         draft.list = state.list.filter((item) => item.id !== action.id);
-        console.log("returnproduce  action.id:", action.id);
         break;
 
       case ActionTypes.DELETE_FAILED:

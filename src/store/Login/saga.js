@@ -13,12 +13,10 @@ import * as ActionTypes from "./constant";
 function* callApiLogin({ params, isRemember }) {
   try {
     const response = yield call(post, ENDPOINT.LOGIN, params);
-    console.log("function*callApiLogin  response:", response);
     if (isRemember)
       localStorage.setItem("access_token", response.data.access_token);
     yield put(actionLoginSuccess(response.data));
   } catch (error) {
-    console.log("function*callApiLogin  error:", error);
     yield put(actionLoginFailed(error.response.data.error));
   }
 }
@@ -35,7 +33,6 @@ function* callApiRegister({ params }) {
     );
     yield put(actionRegisterSuccess(response.data));
   } catch (error) {
-    console.log("function*callApiRegister  error:", error);
     yield put(
       addToast({
         text: "Đăng ký thất bại",

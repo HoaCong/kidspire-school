@@ -11,10 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionGetList } from "store/Category/action";
 
 function Category(props) {
-  const { isLoading, isSuccess, isFailure, list, params, meta } = useSelector(
+  const { isLoading, list, params, meta } = useSelector(
     (state) => state.categoryReducer
   );
-  console.log("Category  list:", list, params);
 
   const dispatch = useDispatch();
   const onGetListCategory = (body) => dispatch(actionGetList(body));

@@ -75,7 +75,6 @@ function Account() {
       if (user[key] === "") {
         setError("Demo: Vui lòng nhập đủ thông tin");
         validates = false;
-        console.log(validates, user[key], key);
       }
       return null;
     });

@@ -16,10 +16,9 @@ const roleEnum = {
 };
 
 function Users(props) {
-  const { isLoading, isSuccess, isFailure, list, params, meta } = useSelector(
+  const { isLoading, list, params, meta } = useSelector(
     (state) => state.userReducer
   );
-  console.log("Users  list:", list, params);
 
   const dispatch = useDispatch();
   const onGetListUser = (body) => dispatch(actionGetList(body));
