@@ -91,6 +91,9 @@ const topicReducer = (state = initialState, action) => {
         draft.actionStatus.isFailure = true;
         break;
 
+      case ActionTypes.RESET_DATA:
+        return initialState;
+
       default:
         return state;
     }

@@ -36,6 +36,9 @@ const categoryReducer = (state = initialState, action) => {
         draft.list = [];
         break;
 
+      case ActionTypes.RESET_DATA:
+        return initialState;
+
       default:
         return state;
     }

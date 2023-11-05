@@ -13,3 +13,7 @@ export const EDIT_FAILED = "EDIT_TOPIC_FAILED";
 export const DELETE = "DELETE_TOPIC";
 export const DELETE_SUCCESS = "DELETE_TOPIC_SUCCESS";
 export const DELETE_FAILED = "DELETE_TOPIC_FAILED";
+
+
+export const RESET_DATA = "RESET_DATA_TOPIC";
+

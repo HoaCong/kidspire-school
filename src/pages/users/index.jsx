@@ -7,7 +7,7 @@ import _size from "lodash/size";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { actionGetList } from "store/User/action";
+import { actionGetList, resetData } from "store/User/action";
 
 const roleEnum = {
   1: "Admin",
@@ -22,9 +22,13 @@ function Users(props) {
 
   const dispatch = useDispatch();
   const onGetListUser = (body) => dispatch(actionGetList(body));
+  const onResetData = () => dispatch(resetData());
 
   useEffect(() => {
     if (!isLoading) onGetListUser(params);
+    return () => {
+      onResetData();
+    };
   }, []);
 
   const [currentPage, setCurrentPage] = useState(1);

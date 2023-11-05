@@ -7,7 +7,11 @@ import _size from "lodash/size";
 import React, { useEffect, useState } from "react";
 import { Button, Overlay, Spinner, Tooltip } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { actionDeleteTopic, actionGetList } from "store/Topic/action";
+import {
+  actionDeleteTopic,
+  actionGetList,
+  resetData,
+} from "store/Topic/action";
 import FormTopic from "./FormTopic";
 function Topic(props) {
   const {
@@ -21,6 +25,7 @@ function Topic(props) {
   const dispatch = useDispatch();
   const onGetListTopic = (body) => dispatch(actionGetList(body));
   const onDeleteTopic = (body) => dispatch(actionDeleteTopic(body));
+  const onResetData = () => dispatch(resetData());
 
   const [currentPage, setCurrentPage] = useState(1);
   const [detail, setDetail] = useState({
@@ -36,6 +41,9 @@ function Topic(props) {
 
   useEffect(() => {
     if (!isLoading) onGetListTopic(params);
+    return () => {
+      onResetData();
+    };
   }, []);
 
   useEffect(() => {

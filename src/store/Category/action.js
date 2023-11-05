@@ -14,3 +14,7 @@ export const actionGetListFailed = (error) => ({
   type: ActionTypes.LIST_FAILED,
   error,
 });
+
+export const resetData = () => ({
+  type: ActionTypes.RESET_DATA,
+});

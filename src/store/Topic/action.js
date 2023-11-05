@@ -59,3 +59,7 @@ export const actionDeleteTopicFailed = (error) => ({
   type: ActionTypes.DELETE_FAILED,
   error,
 });
+
+export const resetData = () => ({
+  type: ActionTypes.RESET_DATA,
+});

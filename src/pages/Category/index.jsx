@@ -8,7 +8,7 @@ import _size from "lodash/size";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { actionGetList } from "store/Category/action";
+import { actionGetList, resetData } from "store/Category/action";
 
 function Category(props) {
   const { isLoading, list, params, meta } = useSelector(
@@ -17,9 +17,13 @@ function Category(props) {
 
   const dispatch = useDispatch();
   const onGetListCategory = (body) => dispatch(actionGetList(body));
+  const onResetData = () => dispatch(resetData());
 
   useEffect(() => {
     if (!isLoading) onGetListCategory(params);
+    return () => {
+      onResetData();
+    };
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
 
