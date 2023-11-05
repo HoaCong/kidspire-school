@@ -22,7 +22,10 @@ function Register(props) {
   // action store
   const dispatch = useDispatch();
   const onRegister = (body) => dispatch(actionRegister(body));
-  const { isLoading, isSuccess, isFailure, data } = loginState;
+  const {
+    registerStatus: { isLoading, isSuccess, isFailure },
+    data,
+  } = loginState;
 
   const [formdata, setData] = useState(initialData);
   const [error, setError] = useState(initialData);
@@ -54,7 +57,11 @@ function Register(props) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
-    setError((prevError) => ({ ...prevError, [name]: "" }));
+    setError((prevError) => {
+      const newError = { ...prevError, [name]: "" };
+      if (data?.error) newError.confirm_password = "";
+      return newError;
+    });
   };
 
   // Hàm xử lý khi người dùng nhấn nút đăng nhập

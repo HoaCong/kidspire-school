@@ -2,10 +2,14 @@ import produce from "immer";
 import * as ActionTypes from "./constant";
 
 // DEFAULT STATE
+const status = { isLoading: false, isSuccess: false, isFailure: false };
 const initialState = {
-  isLoading: false,
-  isSuccess: false,
-  isFailure: false,
+  loginStatus: {
+    ...status,
+  },
+  registerStatus: {
+    ...status,
+  },
   data: { access_token: localStorage.getItem("access_token") || "", error: "" },
 };
 
@@ -13,28 +17,26 @@ const loginReducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
       case ActionTypes.LOGIN:
-        draft.isLoading = true;
-        draft.isSuccess = false;
-        draft.isFailure = false;
+        draft.loginStatus.isLoading = true;
+        draft.loginStatus.isSuccess = false;
+        draft.loginStatus.isFailure = false;
         break;
 
       case ActionTypes.LOGIN_SUCCESS:
-        draft.isLoading = false;
-        draft.isSuccess = true;
+        draft.loginStatus.isLoading = false;
+        draft.loginStatus.isSuccess = true;
         draft.data = action.payload;
         break;
 
       case ActionTypes.LOGIN_FAILED:
-        draft.isLoading = false;
-        draft.isFailure = true;
+        draft.loginStatus.isLoading = false;
+        draft.loginStatus.isFailure = true;
         draft.data = { access_token: "", error: action.error };
         break;
 
       case ActionTypes.LOGOUT:
         localStorage.removeItem("access_token");
-        draft.isLoading = false;
-        draft.isSuccess = false;
-        draft.isFailure = false;
+        draft.loginStatus = { ...status };
         draft.data = {
           access_token: "",
           error: "",
@@ -42,19 +44,19 @@ const loginReducer = (state = initialState, action) => {
         break;
 
       case ActionTypes.REGISTER:
-        draft.isLoading = true;
-        draft.isSuccess = false;
-        draft.isFailure = false;
+        draft.registerStatus.isLoading = true;
+        draft.registerStatus.isSuccess = false;
+        draft.registerStatus.isFailure = false;
         break;
 
       case ActionTypes.REGISTER_SUCCESS:
-        draft.isLoading = false;
-        draft.isSuccess = true;
+        draft.registerStatus.isLoading = false;
+        draft.registerStatus.isSuccess = true;
         break;
 
       case ActionTypes.REGISTER_FAILED:
-        draft.isLoading = false;
-        draft.isFailure = true;
+        draft.registerStatus.isLoading = false;
+        draft.registerStatus.isFailure = true;
         draft.data = { access_token: "", error: action.error };
         break;
 

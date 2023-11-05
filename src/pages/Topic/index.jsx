@@ -4,33 +4,66 @@ import CustomPagination from "components/common/CustomPagination";
 import LazyLoadImage from "components/common/LazyLoadImage";
 import TemplateContent from "components/layout/TemplateContent";
 import _size from "lodash/size";
-import React, { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Overlay, Spinner, Tooltip } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { actionGetList } from "store/Topic/action";
-import FormTopic from "./Form";
+import { actionDeleteTopic, actionGetList } from "store/Topic/action";
+import FormTopic from "./FormTopic";
 function Topic(props) {
-  const { isLoading, isSuccess, isFailure, list, params, meta } = useSelector(
-    (state) => state.topicReducer
-  );
+  const {
+    listStatus: { isLoading },
+    actionStatus: { isLoading: actionLoading, isSuccess: actionSuccess },
+    list,
+    params,
+    meta,
+  } = useSelector((state) => state.topicReducer);
 
   const dispatch = useDispatch();
   const onGetListTopic = (body) => dispatch(actionGetList(body));
+  const onDeleteTopic = (body) => dispatch(actionDeleteTopic(body));
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState({ topic: {}, visible: false, type: "" });
+  const [data, setData] = useState({
+    topic: {},
+    visible: false,
+    type: "",
+  });
+  const [tooltip, setTooltip] = useState({
+    target: null,
+    visible: false,
+    id: null,
+  });
 
   useEffect(() => {
     if (!isLoading) onGetListTopic(params);
   }, []);
 
+  useEffect(() => {
+    if (actionSuccess) onCloseTooltip();
+  }, [actionSuccess]);
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
+  const onCloseTooltip = () => {
+    setTooltip({
+      visible: false,
+      target: null,
+      id: null,
+    });
+  };
+
   return (
     <div className="mb-5">
-      <TemplateContent title="Danh sách chủ đề">
+      <TemplateContent
+        title="Danh sách chủ đề"
+        showNew
+        btnProps={{
+          onClick: () =>
+            setData((prev) => ({ ...prev, visible: true, type: "create" })),
+        }}
+      >
         <table className="table">
           <thead>
             <tr>
@@ -77,7 +110,16 @@ function Topic(props) {
                     onEdit={() =>
                       setData({ topic: item, visible: true, type: "edit" })
                     }
-                    // onDelete={() => setData({ topic: item, show: true })}
+                    onDelete={(e) => {
+                      setTooltip((prev) => {
+                        return {
+                          visible:
+                            prev.target === e.target ? !tooltip.visible : true,
+                          target: e.target,
+                          id: item.id,
+                        };
+                      });
+                    }}
                   />
                 </td>
               </tr>
@@ -91,11 +133,51 @@ function Topic(props) {
           currentPage={currentPage}
         />
       </TemplateContent>
-      {data.visible && (
-        <FormTopic
-          data={data}
-          onClear={() => setData({ topic: {}, visible: false })}
-        />
+      <FormTopic
+        data={data}
+        onClear={() => setData({ topic: {}, visible: false })}
+      />
+
+      <Overlay target={tooltip.target} show={tooltip.visible} placement="top">
+        {(props) => (
+          <Tooltip id="tooltip" {...props}>
+            <div style={{ zIndex: 2 }}>
+              Bạn có chắc muốn xóa topic này không?
+              <div className="d-flex justify-content-end gap-2 py-2">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={onCloseTooltip}
+                  disabled={actionLoading}
+                >
+                  Hủy
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => onDeleteTopic(tooltip.id)}
+                  disabled={actionLoading}
+                >
+                  {actionLoading && (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  )}
+                  Đồng ý
+                </Button>
+              </div>
+            </div>
+          </Tooltip>
+        )}
+      </Overlay>
+      {tooltip.visible && (
+        <div
+          className="position-fixed w-100 h-100 top-0 left-0"
+          onClick={onCloseTooltip}
+        ></div>
       )}
     </div>
   );

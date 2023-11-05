@@ -9,7 +9,6 @@ function useLazyLoadImage(src, defaultImage) {
   useEffect(() => {
     const image = new Image();
     image.src = src;
-    console.log("useEffect  image:", image);
 
     image.onload = () => {
       setImageSrc(src);

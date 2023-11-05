@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import avatar from "assets/images/avatar.jpg";
+import UploadImage from "components/common/UploadImage.jsx";
 import TemplateContent from "components/layout/TemplateContent";
 import ContentToggle from "components/user/ContentToggle.jsx";
-import UploadImage from "components/user/UploadImage.jsx";
 import { ROUTES } from "constants/routerWeb";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";

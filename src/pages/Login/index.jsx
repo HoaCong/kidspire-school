@@ -12,7 +12,10 @@ function Login() {
   // action store
   const dispatch = useDispatch();
   const onLogin = (body, isRemember) => dispatch(actionLogin(body, isRemember));
-  const { isLoading, isSuccess, isFailure, data } = loginState;
+  const {
+    loginStatus: { isLoading, isSuccess, isFailure },
+    data,
+  } = loginState;
 
   // state local
   const navigate = useNavigate();

@@ -1,3 +1,4 @@
+import { Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -8,8 +9,9 @@ function ModalBlock(props) {
     children,
     onClose,
     onSave,
-    hideSave,
+    hideSave = false,
     propsModal,
+    loading,
   } = props;
 
   return (
@@ -19,13 +21,26 @@ function ModalBlock(props) {
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          Close
-        </Button>
-        {!hideSave && (
-          <Button variant="primary" onClick={onSave}>
-            Save
-          </Button>
+        {show && (
+          <>
+            <Button variant="secondary" disabled={loading} onClick={onClose}>
+              Cancel
+            </Button>
+            {!hideSave && (
+              <Button variant="primary" disabled={loading} onClick={onSave}>
+                {loading && (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                )}
+                Save
+              </Button>
+            )}
+          </>
         )}
       </Modal.Footer>
     </Modal>

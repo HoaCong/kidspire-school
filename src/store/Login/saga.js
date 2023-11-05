@@ -43,7 +43,7 @@ function* callApiRegister({ params }) {
         title: "",
       })
     );
-    yield put(actionRegisterFailed(error.response.data.error));
+    yield put(actionRegisterFailed(error.response.data.message));
   }
 }
 

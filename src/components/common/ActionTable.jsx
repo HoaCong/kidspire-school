@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import React from "react";
 
 function ActionTable({ onDetail, onEdit, onDelete }) {
   return (
@@ -19,7 +18,7 @@ function ActionTable({ onDetail, onEdit, onDelete }) {
         <i className="fas fa-pencil-alt"></i>
       </button>
       <button
-        className=" btn btn-outline-danger rounded-circle d-flex justify-content-center align-items-center"
+        className="btn btn-outline-danger rounded-circle d-flex justify-content-center align-items-center"
         style={{ width: 30, height: 30 }}
         onClick={onDelete}
       >
