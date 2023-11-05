@@ -1,59 +1,32 @@
-import PropTypes from "prop-types";
-import React from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-function ModalBlock({
-  title = "Modal Title",
-  children = "...",
-  callback = () => {},
-}) {
+function ModalBlock(props) {
+  const {
+    show = false,
+    title = "Title",
+    children,
+    onClose,
+    onSave,
+    propsModal,
+  } = props;
+
   return (
-    <div
-      className="modal fade"
-      id="modal"
-      tabIndex="-1"
-      aria-labelledby="modalLabel"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="modalLabel">
-              {title}
-            </h5>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="modal-body">{children}</div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Hủy
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={callback}
-            >
-              Xác nhận
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Modal show={show} onHide={onClose} {...propsModal}>
+      <Modal.Header closeButton>
+        <Modal.Title>{title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>{children}</Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={onSave}>
+          Save
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
-
-ModalBlock.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.any,
-  callback: PropTypes.func,
-};
 
 export default ModalBlock;

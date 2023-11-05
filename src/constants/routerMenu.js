@@ -7,21 +7,27 @@ const MENU = [
     icon: <i className="fas fa-home"></i>,
   },
   {
-    label: "Người dùng",
+    label: "User",
     active: false,
+    src: ROUTES.USER,
     icon: <i className="fas fa-users"></i>,
-    sub: [
-      { label: "List", src: ROUTES.USER },
-      {
-        label: "Thêm mới",
-        src: ROUTES.ADD_USER,
-      },
-      {
-        label: "Cập nhật",
-        src: ROUTES.UPDATE_USER,
-      },
-    ],
   },
+  // {
+  //   label: "Người dùng",
+  //   active: false,
+  //   icon: <i className="fas fa-users"></i>,
+  //   sub: [
+  //     { label: "List", src: ROUTES.USER },
+  //     {
+  //       label: "Thêm mới",
+  //       src: ROUTES.ADD_USER,
+  //     },
+  //     {
+  //       label: "Cập nhật",
+  //       src: ROUTES.UPDATE_USER,
+  //     },
+  //   ],
+  // },
   {
     label: "Topic",
     active: false,

@@ -6,7 +6,6 @@ import UploadImage from "components/user/UploadImage.jsx";
 import { ROUTES } from "constants/routerWeb";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./user.scss";
 const country = [
   { country: "Việt Nam", code: "vn" },
   { country: "Thái Lan", code: "th" },
@@ -87,11 +86,9 @@ function Account() {
     <>
       <TemplateContent
         title={
-          <strong>
-            {pathname === ROUTES.ADD_USER
-              ? "Thêm mới người dùng"
-              : "Cập nhật người dùng"}
-          </strong>
+          pathname === ROUTES.ADD_USER
+            ? "Thêm mới người dùng"
+            : "Cập nhật người dùng"
         }
         cardProps={{ className: "col-12" }}
       >

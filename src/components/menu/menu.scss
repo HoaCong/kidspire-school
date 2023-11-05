@@ -67,7 +67,7 @@
     overflow: hidden;
     transition: width 0.5s ease;
   }
-  .active {
+  .menu.active {
     width: 280px;
     overflow-y: auto;
   }

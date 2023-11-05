@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { actionLogout } from "store/Login/action";
 import "./header.scss";
-function Footer() {
+function Header({ children }) {
   const dispatch = useDispatch();
   const onLogout = () => dispatch(actionLogout());
 
@@ -22,6 +22,7 @@ function Footer() {
       <div className="d-flex h-100 justify-content-between align-items-center px-2">
         {/* Logo header */}
         <div className="logo-header d-flex align-items-center gap-2">
+          <div>{children}</div>
           <Link to="/">
             <img className="logo-header-img" src={logo} alt="logo kid" />
           </Link>
@@ -59,4 +60,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default Header;

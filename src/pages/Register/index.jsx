@@ -28,6 +28,10 @@ function Register(props) {
   const [error, setError] = useState(initialData);
 
   useEffect(() => {
+    if (isSuccess) setData(initialData);
+  }, [isSuccess]);
+
+  useEffect(() => {
     if (isFailure)
       setError((prevError) => ({
         ...prevError,
@@ -100,6 +104,7 @@ function Register(props) {
               className={`form-control ${!!error.username && "is-invalid"}`}
               id="username"
               name="username"
+              value={formdata.username}
               onChange={handleChange}
             />
             <label htmlFor="username">Username</label>
@@ -115,6 +120,7 @@ function Register(props) {
               className={`form-control ${!!error.email && "is-invalid"}`}
               id="email"
               name="email"
+              value={formdata.email}
               onChange={handleChange}
             />
             <label htmlFor="email">Email</label>
@@ -128,6 +134,7 @@ function Register(props) {
               className={`form-control ${!!error.password && "is-invalid"}`}
               id="pwd"
               name="password"
+              value={formdata.password}
               onChange={handleChange}
             />
             <label htmlFor="pwd">Password</label>
@@ -145,6 +152,7 @@ function Register(props) {
               }`}
               id="re_pwd"
               name="confirm_password"
+              value={formdata.confirm_password}
               onChange={handleChange}
             />
             <label htmlFor="re_pwd">Confirm Password</label>
