@@ -8,6 +8,7 @@ function ModalBlock(props) {
     children,
     onClose,
     onSave,
+    hideSave,
     propsModal,
   } = props;
 
@@ -21,9 +22,11 @@ function ModalBlock(props) {
         <Button variant="secondary" onClick={onClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={onSave}>
-          Save
-        </Button>
+        {!hideSave && (
+          <Button variant="primary" onClick={onSave}>
+            Save
+          </Button>
+        )}
       </Modal.Footer>
     </Modal>
   );

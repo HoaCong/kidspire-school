@@ -2,22 +2,23 @@
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import LazyLoadImage from "components/common/LazyLoadImage";
+import TemplateContent from "components/layout/TemplateContent";
+import _size from "lodash/size";
 import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetList } from "store/Topic/action";
-import ModalBlock from "../../components/common/Modal";
-import TemplateContent from "../../components/layout/TemplateContent";
-
+import FormTopic from "./Form";
 function Topic(props) {
   const { isLoading, isSuccess, isFailure, list, params, meta } = useSelector(
     (state) => state.topicReducer
   );
-  console.log("Topic  list:", list, params);
 
   const dispatch = useDispatch();
   const onGetListTopic = (body) => dispatch(actionGetList(body));
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState({ topic: {}, visible: false, type: "" });
 
   useEffect(() => {
     if (!isLoading) onGetListTopic(params);
@@ -26,8 +27,9 @@ function Topic(props) {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
   return (
-    <>
+    <div className="mb-5">
       <TemplateContent title="Danh sách chủ đề">
         <table className="table">
           <thead>
@@ -39,6 +41,20 @@ function Topic(props) {
             </tr>
           </thead>
           <tbody>
+            {isLoading && _size(list) === 0 && (
+              <tr>
+                <td colSpan={4}>
+                  <div
+                    className="d-flex justify-content-center align-items-center w-full"
+                    style={{ height: 400 }}
+                  >
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  </div>
+                </td>
+              </tr>
+            )}
             {list.map((item, index) => (
               <tr key={item.id}>
                 <th scope="row" className="align-middle">
@@ -54,7 +70,15 @@ function Topic(props) {
                   />
                 </td>
                 <td className="align-middle" style={{ width: 200 }}>
-                  <ActionTable />
+                  <ActionTable
+                    onDetail={() =>
+                      setData({ topic: item, visible: true, type: "detail" })
+                    }
+                    onEdit={() =>
+                      setData({ topic: item, visible: true, type: "edit" })
+                    }
+                    // onDelete={() => setData({ topic: item, show: true })}
+                  />
                 </td>
               </tr>
             ))}
@@ -67,8 +91,13 @@ function Topic(props) {
           currentPage={currentPage}
         />
       </TemplateContent>
-      <ModalBlock title="Khóa tài khoản">haha</ModalBlock>
-    </>
+      {data.visible && (
+        <FormTopic
+          data={data}
+          onClear={() => setData({ topic: {}, visible: false })}
+        />
+      )}
+    </div>
   );
 }
 

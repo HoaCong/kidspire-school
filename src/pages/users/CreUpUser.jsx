@@ -101,6 +101,7 @@ function Account() {
                   callback={(url) =>
                     handleChange({ target: { name: "avatar", value: url } })
                   }
+                  classImage="mx-auto mt-5 mb-4"
                 />
               </div>
               <div className="w-75 mx-auto text-black-50 text-center">

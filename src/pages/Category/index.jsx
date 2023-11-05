@@ -2,13 +2,14 @@
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import LazyLoadImage from "components/common/LazyLoadImage";
+import ModalBlock from "components/common/Modal";
+import TemplateContent from "components/layout/TemplateContent";
 import _size from "lodash/size";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetList } from "store/Category/action";
-import ModalBlock from "../../components/common/Modal";
-import TemplateContent from "../../components/layout/TemplateContent";
+
 function Category(props) {
   const { isLoading, isSuccess, isFailure, list, params, meta } = useSelector(
     (state) => state.categoryReducer

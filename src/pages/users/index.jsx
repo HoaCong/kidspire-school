@@ -3,15 +3,18 @@ import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import ModalBlock from "components/common/Modal";
 import TemplateContent from "components/layout/TemplateContent";
+import _size from "lodash/size";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetList } from "store/User/action";
+
 const roleEnum = {
   1: "Admin",
   2: "Manager",
   3: "User",
 };
+
 function Users(props) {
   const { isLoading, isSuccess, isFailure, list, params, meta } = useSelector(
     (state) => state.userReducer
@@ -32,7 +35,7 @@ function Users(props) {
   };
 
   return (
-    <>
+    <div className="mb-5">
       <TemplateContent title="Danh sách người dùng">
         <table className="table">
           <thead>
@@ -47,6 +50,20 @@ function Users(props) {
             </tr>
           </thead>
           <tbody>
+            {isLoading && _size(list) === 0 && (
+              <tr>
+                <td colSpan={7}>
+                  <div
+                    className="d-flex justify-content-center align-items-center w-full"
+                    style={{ height: 400 }}
+                  >
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  </div>
+                </td>
+              </tr>
+            )}
             {list.map((item, index) => (
               <tr key={item.id}>
                 <th scope="row" className="align-middle">
@@ -72,7 +89,7 @@ function Users(props) {
         />
       </TemplateContent>
       <ModalBlock title="Khóa tài khoản">haha </ModalBlock>
-    </>
+    </div>
   );
 }
 

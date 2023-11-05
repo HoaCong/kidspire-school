@@ -1,7 +1,19 @@
 import camera from "assets/images/camera.png";
+import LazyLoadImage from "components/common/LazyLoadImage";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-function UploadImage({ image, callback }) {
+const EnumGeometry = {
+  rect: "rounded-0",
+  radius: "rounded",
+  circle: "rounded-circle",
+};
+function UploadImage({
+  image,
+  callback,
+  geometry = "circle",
+  size = { width: 150, height: 150 },
+  classImage = "",
+}) {
   const [file, setFile] = useState();
   useEffect(() => {
     setFile(image);
@@ -16,20 +28,20 @@ function UploadImage({ image, callback }) {
   return (
     <>
       {file ? (
-        <img
-          src={file}
-          alt="avatar"
-          width={150}
-          height={150}
-          className="p-2 rounded-circle shadow-sm mt-5 mb-4"
-        />
+        <div>
+          <LazyLoadImage
+            src={file}
+            alt="avatar"
+            {...size}
+            className={`${EnumGeometry[geometry]} p-2 shadow-sm ${classImage}`}
+          />
+        </div>
       ) : (
         <label
           htmlFor="uploadImage"
-          className="rounded-circle shadow-sm mt-5 mb-4 mx-auto d-flex justify-content-center align-items-center"
+          className={`${EnumGeometry[geometry]} shadow-sm d-flex justify-content-center align-items-center text-center ${classImage}`}
           style={{
-            width: 150,
-            height: 150,
+            ...size,
             cursor: "pointer",
             background: "#e1e1e1",
             border: "8px solid #ecebe8",
