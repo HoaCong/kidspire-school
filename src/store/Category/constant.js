@@ -1,0 +1,3 @@
+export const LIST = "LIST_CATEGORY";
+export const LIST_SUCCESS = "LIST_CATEGORY_SUCCESS";
+export const LIST_FAILED = "LIST_CATEGORY_FAILED";

@@ -3,4 +3,5 @@ export const ENDPOINT = {
   REGISTER: "/register",
   LIST_USER: "user/search",
   LIST_TOPIC: "topic/search",
+  LIST_CATEGORY: "category/search",
 };

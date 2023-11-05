@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import ModalBlock from "components/common/Modal";
 import TemplateContent from "components/layout/TemplateContent";
@@ -48,33 +49,16 @@ function Users(props) {
           <tbody>
             {list.map((item, index) => (
               <tr key={item.id}>
-                <th scope="row">{index + 1}</th>
+                <th scope="row" className="align-middle">
+                  {index + 1}
+                </th>
                 <td className="align-middle">{item.username}</td>
                 <td className="align-middle">**********</td>
                 <td className="align-middle">{item.email}</td>
                 <td className="align-middle">{item.birthday}</td>
                 <td className="align-middle">{roleEnum[item.roleid]}</td>
                 <td className="align-middle">
-                  <div className="d-flex gap-2">
-                    <button
-                      className=" btn btn-outline-primary rounded-circle d-flex justify-content-center align-items-center"
-                      style={{ width: 30, height: 30 }}
-                    >
-                      <i class="far fa-eye"></i>
-                    </button>
-                    <button
-                      className=" btn btn-outline-warning rounded-circle d-flex justify-content-center align-items-center"
-                      style={{ width: 30, height: 30 }}
-                    >
-                      <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <button
-                      className=" btn btn-outline-danger rounded-circle d-flex justify-content-center align-items-center"
-                      style={{ width: 30, height: 30 }}
-                    >
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </div>
+                  <ActionTable />
                 </td>
               </tr>
             ))}
