@@ -6,19 +6,19 @@ import _isEmpty from "lodash/isEmpty";
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
-import { actionAdd, actionEdit } from "store/Topic/action";
+import { actionAdd, actionEdit } from "store/Category/action";
 const initialData = {
   name: "",
   image: "",
 };
-function FormTopic({ data: { type, visible, info }, onClear }) {
+function FormCategory({ data: { type, visible, info }, onClear }) {
   const {
     actionStatus: { isLoading, isSuccess },
-  } = useSelector((state) => state.topicReducer);
+  } = useSelector((state) => state.categoryReducer);
 
   const dispatch = useDispatch();
-  const onAddTopic = (body) => dispatch(actionAdd(body));
-  const onEditTopic = (body) => dispatch(actionEdit(body));
+  const onAddCategory = (body) => dispatch(actionAdd(body));
+  const onEditCategory = (body) => dispatch(actionEdit(body));
 
   const [data, setData] = useState(initialData);
 
@@ -54,8 +54,8 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
       }
     });
     if (validates) {
-      if (type === "create") onAddTopic(data);
-      if (type === "edit") onEditTopic(data);
+      if (type === "create") onAddCategory(data);
+      if (type === "edit") onEditCategory(data);
     }
   };
   const handleClose = () => {
@@ -66,7 +66,7 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
 
   return (
     <ModalBlock
-      title={type === "edit" ? "Chỉnh sửa chủ đề" : "Thông tin chủ đề"}
+      title={type === "edit" ? "Chỉnh sửa danh mục" : "Thông tin danh mục"}
       show={visible}
       onClose={handleClose}
       onSave={handleSubmit}
@@ -75,12 +75,12 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
     >
       <form>
         <div>
-          <Form.Label htmlFor="Name">Tên chủ đề</Form.Label>
+          <Form.Label htmlFor="Name">Tên danh mục</Form.Label>
           <Form.Control
             type="text"
             id="Name"
             name="name"
-            defaultValue={data.name}
+            defaultValue={data.name || ""}
             aria-describedby="helperName"
             disabled={type === "detail"}
             onChange={handleChange}
@@ -98,7 +98,7 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
         <div className="mt-3">
           <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
           <UploadImage
-            image={data.image}
+            image={data.image || ""}
             callback={(url) =>
               handleChange({
                 target: {
@@ -125,4 +125,4 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
   );
 }
 
-export default FormTopic;
+export default FormCategory;

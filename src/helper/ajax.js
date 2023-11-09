@@ -2,7 +2,7 @@
 
 import axiosInstance from "./axiosConfig";
 
-const get = (url, config) => axiosInstance.get(url, config);
+const get = (url, params) => axiosInstance.get(url, { params });
 
 const post = (url, data, config) => axiosInstance.post(url, data, config);
 const put = (url, data, config) => axiosInstance.put(url, data, config);

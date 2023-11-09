@@ -26,7 +26,6 @@ function UploadImage({
   useEffect(() => {
     setFile(image);
   }, [image]);
-  console.log("file:", file);
 
   const handleUploadImage = (event) => {
     const selectedFile = event.target.files[0];
@@ -120,6 +119,7 @@ function UploadImage({
       <input
         id="uploadImage"
         type="file"
+        accept="image/*"
         onChange={handleUploadImage}
         hidden
         disabled={isUploading}

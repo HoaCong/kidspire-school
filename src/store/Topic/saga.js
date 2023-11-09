@@ -1,31 +1,36 @@
 import { ENDPOINT } from "constants/routerApi";
 import { get, post, put as puts, remove } from "helper/ajax";
+import _omit from "lodash/omit";
 import { all, call, put, takeLatest, takeLeading } from "redux-saga/effects";
 import { addToast } from "store/Toast/action";
 import {
-  actionAddTopicFailed,
-  actionAddTopicSuccess,
-  actionDeleteTopicFailed,
-  actionDeleteTopicSuccess,
-  actionEditTopicFailed,
-  actionEditTopicSuccess,
+  actionAddFailed,
+  actionAddSuccess,
+  actionDeleteFailed,
+  actionDeleteSuccess,
+  actionEditFailed,
+  actionEditSuccess,
   actionGetListFailed,
   actionGetListSuccess,
 } from "./action";
 import * as ActionTypes from "./constant";
-function* callApiListTopic({ params }) {
+function* callApiList({ params }) {
   try {
-    const response = yield call(get, ENDPOINT.LIST_TOPIC, params);
+    const response = yield call(
+      get,
+      ENDPOINT.LIST_TOPIC,
+      _omit(params, ["limit"])
+    );
     yield put(actionGetListSuccess(response.data));
   } catch (error) {
     yield put(actionGetListFailed(error.response.data.error));
   }
 }
 
-function* callApiAddTopic({ params }) {
+function* callApiAdd({ params }) {
   try {
     const response = yield call(post, ENDPOINT.ADD_TOPIC, params);
-    yield put(actionAddTopicSuccess(response.data.data));
+    yield put(actionAddSuccess(response.data.data));
     yield put(
       addToast({
         text: response.data.message,
@@ -34,7 +39,7 @@ function* callApiAddTopic({ params }) {
       })
     );
   } catch (error) {
-    yield put(actionAddTopicFailed(error.response.data.error));
+    yield put(actionAddFailed(error.response.data.error));
     yield put(
       addToast({
         text: "Add topic failed",
@@ -45,14 +50,14 @@ function* callApiAddTopic({ params }) {
   }
 }
 
-function* callApiEditTopic({ params }) {
+function* callApiEdit({ params }) {
   try {
     const { id, name, image } = params;
     const response = yield call(puts, ENDPOINT.EDIT_TOPIC + id, {
       name,
       image,
     });
-    yield put(actionEditTopicSuccess(response.data.data));
+    yield put(actionEditSuccess(response.data.data));
     yield put(
       addToast({
         text: response.data.message,
@@ -61,7 +66,7 @@ function* callApiEditTopic({ params }) {
       })
     );
   } catch (error) {
-    yield put(actionEditTopicFailed(error.response.data.error));
+    yield put(actionEditFailed(error.response.data.error));
     yield put(
       addToast({
         text: "Update topic failed",
@@ -72,10 +77,10 @@ function* callApiEditTopic({ params }) {
   }
 }
 
-function* callApiDeleteTopic({ id }) {
+function* callApiDelete({ id }) {
   try {
     const response = yield call(remove, ENDPOINT.DELETE_TOPIC + id);
-    yield put(actionDeleteTopicSuccess(id));
+    yield put(actionDeleteSuccess(id));
     yield put(
       addToast({
         text: response.data.message,
@@ -84,7 +89,7 @@ function* callApiDeleteTopic({ id }) {
       })
     );
   } catch (error) {
-    yield put(actionDeleteTopicFailed(error.response.data.error));
+    yield put(actionDeleteFailed(error.response.data.error));
     yield put(
       addToast({
         text: "Update topic failed",
@@ -97,9 +102,9 @@ function* callApiDeleteTopic({ id }) {
 
 export default function* topicSaga() {
   yield all([
-    yield takeLeading(ActionTypes.LIST, callApiListTopic),
-    yield takeLatest(ActionTypes.ADD, callApiAddTopic),
-    yield takeLatest(ActionTypes.EDIT, callApiEditTopic),
-    yield takeLatest(ActionTypes.DELETE, callApiDeleteTopic),
+    yield takeLeading(ActionTypes.LIST, callApiList),
+    yield takeLatest(ActionTypes.ADD, callApiAdd),
+    yield takeLatest(ActionTypes.EDIT, callApiEdit),
+    yield takeLatest(ActionTypes.DELETE, callApiDelete),
   ]);
 }

@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
-import ModalBlock from "components/common/Modal";
+import CustomTooltip from "components/common/CustomTooltip";
 import TemplateContent from "components/layout/TemplateContent";
 import _size from "lodash/size";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { actionGetList, resetData } from "store/User/action";
+import { actionDelete, actionGetList, resetData } from "store/User/action";
+import FormUser from "./FormUser";
 
 const roleEnum = {
   1: "Admin",
@@ -16,13 +17,30 @@ const roleEnum = {
 };
 
 function Users(props) {
-  const { isLoading, list, params, meta } = useSelector(
-    (state) => state.userReducer
-  );
+  const {
+    listStatus: { isLoading },
+    actionStatus: { isLoading: actionLoading, isSuccess: actionSuccess },
+    list,
+    params,
+    meta,
+  } = useSelector((state) => state.userReducer);
 
   const dispatch = useDispatch();
   const onGetListUser = (body) => dispatch(actionGetList(body));
+  const onDeleteUser = (body) => dispatch(actionDelete(body));
   const onResetData = () => dispatch(resetData());
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [detail, setDetail] = useState({
+    info: {},
+    visible: false,
+    type: "",
+  });
+  const [tooltip, setTooltip] = useState({
+    target: null,
+    visible: false,
+    id: null,
+  });
 
   useEffect(() => {
     if (!isLoading) onGetListUser(params);
@@ -31,15 +49,32 @@ function Users(props) {
     };
   }, []);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  useEffect(() => {
+    if (actionSuccess) onCloseTooltip();
+  }, [actionSuccess]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    onGetListUser({ ...params, page });
   };
 
+  const onCloseTooltip = () => {
+    setTooltip({
+      visible: false,
+      target: null,
+      id: null,
+    });
+  };
   return (
     <div className="mb-5">
-      <TemplateContent title="Danh sách người dùng">
+      <TemplateContent
+        title="Danh sách người dùng"
+        showNew
+        btnProps={{
+          onClick: () =>
+            setDetail((prev) => ({ ...prev, visible: true, type: "create" })),
+        }}
+      >
         <table className="table">
           <thead>
             <tr>
@@ -68,7 +103,7 @@ function Users(props) {
               </tr>
             )}
             {list.map((item, index) => (
-              <tr key={item.id}>
+              <tr key={item.updatedat}>
                 <th scope="row" className="align-middle">
                   {index + 1}
                 </th>
@@ -78,20 +113,49 @@ function Users(props) {
                 <td className="align-middle">{item.birthday}</td>
                 <td className="align-middle">{roleEnum[item.roleid]}</td>
                 <td className="align-middle">
-                  <ActionTable />
+                  <ActionTable
+                    onDetail={() =>
+                      setDetail({ info: item, visible: true, type: "detail" })
+                    }
+                    onEdit={() =>
+                      setDetail({ info: item, visible: true, type: "edit" })
+                    }
+                    onDelete={(e) => {
+                      setTooltip((prev) => {
+                        return {
+                          visible:
+                            prev.target === e.target ? !tooltip.visible : true,
+                          target: e.target,
+                          id: item.id,
+                        };
+                      });
+                    }}
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
         <CustomPagination
+          loading={isLoading}
           totalItems={meta.total}
           perPage={params.limit}
           onPageChange={handlePageChange}
           currentPage={currentPage}
         />
       </TemplateContent>
-      <ModalBlock title="Khóa tài khoản">haha </ModalBlock>
+      <FormUser
+        data={detail}
+        onClear={() => setDetail({ info: {}, visible: false, type: "" })}
+      />
+
+      <CustomTooltip
+        content="Bạn có chắc muốn xóa user này không?"
+        tooltip={tooltip}
+        loading={actionLoading}
+        onClose={onCloseTooltip}
+        onDelete={() => onDeleteUser(tooltip.id)}
+      />
     </div>
   );
 }

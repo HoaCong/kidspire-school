@@ -7,8 +7,8 @@ import Login from "pages/Login";
 import PageNotFound from "pages/NotFoundPage";
 import Register from "pages/Register";
 import Topic from "pages/Topic";
-import Users from "pages/users";
-import CreUpUser from "pages/users/CreUpUser";
+import Users from "pages/User";
+import CreUpUser from "pages/User/CreUpUser";
 
 export const publicRoutes = [
   { path: ROUTES.LOGIN, name: "Login Page", element: <Login /> },

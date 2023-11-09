@@ -65,8 +65,6 @@ const topicReducer = (state = initialState, action) => {
         draft.list = state.list.map((item) =>
           item.id === action.payload.id ? action.payload : item
         );
-        console.log("111", action.payload, draft.list);
-
         break;
 
       case ActionTypes.EDIT_FAILED:

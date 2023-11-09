@@ -1,17 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
+import CustomTooltip from "components/common/CustomTooltip";
 import LazyLoadImage from "components/common/LazyLoadImage";
 import TemplateContent from "components/layout/TemplateContent";
 import _size from "lodash/size";
-import React, { useEffect, useState } from "react";
-import { Button, Overlay, Spinner, Tooltip } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  actionDeleteTopic,
-  actionGetList,
-  resetData,
-} from "store/Topic/action";
+import { actionDelete, actionGetList, resetData } from "store/Topic/action";
 import FormTopic from "./FormTopic";
 function Topic(props) {
   const {
@@ -24,12 +21,12 @@ function Topic(props) {
 
   const dispatch = useDispatch();
   const onGetListTopic = (body) => dispatch(actionGetList(body));
-  const onDeleteTopic = (body) => dispatch(actionDeleteTopic(body));
+  const onDeleteTopic = (body) => dispatch(actionDelete(body));
   const onResetData = () => dispatch(resetData());
 
   const [currentPage, setCurrentPage] = useState(1);
   const [detail, setDetail] = useState({
-    topic: {},
+    info: {},
     visible: false,
     type: "",
   });
@@ -52,6 +49,7 @@ function Topic(props) {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    onGetListTopic({ ...params, page });
   };
 
   const onCloseTooltip = () => {
@@ -113,10 +111,10 @@ function Topic(props) {
                 <td className="align-middle" style={{ width: 200 }}>
                   <ActionTable
                     onDetail={() =>
-                      setDetail({ topic: item, visible: true, type: "detail" })
+                      setDetail({ info: item, visible: true, type: "detail" })
                     }
                     onEdit={() =>
-                      setDetail({ topic: item, visible: true, type: "edit" })
+                      setDetail({ info: item, visible: true, type: "edit" })
                     }
                     onDelete={(e) => {
                       setTooltip((prev) => {
@@ -135,6 +133,7 @@ function Topic(props) {
           </tbody>
         </table>
         <CustomPagination
+          loading={isLoading}
           totalItems={meta.total}
           perPage={params.limit}
           onPageChange={handlePageChange}
@@ -143,50 +142,16 @@ function Topic(props) {
       </TemplateContent>
       <FormTopic
         data={detail}
-        onClear={() => setDetail({ topic: {}, visible: false, type: "" })}
+        onClear={() => setDetail({ info: {}, visible: false, type: "" })}
       />
 
-      <Overlay target={tooltip.target} show={tooltip.visible} placement="top">
-        {(props) => (
-          <Tooltip id="tooltip" {...props}>
-            <div style={{ zIndex: 2 }}>
-              Bạn có chắc muốn xóa topic này không?
-              <div className="d-flex justify-content-end gap-2 py-2">
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={onCloseTooltip}
-                  disabled={actionLoading}
-                >
-                  Hủy
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => onDeleteTopic(tooltip.id)}
-                  disabled={actionLoading}
-                >
-                  {actionLoading && (
-                    <Spinner
-                      as="span"
-                      animation="border"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                  )}
-                  Đồng ý
-                </Button>
-              </div>
-            </div>
-          </Tooltip>
-        )}
-      </Overlay>
-      {tooltip.visible && (
-        <div
-          className="position-fixed w-100 h-100 top-0 left-0"
-          onClick={onCloseTooltip}
-        ></div>
-      )}
+      <CustomTooltip
+        content="Bạn có chắc muốn xóa chủ đề này không?"
+        tooltip={tooltip}
+        loading={actionLoading}
+        onClose={onCloseTooltip}
+        onDelete={() => onDeleteTopic(tooltip.id)}
+      />
     </div>
   );
 }
