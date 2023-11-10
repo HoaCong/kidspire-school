@@ -64,9 +64,15 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
     setError(initialData);
   };
 
+  const getTitle = {
+    detail: "Thông tin chủ đề",
+    edit: "Chỉnh sửa chủ đề",
+    create: "Thêm mới chủ đề",
+  };
+
   return (
     <ModalBlock
-      title={type === "edit" ? "Chỉnh sửa chủ đề" : "Thông tin chủ đề"}
+      title={getTitle[type]}
       show={visible}
       onClose={handleClose}
       onSave={handleSubmit}

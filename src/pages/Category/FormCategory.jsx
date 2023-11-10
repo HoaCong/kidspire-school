@@ -64,9 +64,14 @@ function FormCategory({ data: { type, visible, info }, onClear }) {
     setError(initialData);
   };
 
+  const getTitle = {
+    detail: "Thông tin danh mục",
+    edit: "Chỉnh sửa danh mục",
+    create: "Thêm mới danh mục",
+  };
   return (
     <ModalBlock
-      title={type === "edit" ? "Chỉnh sửa danh mục" : "Thông tin danh mục"}
+      title={getTitle[type]}
       show={visible}
       onClose={handleClose}
       onSave={handleSubmit}

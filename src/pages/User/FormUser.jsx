@@ -13,7 +13,7 @@ const initialData = {
   email: "",
   birthday: "",
   password: "",
-  roleid: 1,
+  roleid: 3,
 };
 
 const roleEnum = {
@@ -83,9 +83,15 @@ function FormUser({ data: { type, visible, info }, onClear }) {
     setError(initialData);
   };
 
+  const getTitle = {
+    detail: "Thông tin tài khoản",
+    edit: "Chỉnh sửa tài khoản",
+    create: "Thêm mới tài khoản",
+  };
+
   return (
     <ModalBlock
-      title={type === "edit" ? "Chỉnh sửa tài khoản" : "Thông tin tài khoản"}
+      title={getTitle[type]}
       show={visible}
       onClose={handleClose}
       onSave={handleSubmit}
