@@ -10,12 +10,25 @@ import {
 } from "./action";
 import * as ActionTypes from "./constant";
 
+const getTimeExpired = () => {
+  return new Date().getTime() + 12 * 60 * 60 * 1000;
+};
+
 function* callApiLogin({ params, isRemember }) {
   try {
     const response = yield call(post, ENDPOINT.LOGIN, params);
-    if (isRemember)
+    if (isRemember) {
       localStorage.setItem("access_token", response.data.access_token);
-    yield put(actionLoginSuccess(response.data));
+      localStorage.setItem("username", response.data.username);
+      localStorage.setItem("time_expired", getTimeExpired());
+    } else {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("time_expired");
+    }
+    yield put(
+      actionLoginSuccess({ ...response.data, timeExpired: getTimeExpired() })
+    );
   } catch (error) {
     yield put(actionLoginFailed(error.response.data.message));
   }

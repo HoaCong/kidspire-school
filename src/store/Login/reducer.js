@@ -10,7 +10,12 @@ const initialState = {
   registerStatus: {
     ...status,
   },
-  data: { access_token: localStorage.getItem("access_token") || "", error: "" },
+  data: {
+    access_token: localStorage.getItem("access_token") || "",
+    username: localStorage.getItem("username") || "",
+    timeExpired: localStorage.getItem("time_expired") || 0,
+    error: "",
+  },
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -31,7 +36,12 @@ const loginReducer = (state = initialState, action) => {
       case ActionTypes.LOGIN_FAILED:
         draft.loginStatus.isLoading = false;
         draft.loginStatus.isFailure = true;
-        draft.data = { access_token: "", error: "Email or password invalid" };
+        draft.data = {
+          access_token: "",
+          username: "",
+          timeExpired: 0,
+          error: "Email or password invalid",
+        };
         break;
 
       case ActionTypes.LOGOUT:
@@ -39,6 +49,8 @@ const loginReducer = (state = initialState, action) => {
         draft.loginStatus = { ...status };
         draft.data = {
           access_token: "",
+          username: "",
+          timeExpired: 0,
           error: "",
         };
         break;
@@ -57,7 +69,12 @@ const loginReducer = (state = initialState, action) => {
       case ActionTypes.REGISTER_FAILED:
         draft.registerStatus.isLoading = false;
         draft.registerStatus.isFailure = true;
-        draft.data = { access_token: "", error: action.error };
+        draft.data = {
+          access_token: "",
+          username: "",
+          timeExpired: 0,
+          error: action.error,
+        };
         break;
 
       default:
