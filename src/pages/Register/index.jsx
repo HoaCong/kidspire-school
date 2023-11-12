@@ -1,5 +1,6 @@
 /* eslint-disable no-const-assign */
 /* eslint-disable react-hooks/exhaustive-deps */
+import imgLogin from "assets/images/childhood.png";
 import { ROUTES } from "constants/routerWeb";
 import _capitalize from "lodash/capitalize";
 import _omit from "lodash/omit";
@@ -98,8 +99,13 @@ function Register(props) {
   };
 
   return (
-    <section className="vh-100 bg-login">
+    <section className="vh-100">
       <div className="container-fluid h-custom">
+        <img
+          src={imgLogin}
+          alt="img login 1"
+          className="position-absolute bg-login"
+        />
         <form className="form-login">
           <div className="divider d-flex align-items-center my-3">
             <h1 className="text-center mx-3 mb-0 font-bold">REGISTER</h1>

@@ -1,7 +1,7 @@
 .bg-login {
-  background-image: url("../../assets/images/childhood.png");
-  background-repeat: no-repeat;
-  background-position: center top -150px;
+  top: calc(50% - 150px);
+  left: 50%;
+  transform: translate(-(50%), -50%);
 }
 .form-login {
   width: 100%;
