@@ -17,7 +17,7 @@ function* callApiLogin({ params, isRemember }) {
       localStorage.setItem("access_token", response.data.access_token);
     yield put(actionLoginSuccess(response.data));
   } catch (error) {
-    yield put(actionLoginFailed(error.response.data.error));
+    yield put(actionLoginFailed(error.response.data.message));
   }
 }
 

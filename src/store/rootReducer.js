@@ -2,6 +2,7 @@
 import { combineReducers } from "redux";
 
 import categoryReducer from "./Category/reducer";
+import lessonReducer from "./Lesson/reducer";
 import loginReducer from "./Login/reducer";
 import toastReducer from "./Toast/reducer";
 import topicReducer from "./Topic/reducer";
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   userReducer,
   topicReducer,
   categoryReducer,
+  lessonReducer,
 });
 
 export default rootReducer;

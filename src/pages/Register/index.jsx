@@ -172,7 +172,7 @@ function Register(props) {
           </div>
           {error.confirm_password && (
             <small className="d-block text-danger -mt-3">
-              {error.confirm_password}
+              {_capitalize(error.confirm_password)}
             </small>
           )}
 

@@ -9,12 +9,7 @@ import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionDelete, actionGetList, resetData } from "store/User/action";
 import FormUser from "./FormUser";
-
-const roleEnum = {
-  1: "Admin",
-  2: "Manager",
-  3: "User",
-};
+import { formatBirthday, roleEnum } from "./helper";
 
 function Users(props) {
   const {
@@ -65,6 +60,7 @@ function Users(props) {
       id: null,
     });
   };
+
   return (
     <div className="mb-5">
       <TemplateContent
@@ -110,7 +106,7 @@ function Users(props) {
                 <td className="align-middle">{item.username}</td>
                 <td className="align-middle">**********</td>
                 <td className="align-middle">{item.email}</td>
-                <td className="align-middle">{item.birthday}</td>
+                <td className="align-middle">{formatBirthday(item)}</td>
                 <td className="align-middle">{roleEnum[item.roleid]}</td>
                 <td className="align-middle">
                   <ActionTable

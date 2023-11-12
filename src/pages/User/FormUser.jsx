@@ -1,25 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ModalBlock from "components/common/Modal";
 import _capitalize from "lodash/capitalize";
-import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
 import _map from "lodash/map";
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { actionAdd, actionEdit } from "store/User/action";
+import { formatBirthday, roleEnum } from "./helper";
 const initialData = {
   username: "",
   email: "",
   birthday: "",
   password: "",
   roleid: 3,
-};
-
-const roleEnum = {
-  1: "Admin",
-  2: "Manager",
-  3: "User",
 };
 
 function FormUser({ data: { type, visible, info }, onClear }) {
@@ -37,10 +31,7 @@ function FormUser({ data: { type, visible, info }, onClear }) {
 
   useEffect(() => {
     if (!_isEmpty(info)) {
-      const birthday = _get(info, "birthday", "19990131").replace(
-        /^(\d{4})(\d{2})(\d{2})$/,
-        "$1-$2-$3"
-      );
+      const birthday = formatBirthday(info);
       setData({ ...info, birthday });
     }
   }, [info]);

@@ -31,7 +31,7 @@ const loginReducer = (state = initialState, action) => {
       case ActionTypes.LOGIN_FAILED:
         draft.loginStatus.isLoading = false;
         draft.loginStatus.isFailure = true;
-        draft.data = { access_token: "", error: action.error };
+        draft.data = { access_token: "", error: "Email or password invalid" };
         break;
 
       case ActionTypes.LOGOUT:

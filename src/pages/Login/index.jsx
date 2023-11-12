@@ -47,6 +47,7 @@ function Login() {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
     setError((prevError) => ({ ...prevError, [name]: "" }));
+    if (isFailure) setError((prevError) => ({ ...prevError, password: "" }));
   };
 
   const handleSubmit = () => {
