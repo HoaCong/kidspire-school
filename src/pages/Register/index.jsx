@@ -94,7 +94,7 @@ function Register(props) {
 
     if (validates) {
       const newData = _omit(formdata, ["confirm_password"]);
-      onRegister({ ...newData, roleid: 3, birthday: "19990101" });
+      onRegister({ ...newData, roleid: 3, birthday: "31011999" });
     }
   };
 

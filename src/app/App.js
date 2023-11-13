@@ -1,13 +1,28 @@
 import ToastSnackbar from "components/common/ToastSnackbar";
 import CheckTokenMiddleware from "middleware/checkToken";
 import React, { useCallback } from "react";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { publicRoutes } from "router";
+import { adminRoutes, publicRoutes, userRoutes } from "router";
 import "./index.scss";
 
 function App() {
-  const renderRoutes = useCallback((publicRoutes) => {
-    return publicRoutes.map((route, index) => {
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+  const listRouter = useCallback(() => {
+    const adminMenu = [...publicRoutes, ...adminRoutes];
+    const userMenu = [...publicRoutes, ...userRoutes];
+    const EnumRoutes = {
+      1: adminMenu,
+      2: adminMenu,
+      3: userMenu,
+    };
+    return EnumRoutes[user?.roleid] || EnumRoutes[3];
+  }, [user?.roleid]);
+
+  const renderRoutes = useCallback((routes) => {
+    return routes.map((route, index) => {
       if (route.children?.length > 0) {
         return (
           <Route path={route.path} element={route.element} key={index}>
@@ -27,7 +42,7 @@ function App() {
   return (
     <>
       <CheckTokenMiddleware>
-        <Routes>{renderRoutes(publicRoutes)}</Routes>
+        <Routes>{renderRoutes(listRouter())}</Routes>
       </CheckTokenMiddleware>
       <ToastSnackbar />
     </>

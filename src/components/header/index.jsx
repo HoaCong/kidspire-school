@@ -2,11 +2,15 @@ import avatar from "assets/images/avatar.png";
 import logo from "assets/images/logo-kid.png";
 import { ROUTES } from "constants/routerWeb";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { actionLogout } from "store/Login/action";
 import "./header.scss";
 function Header({ children }) {
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+
   const dispatch = useDispatch();
   const onLogout = () => dispatch(actionLogout());
 
@@ -38,7 +42,7 @@ function Header({ children }) {
           >
             <img className="avatar-account" src={avatar} alt="avatar" />
             <div className="account-info">
-              <b className="user-role m-0">Admin</b>
+              <b className="user-role m-0">{user?.username}</b>
             </div>
             <i className="fas fa-chevron-down"></i>
             <ul

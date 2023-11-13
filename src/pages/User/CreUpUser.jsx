@@ -50,11 +50,11 @@ function Account() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (pathname === ROUTES.ADD_USER) {
+    if (pathname === ROUTES.ADMIN_ADD_USER) {
       setUser(initialUser);
       setEdit(false);
     }
-    if (pathname === ROUTES.UPDATE_USER) {
+    if (pathname === ROUTES.ADMIN_UPDATE_USER) {
       setUser(currentUser);
       setEdit(true);
     }
@@ -78,14 +78,14 @@ function Account() {
       }
       return null;
     });
-    if (validates) navigate(ROUTES.UPDATE_USER);
+    if (validates) navigate(ROUTES.ADMIN_UPDATE_USER);
   };
 
   return (
     <>
       <TemplateContent
         title={
-          pathname === ROUTES.ADD_USER
+          pathname === ROUTES.ADMIN_ADD_USER
             ? "Thêm mới người dùng"
             : "Cập nhật người dùng"
         }

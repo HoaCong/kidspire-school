@@ -19,11 +19,13 @@ function* callApiLogin({ params, isRemember }) {
     const response = yield call(post, ENDPOINT.LOGIN, params);
     if (isRemember) {
       localStorage.setItem("access_token", response.data.access_token);
-      localStorage.setItem("username", response.data.username);
+      localStorage.setItem("username", response.data.user.username);
+      localStorage.setItem("roleid", response.data.user.roleid);
       localStorage.setItem("time_expired", getTimeExpired());
     } else {
       localStorage.removeItem("access_token");
       localStorage.removeItem("username");
+      localStorage.removeItem("roleid");
       localStorage.removeItem("time_expired");
     }
     yield put(

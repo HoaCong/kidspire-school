@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 // import styles
 import "./layout.scss";
-function Layout(props) {
+function AdminLayout(props) {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <>
@@ -36,4 +36,4 @@ function Layout(props) {
   );
 }
 
-export default Layout;
+export default AdminLayout;

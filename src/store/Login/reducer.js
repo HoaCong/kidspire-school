@@ -12,7 +12,10 @@ const initialState = {
   },
   data: {
     access_token: localStorage.getItem("access_token") || "",
-    username: localStorage.getItem("username") || "",
+    user: {
+      username: localStorage.getItem("username") || "",
+      roleid: localStorage.getItem("roleid") || null,
+    },
     timeExpired: localStorage.getItem("time_expired") || 0,
     error: "",
   },
@@ -38,8 +41,8 @@ const loginReducer = (state = initialState, action) => {
         draft.loginStatus.isFailure = true;
         draft.data = {
           access_token: "",
-          username: "",
           timeExpired: 0,
+          user: {},
           error: "Email or password invalid",
         };
         break;
@@ -49,9 +52,9 @@ const loginReducer = (state = initialState, action) => {
         draft.loginStatus = { ...status };
         draft.data = {
           access_token: "",
-          username: "",
           timeExpired: 0,
           error: "",
+          user: {},
         };
         break;
 
@@ -71,7 +74,7 @@ const loginReducer = (state = initialState, action) => {
         draft.registerStatus.isFailure = true;
         draft.data = {
           access_token: "",
-          username: "",
+          user: {},
           timeExpired: 0,
           error: action.error,
         };

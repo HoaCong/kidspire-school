@@ -5,8 +5,10 @@ import _capitalize from "lodash/capitalize";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { EnumHome } from "router";
 import { actionLogin } from "store/Login/action";
 import "./index.scss";
+
 function Login() {
   // state store
   const loginState = useSelector((state) => state.loginReducer);
@@ -17,6 +19,8 @@ function Login() {
     loginStatus: { isLoading, isSuccess, isFailure },
     data,
   } = loginState;
+
+  const { user } = data;
 
   // state local
   const navigate = useNavigate();
@@ -31,7 +35,9 @@ function Login() {
   });
 
   useEffect(() => {
-    if (isSuccess) navigate(ROUTES.DASHBOARD);
+    if (isSuccess) {
+      navigate(EnumHome[user.roleid]);
+    }
   }, [navigate, isSuccess]);
 
   useEffect(() => {
