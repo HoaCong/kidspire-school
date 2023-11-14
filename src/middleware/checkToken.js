@@ -17,16 +17,15 @@ const CheckTokenMiddleware = ({ children }) => {
   } = useSelector((state) => state.loginReducer);
 
   useEffect(() => {
+    const isLoginPage = [ROUTES.LOGIN, ROUTES.REGISTER].includes(pathname);
     if (
-      (!access_token || (access_token && checkTimeExpired(timeExpired))) &&
+      (!access_token || checkTimeExpired(timeExpired)) &&
       pathname !== ROUTES.HOME_PAGE
     ) {
-      if (pathname === ROUTES.LOGIN || pathname === ROUTES.REGISTER) return;
+      if (isLoginPage) return;
       return navigate(ROUTES.LOGIN);
-    } else {
-      if (pathname === ROUTES.LOGIN || pathname === ROUTES.REGISTER) {
-        return navigate(EnumHome[user?.roleid]);
-      }
+    } else if (isLoginPage) {
+      return navigate(EnumHome[user?.roleid]);
     }
   }, [access_token, pathname]);
 
