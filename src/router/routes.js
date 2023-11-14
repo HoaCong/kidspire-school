@@ -1,4 +1,5 @@
 import AdminLayout from "components/layout/AdminLayout";
+import UserLayout from "components/layout/UserLayout";
 import { ROUTES } from "constants/routerWeb";
 import Category from "pages/Category";
 import Dashboard from "pages/Dashboard";
@@ -65,7 +66,12 @@ export const userRoutes = [
 ];
 
 export const publicRoutes = [
-  { path: ROUTES.HOME_PAGE, name: "Login Page", element: <HomePage /> },
+  {
+    path: ROUTES.HOME_PAGE,
+    name: "User Layout",
+    element: <UserLayout />,
+    children: [{ isRoot: true, name: "Login Page", element: <HomePage /> }],
+  },
   { path: ROUTES.LOGIN, name: "Login Page", element: <Login /> },
   { path: ROUTES.REGISTER, name: "Register Page", element: <Register /> },
   { path: "*", name: "Not Found Page", element: <PageNotFound /> },

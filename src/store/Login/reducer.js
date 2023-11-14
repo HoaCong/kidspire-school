@@ -47,7 +47,7 @@ const loginReducer = (state = initialState, action) => {
         };
         break;
 
-      case ActionTypes.LOGOUT:
+      case ActionTypes.LOGOUT: {
         localStorage.removeItem("access_token");
         draft.loginStatus = { ...status };
         draft.data = {
@@ -56,7 +56,12 @@ const loginReducer = (state = initialState, action) => {
           error: "",
           user: {},
         };
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("roleid");
+        localStorage.removeItem("time_expired");
         break;
+      }
 
       case ActionTypes.REGISTER:
         draft.registerStatus.isLoading = true;

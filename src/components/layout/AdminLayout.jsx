@@ -10,16 +10,18 @@ function AdminLayout(props) {
   return (
     <>
       <div>
-        <Header>
-          <button
-            className="btn-mobile"
-            onClick={() => {
-              setCollapsed((prev) => !prev);
-            }}
-          >
-            <i className="fas fa-bars fs-3"></i>
-          </button>
-        </Header>
+        <Header
+          menuIcon={
+            <button
+              className="btn-mobile"
+              onClick={() => {
+                setCollapsed((prev) => !prev);
+              }}
+            >
+              <i className="fas fa-bars fs-3"></i>
+            </button>
+          }
+        ></Header>
       </div>
       <div className="d-flex">
         <Menu collapsed={collapsed} />
