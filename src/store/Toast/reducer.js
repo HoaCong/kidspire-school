@@ -4,6 +4,7 @@ import * as ActionTypes from "./constant";
 // DEFAULT STATE
 const initialState = {
   toasts: [],
+  popup: {},
 };
 
 const toastReducer = (state = initialState, action) => {
@@ -16,6 +17,10 @@ const toastReducer = (state = initialState, action) => {
 
       case ActionTypes.SET_TOAST:
         draft.toasts = action.payload;
+        break;
+
+      case ActionTypes.OPEN_POPUP:
+        draft.popup = action.payload;
         break;
 
       default:

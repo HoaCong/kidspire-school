@@ -13,3 +13,10 @@ export const setToast = (payload) => {
     payload,
   };
 };
+
+export const openPopup = (payload) => {
+  return {
+    type: ActionTypes.OPEN_POPUP,
+    payload,
+  };
+};

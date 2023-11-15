@@ -1,3 +1,4 @@
+import ImagePopup from "components/common/ImagePopup";
 import ToastSnackbar from "components/common/ToastSnackbar";
 import CheckTokenMiddleware from "middleware/checkToken";
 import React, { useCallback } from "react";
@@ -10,6 +11,8 @@ function App() {
   const {
     data: { user },
   } = useSelector((state) => state.loginReducer);
+  const { popup } = useSelector((state) => state.toastReducer);
+
   const listRouter = useCallback(() => {
     const adminMenu = [...publicRoutes, ...adminRoutes];
     const userMenu = [...publicRoutes, ...userRoutes];
@@ -45,6 +48,7 @@ function App() {
         <Routes>{renderRoutes(listRouter())}</Routes>
       </CheckTokenMiddleware>
       <ToastSnackbar />
+      {popup?.visible && <ImagePopup />}
     </>
   );
 }

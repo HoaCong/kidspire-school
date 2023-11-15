@@ -95,7 +95,7 @@ function Topic(props) {
               </tr>
             )}
             {list.map((item, index) => (
-              <tr key={item.updatedat}>
+              <tr key={item.updatedat + index}>
                 <th scope="row" className="align-middle">
                   {index + 1}
                 </th>
