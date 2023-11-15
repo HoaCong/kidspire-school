@@ -15,11 +15,8 @@ function ToggleSwitch({ status = false, callback = () => {} }) {
         type="checkbox"
         id="status-block"
         checked={checked}
-        data-bs-toggle="modal"
-        data-bs-target="#modal"
         onChange={(e) => {
-          callback();
-          setChecked(!checked);
+          callback(e);
         }}
       />
     </div>

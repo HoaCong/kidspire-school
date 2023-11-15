@@ -1,16 +1,16 @@
 import AdminLayout from "components/layout/AdminLayout";
 import UserLayout from "components/layout/UserLayout";
 import { ROUTES } from "constants/routerWeb";
-import Category from "pages/Category";
-import Dashboard from "pages/Dashboard";
+import Category from "pages/Admin/Category";
+import Dashboard from "pages/Admin/Dashboard";
+import Lesson from "pages/Admin/Lesson";
 import HomePage from "pages/HomePage";
-import Lesson from "pages/Lesson";
 import Login from "pages/Login";
 import PageNotFound from "pages/NotFoundPage";
 import Register from "pages/Register";
-import Topic from "pages/Topic";
-import Users from "pages/User";
-import CreUpUser from "pages/User/CreUpUser";
+import Topic from "pages/Admin/Topic";
+import Users from "pages/Admin/User";
+import CreUpUser from "pages/Admin/User/CreUpUser";
 
 export const EnumHome = {
   1: ROUTES.ADMIN_HOME_PAGE,

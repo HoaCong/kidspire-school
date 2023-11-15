@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionDelete, actionGetList, resetData } from "store/Lesson/action";
-import TemplateContent from "../../components/layout/TemplateContent";
+import TemplateContent from "../../../components/layout/TemplateContent";
 import FormLesson from "./FormLesson";
 
 function Lesson(props) {

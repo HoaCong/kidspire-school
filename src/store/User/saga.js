@@ -1,5 +1,5 @@
 import { ENDPOINT } from "constants/routerApi";
-import { get, post, put as puts, remove } from "helper/ajax";
+import { get, post, put as puts } from "helper/ajax";
 import _omit from "lodash/omit";
 import { all, call, put, takeLatest, takeLeading } from "redux-saga/effects";
 import { addToast } from "store/Toast/action";
@@ -76,7 +76,7 @@ function* callApiEdit({ params }) {
 
 function* callApiDelete({ id }) {
   try {
-    const response = yield call(remove, ENDPOINT.DELETE_USER + id);
+    const response = yield call(puts, ENDPOINT.ACTIVE_USER + id);
     yield put(actionDeleteSuccess(id));
     yield put(
       addToast({

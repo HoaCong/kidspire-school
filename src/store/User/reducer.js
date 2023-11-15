@@ -81,7 +81,9 @@ const userReducer = (state = initialState, action) => {
       case ActionTypes.DELETE_SUCCESS:
         draft.actionStatus.isLoading = false;
         draft.actionStatus.isSuccess = true;
-        draft.list = state.list.filter((item) => item.id !== action.id);
+        draft.list = state.list.map((item) =>
+          item.id === action.id ? { ...item, active: +!item.active } : item
+        );
         break;
 
       case ActionTypes.DELETE_FAILED:

@@ -2,6 +2,7 @@
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import CustomTooltip from "components/common/CustomTooltip";
+import ToggleSwitch from "components/common/ToggleSwitch";
 import TemplateContent from "components/layout/TemplateContent";
 import _size from "lodash/size";
 import { useEffect, useState } from "react";
@@ -80,13 +81,14 @@ function Users(props) {
               <th scope="col">Email </th>
               <th scope="col">Ngày sinh </th>
               <th scope="col">Quyền </th>
+              <th scope="col">Trạng thái </th>
               <th scope="col">Hành động </th>
             </tr>
           </thead>
           <tbody>
             {isLoading && _size(list) === 0 && (
               <tr>
-                <td colSpan={7}>
+                <td colSpan={8}>
                   <div
                     className="d-flex justify-content-center align-items-center w-full"
                     style={{ height: 400 }}
@@ -109,14 +111,9 @@ function Users(props) {
                 <td className="align-middle">{formatBirthday(item)}</td>
                 <td className="align-middle">{roleEnum[item.roleid]}</td>
                 <td className="align-middle">
-                  <ActionTable
-                    onDetail={() =>
-                      setDetail({ info: item, visible: true, type: "detail" })
-                    }
-                    onEdit={() =>
-                      setDetail({ info: item, visible: true, type: "edit" })
-                    }
-                    onDelete={(e) => {
+                  <ToggleSwitch
+                    status={item.active}
+                    callback={(e) =>
                       setTooltip((prev) => {
                         return {
                           visible:
@@ -124,8 +121,18 @@ function Users(props) {
                           target: e.target,
                           id: item.id,
                         };
-                      });
-                    }}
+                      })
+                    }
+                  />
+                </td>
+                <td className="align-middle">
+                  <ActionTable
+                    onDetail={() =>
+                      setDetail({ info: item, visible: true, type: "detail" })
+                    }
+                    onEdit={() =>
+                      setDetail({ info: item, visible: true, type: "edit" })
+                    }
                   />
                 </td>
               </tr>
@@ -146,7 +153,7 @@ function Users(props) {
       />
 
       <CustomTooltip
-        content="Bạn có chắc muốn xóa user này không?"
+        content="Bạn có chắc muốn xóa hủy kích hoạt người dùng này không?"
         tooltip={tooltip}
         loading={actionLoading}
         onClose={onCloseTooltip}
