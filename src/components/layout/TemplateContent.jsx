@@ -1,7 +1,15 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-function TemplateContent({ title, children, showNew, cardProps, btnProps }) {
+function TemplateContent({
+  title,
+  filter,
+  children,
+  showNew,
+  cardProps,
+  btnProps,
+  filterProps,
+}) {
   return (
     <div className="d-grid gap-3 mt-2" id="template">
       <div className="col-12 card">
@@ -16,6 +24,12 @@ function TemplateContent({ title, children, showNew, cardProps, btnProps }) {
           )}
         </div>
       </div>
+
+      {filter && (
+        <div className="col-12 card" {...filterProps}>
+          <div className="card-body">{filter}</div>
+        </div>
+      )}
 
       <div className="col-12 card" {...cardProps}>
         <div className="card-body">{children}</div>

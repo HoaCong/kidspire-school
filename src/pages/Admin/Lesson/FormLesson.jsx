@@ -11,15 +11,11 @@ import { actionAdd, actionEdit } from "store/Lesson/action";
 const initialData = {
   name: "",
   image: "",
-  idTopic: 1,
+  idtopic: undefined,
+  sound: "",
 };
 
-const topicEnum = {
-  1: "Topic 1",
-  2: "Topic 2",
-  3: "Topic 3",
-};
-function FormLesson({ data: { type, visible, info }, onClear }) {
+function FormLesson({ data: { type, visible, info }, listTopic, onClear }) {
   const {
     actionStatus: { isLoading, isSuccess },
   } = useSelector((state) => state.lessonReducer);
@@ -109,17 +105,39 @@ function FormLesson({ data: { type, visible, info }, onClear }) {
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="Topic">Chủ đề</Form.Label>
+          <Form.Label htmlFor="sound">Âm thanh</Form.Label>
+          <Form.Control
+            type="text"
+            id="sound"
+            name="sound"
+            defaultValue={data.sound || ""}
+            aria-describedby="helperSound"
+            disabled={type === "detail"}
+            onChange={handleChange}
+          />
+          {error.sound && (
+            <Form.Text
+              id="helperSound"
+              danger="true"
+              bsPrefix="d-inline-block text-danger lh-1"
+            >
+              {error.sound}
+            </Form.Text>
+          )}
+        </div>
+        <div className="mt-3">
+          <Form.Label htmlFor="topic">Chủ đề</Form.Label>
           <Form.Select
+            id="topic"
             aria-label="Chủ đề"
-            name="idTopic"
-            value={data.idTopic}
+            name="idtopic"
+            value={data.idtopic}
             onChange={handleChange}
             disabled={type === "detail"}
           >
-            {_map(topicEnum, (value, index) => (
-              <option key={value} value={index}>
-                {value}
+            {_map(listTopic, (item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
               </option>
             ))}
           </Form.Select>

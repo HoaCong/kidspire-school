@@ -13,7 +13,6 @@ import {
   actionGetListFailed,
   actionGetListSuccess,
 } from "./action";
-
 import * as ActionTypes from "./constant";
 function* callApiList({ params }) {
   try {
@@ -22,12 +21,7 @@ function* callApiList({ params }) {
       ENDPOINT.LIST_LESSON,
       _omit(params, ["limit"])
     );
-
-    if (response.status === 200) {
-      yield put(actionGetListSuccess(response.data));
-    } else {
-      yield put(actionGetListFailed());
-    }
+    yield put(actionGetListSuccess(response.data));
   } catch (error) {
     yield put(actionGetListFailed(error.response.data.error));
   }
@@ -36,30 +30,19 @@ function* callApiList({ params }) {
 function* callApiAdd({ params }) {
   try {
     const response = yield call(post, ENDPOINT.ADD_LESSON, params);
-    if (response.status === 200) {
-      yield put(actionAddSuccess(response.data.data));
-      yield put(
-        addToast({
-          text: response.data.message,
-          type: "success",
-          title: "",
-        })
-      );
-    } else {
-      yield put(actionAddFailed());
-      yield put(
-        addToast({
-          text: "Add lesson failed",
-          type: "danger",
-          title: "",
-        })
-      );
-    }
+    yield put(actionAddSuccess(response.data.data));
+    yield put(
+      addToast({
+        text: response.data.message,
+        type: "success",
+        title: "",
+      })
+    );
   } catch (error) {
     yield put(actionAddFailed(error.response.data.error));
     yield put(
       addToast({
-        text: "Add lesson failed",
+        text: "Add category failed",
         type: "danger",
         title: "",
       })
@@ -69,38 +52,24 @@ function* callApiAdd({ params }) {
 
 function* callApiEdit({ params }) {
   try {
-    const { id, name, image, sound, idtopic } = params;
+    const { id, name, image } = params;
     const response = yield call(puts, ENDPOINT.EDIT_LESSON + id, {
       name,
       image,
-      sound,
-      idtopic,
     });
-
-    if (response.status === 200) {
-      yield put(actionEditSuccess(response.data.data));
-      yield put(
-        addToast({
-          text: response.data.message,
-          type: "success",
-          title: "",
-        })
-      );
-    } else {
-      yield put(actionEditFailed());
-      yield put(
-        addToast({
-          text: "Update lesson failed",
-          type: "danger",
-          title: "",
-        })
-      );
-    }
+    yield put(actionEditSuccess(response.data.data));
+    yield put(
+      addToast({
+        text: response.data.message,
+        type: "success",
+        title: "",
+      })
+    );
   } catch (error) {
     yield put(actionEditFailed(error.response.data.error));
     yield put(
       addToast({
-        text: "Update lesson failed",
+        text: "Update category failed",
         type: "danger",
         title: "",
       })
@@ -111,31 +80,19 @@ function* callApiEdit({ params }) {
 function* callApiDelete({ id }) {
   try {
     const response = yield call(remove, ENDPOINT.DELETE_LESSON + id);
-
-    if (response.status === 200) {
-      yield put(actionDeleteSuccess(id));
-      yield put(
-        addToast({
-          text: response.data.message,
-          type: "success",
-          title: "",
-        })
-      );
-    } else {
-      yield put(actionDeleteFailed());
-      yield put(
-        addToast({
-          text: "Delete lesson failed",
-          type: "danger",
-          title: "",
-        })
-      );
-    }
+    yield put(actionDeleteSuccess(id));
+    yield put(
+      addToast({
+        text: response.data.message,
+        type: "success",
+        title: "",
+      })
+    );
   } catch (error) {
     yield put(actionDeleteFailed(error.response.data.error));
     yield put(
       addToast({
-        text: "Delete lesson failed",
+        text: "Update category failed",
         type: "danger",
         title: "",
       })
@@ -143,7 +100,7 @@ function* callApiDelete({ id }) {
   }
 }
 
-export default function* lessonSaga() {
+export default function* questionSaga() {
   yield all([
     yield takeLeading(ActionTypes.LIST, callApiList),
     yield takeLatest(ActionTypes.ADD, callApiAdd),

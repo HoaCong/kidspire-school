@@ -17,20 +17,24 @@ const getTimeExpired = () => {
 function* callApiLogin({ params, isRemember }) {
   try {
     const response = yield call(post, ENDPOINT.LOGIN, params);
-    if (isRemember) {
-      localStorage.setItem("access_token", response.data.access_token);
-      localStorage.setItem("username", response.data.user.username);
-      localStorage.setItem("roleid", response.data.user.roleid);
-      localStorage.setItem("time_expired", getTimeExpired());
+    if (response.status === 200) {
+      if (isRemember) {
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("username", response.data.user.username);
+        localStorage.setItem("roleid", response.data.user.roleid);
+        localStorage.setItem("time_expired", getTimeExpired());
+      } else {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("roleid");
+        localStorage.removeItem("time_expired");
+      }
+      yield put(
+        actionLoginSuccess({ ...response.data, timeExpired: getTimeExpired() })
+      );
     } else {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("username");
-      localStorage.removeItem("roleid");
-      localStorage.removeItem("time_expired");
+      yield put(actionLoginFailed());
     }
-    yield put(
-      actionLoginSuccess({ ...response.data, timeExpired: getTimeExpired() })
-    );
   } catch (error) {
     yield put(actionLoginFailed(error.response.data.message));
   }
@@ -39,14 +43,26 @@ function* callApiLogin({ params, isRemember }) {
 function* callApiRegister({ params }) {
   try {
     const response = yield call(post, ENDPOINT.REGISTER, params);
-    yield put(
-      addToast({
-        text: "Đăng ký thành công",
-        type: "success",
-        title: "",
-      })
-    );
-    yield put(actionRegisterSuccess(response.data));
+
+    if (response.status === 200) {
+      yield put(
+        addToast({
+          text: "Đăng ký thành công",
+          type: "success",
+          title: "",
+        })
+      );
+      yield put(actionRegisterSuccess(response.data));
+    } else {
+      yield put(
+        addToast({
+          text: "Đăng ký thất bại",
+          type: "danger",
+          title: "",
+        })
+      );
+      yield put(actionRegisterFailed());
+    }
   } catch (error) {
     yield put(
       addToast({

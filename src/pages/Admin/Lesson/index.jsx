@@ -1,29 +1,40 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import CustomTooltip from "components/common/CustomTooltip";
+import LazyLoadImage from "components/common/LazyLoadImage";
+import _map from "lodash/map";
 import _size from "lodash/size";
 import { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionDelete, actionGetList, resetData } from "store/Lesson/action";
+import { actionGetList as callListTopic } from "store/Topic/action";
+import { actionGetList as callListUser } from "store/User/action";
 import TemplateContent from "../../../components/layout/TemplateContent";
 import FormLesson from "./FormLesson";
 
-function Lesson(props) {
+function Lesson() {
   const {
-    listStatus: { isLoading },
+    listStatus: { isLoading, isSuccess },
     actionStatus: { isLoading: actionLoading, isSuccess: actionSuccess },
     list,
     params,
     meta,
   } = useSelector((state) => state.lessonReducer);
 
+  const { list: listTopic } = useSelector((state) => state.topicReducer);
+  const { list: listUser } = useSelector((state) => state.userReducer);
+
   const dispatch = useDispatch();
   const onGetListLesson = (body) => dispatch(actionGetList(body));
+  const onGetListUser = (body) => dispatch(callListUser(body));
+  const onGetListTopic = (body) => dispatch(callListTopic(body));
   const onDeleteLesson = (body) => dispatch(actionDelete(body));
   const onResetData = () => dispatch(resetData());
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [topic, setTopic] = useState(null);
   const [detail, setDetail] = useState({
     topic: {},
     visible: false,
@@ -36,7 +47,11 @@ function Lesson(props) {
   });
 
   useEffect(() => {
-    if (!isLoading) onGetListLesson(params);
+    if (!isLoading) {
+      onGetListLesson(params);
+      onGetListUser({ page: 1, limit: 50 });
+      onGetListTopic({ page: 1, limit: 30 });
+    }
     return () => {
       onResetData();
     };
@@ -59,6 +74,14 @@ function Lesson(props) {
     });
   };
 
+  const getTopic = (array, id) => {
+    return array.find((item) => item.id === id);
+  };
+  const handleSearch = (id) => {
+    const idtopic = !id ? null : id;
+    onGetListLesson({ page: 1, idtopic });
+    if (!idtopic) setTopic(id);
+  };
   return (
     <div className="mb-5">
       <TemplateContent
@@ -68,6 +91,36 @@ function Lesson(props) {
           onClick: () =>
             setDetail((prev) => ({ ...prev, visible: true, type: "create" })),
         }}
+        filter={
+          <div className="d-flex align-items-end">
+            <div style={{ maxWidth: 250 }}>
+              <Form.Label htmlFor="topic">Chủ đề</Form.Label>
+              <Form.Select
+                id="topic"
+                aria-label="Chủ đề"
+                value={topic}
+                onChange={({ target: { value } }) => setTopic(value)}
+              >
+                {_map([{ id: 0, name: "Tất cả" }, ...listTopic], (item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </Form.Select>
+            </div>
+            <div className="ms-2">
+              <Button onClick={() => handleSearch(topic)}>Tìm kiếm</Button>
+            </div>
+            <div className="ms-2">
+              <Button
+                variant="outline-secondary"
+                onClick={() => handleSearch(0)}
+              >
+                Đặt lại
+              </Button>
+            </div>
+          </div>
+        }
       >
         <table className="table">
           <thead>
@@ -75,6 +128,7 @@ function Lesson(props) {
               <th scope="col">#</th>
               <th scope="col">Tên bài học</th>
               <th scope="col">Hình ảnh</th>
+              <th scope="col">Âm thanh </th>
               <th scope="col">Chủ đề </th>
               <th scope="col">Người tạo </th>
               <th scope="col">Người được chia sẻ </th>
@@ -84,7 +138,7 @@ function Lesson(props) {
           <tbody>
             {isLoading && _size(list) === 0 && (
               <tr>
-                <td colSpan={7}>
+                <td colSpan={8}>
                   <div
                     className="d-flex justify-content-center align-items-center w-full"
                     style={{ height: 400 }}
@@ -96,14 +150,30 @@ function Lesson(props) {
                 </td>
               </tr>
             )}
-            {[1, 2, 3].map((item) => (
-              <tr key={item}>
-                <th scope="row">{item}</th>
-                <td className="align-middle">Bài {item}</td>
-                <td className="align-middle">Image {item}</td>
-                <td className="align-middle">Chủ đề {item}</td>
-                <td className="align-middle">Admin {item}</td>
-                <td className="align-middle">Quản lý {item}</td>
+            {_map(list, (item, index) => (
+              <tr key={`${index}-${item.created_at}`}>
+                <th scope="row" className="align-middle">
+                  {index + 1}
+                </th>
+                <td className="align-middle"> {item.name}</td>
+                <td className="align-middle">
+                  <LazyLoadImage
+                    src={item.image}
+                    alt={item.name}
+                    witdh={50}
+                    height={50}
+                  />
+                </td>
+                <td className="align-middle"> {item.sound}</td>
+                <td className="align-middle">
+                  {getTopic(listTopic, item.idtopic)?.name || "-"}
+                </td>
+                <td className="align-middle">
+                  {getTopic(listUser, item.idcreated)?.username || "-"}
+                </td>
+                <td className="align-middle">
+                  {getTopic(listUser, item.idshared)?.username || "-"}
+                </td>
                 <td className="align-middle">
                   <ActionTable
                     onDetail={() =>
@@ -138,6 +208,7 @@ function Lesson(props) {
       </TemplateContent>
       <FormLesson
         data={detail}
+        listTopic={listTopic}
         onClear={() => setDetail({ info: {}, visible: false, type: "" })}
       />
       <CustomTooltip

@@ -38,13 +38,13 @@ function CustomPagination({
   }
 
   return (
-    totalPages > 1 && (
-      <div>
-        {loading && (
-          <div className="mb-2">
-            <LinearProgress />
-          </div>
-        )}
+    <div>
+      {loading && (
+        <div className="mb-2">
+          <LinearProgress />
+        </div>
+      )}
+      {totalPages > 1 && (
         <div className="d-flex justify-content-center">
           <Pagination>
             <Pagination.First onClick={() => onPageChange(1)} />
@@ -68,8 +68,8 @@ function CustomPagination({
             <Pagination.Last onClick={() => onPageChange(totalPages)} />
           </Pagination>
         </div>
-      </div>
-    )
+      )}
+    </div>
   );
 }
 

@@ -35,7 +35,7 @@ function Users(props) {
   const [tooltip, setTooltip] = useState({
     target: null,
     visible: false,
-    id: null,
+    info: null,
   });
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function Users(props) {
     setTooltip({
       visible: false,
       target: null,
-      id: null,
+      info: null,
     });
   };
 
@@ -119,7 +119,7 @@ function Users(props) {
                           visible:
                             prev.target === e.target ? !tooltip.visible : true,
                           target: e.target,
-                          id: item.id,
+                          info: item,
                         };
                       })
                     }
@@ -153,11 +153,13 @@ function Users(props) {
       />
 
       <CustomTooltip
-        content="Bạn có chắc muốn xóa hủy kích hoạt người dùng này không?"
+        content={`Bạn có chắc muốn ${
+          tooltip.info?.active ? "hủy " : ""
+        }kích hoạt người dùng này không?`}
         tooltip={tooltip}
         loading={actionLoading}
         onClose={onCloseTooltip}
-        onDelete={() => onDeleteUser(tooltip.id)}
+        onDelete={() => onDeleteUser(tooltip.info.id)}
       />
     </div>
   );

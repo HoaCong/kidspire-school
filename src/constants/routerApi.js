@@ -16,4 +16,14 @@ export const ENDPOINT = {
   ADD_CATEGORY: "category/create",
   EDIT_CATEGORY: "category/",
   DELETE_CATEGORY: "category/",
+  // ======lesson======
+  LIST_LESSON: "lesson/search",
+  ADD_LESSON: "lesson/create",
+  EDIT_LESSON: "lesson/",
+  DELETE_LESSON: "lesson/",
+  // ======question======
+  LIST_QUESTION: "question/search",
+  ADD_QUESTION: "question/create",
+  EDIT_QUESTION: "question/",
+  DELETE_QUESTION: "question/",
 };
