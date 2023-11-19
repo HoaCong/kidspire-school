@@ -3,6 +3,7 @@ import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import CustomTooltip from "components/common/CustomTooltip";
 import LazyLoadImage from "components/common/LazyLoadImage";
+import LinearProgress from "components/common/LinearProgress";
 import _map from "lodash/map";
 import _size from "lodash/size";
 import { useEffect, useState } from "react";
@@ -16,7 +17,7 @@ import FormLesson from "./FormLesson";
 
 function Lesson() {
   const {
-    listStatus: { isLoading, isSuccess },
+    listStatus: { isLoading },
     actionStatus: { isLoading: actionLoading, isSuccess: actionSuccess },
     list,
     params,
@@ -34,9 +35,9 @@ function Lesson() {
   const onResetData = () => dispatch(resetData());
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [topic, setTopic] = useState(null);
+  const [topic, setTopic] = useState(0);
   const [detail, setDetail] = useState({
-    topic: {},
+    info: {},
     visible: false,
     type: "",
   });
@@ -74,12 +75,13 @@ function Lesson() {
     });
   };
 
-  const getTopic = (array, id) => {
+  const getInfo = (array, id) => {
     return array.find((item) => item.id === id);
   };
   const handleSearch = (id) => {
-    const idtopic = !id ? null : id;
-    onGetListLesson({ page: 1, idtopic });
+    const idtopic = !+id ? null : id;
+    onGetListLesson({ ...params, page: 1, idtopic });
+    setCurrentPage(1);
     if (!idtopic) setTopic(id);
   };
   return (
@@ -166,13 +168,13 @@ function Lesson() {
                 </td>
                 <td className="align-middle"> {item.sound}</td>
                 <td className="align-middle">
-                  {getTopic(listTopic, item.idtopic)?.name || "-"}
+                  {getInfo(listTopic, item.idtopic)?.name || "-"}
                 </td>
                 <td className="align-middle">
-                  {getTopic(listUser, item.idcreated)?.username || "-"}
+                  {getInfo(listUser, item.idcreated)?.username || "-"}
                 </td>
                 <td className="align-middle">
-                  {getTopic(listUser, item.idshared)?.username || "-"}
+                  {getInfo(listUser, item.idshared)?.username || "-"}
                 </td>
                 <td className="align-middle">
                   <ActionTable
@@ -198,6 +200,11 @@ function Lesson() {
             ))}
           </tbody>
         </table>
+        {isLoading && _size(list) > 0 && (
+          <div className="-mb-1">
+            <LinearProgress />
+          </div>
+        )}
         <CustomPagination
           loading={isLoading}
           totalItems={meta.total}

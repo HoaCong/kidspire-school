@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import NoImage from "assets/images/No-Image-Placeholder.png";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openPopup } from "store/Toast/action";
 
 function useLazyLoadImage(src, defaultImage) {
@@ -28,12 +28,13 @@ function useLazyLoadImage(src, defaultImage) {
 
 function LazyLoadImage({ src, alt, ...restProps }) {
   const { imageSrc } = useLazyLoadImage(src, NoImage);
+  const { popup } = useSelector((state) => state.toastReducer);
   const dispatch = useDispatch();
   const onOpenPopup = (payload) => dispatch(openPopup(payload));
 
   useEffect(() => {
     return () => {
-      onOpenPopup({});
+      if (popup?.visible) onOpenPopup({});
     };
   }, []);
 

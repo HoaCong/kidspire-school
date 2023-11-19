@@ -13,5 +13,6 @@ export const ROUTES = {
   ADMIN_UPDATE_CATEGORY: "/admin/update_category",
   ADMIN_TOPIC: "/admin/topics",
   ADMIN_LESSON: "/admin/lessons",
+  ADMIN_QUESTION: "/admin/questions",
   ADMIN_SIGNOUT: "/admin/singout",
 };

@@ -13,6 +13,7 @@ const initialState = {
   data: {
     access_token: localStorage.getItem("access_token") || "",
     user: {
+      id: localStorage.getItem("id") || null,
       username: localStorage.getItem("username") || "",
       roleid: localStorage.getItem("roleid") || null,
     },
@@ -59,6 +60,7 @@ const loginReducer = (state = initialState, action) => {
         localStorage.removeItem("access_token");
         localStorage.removeItem("username");
         localStorage.removeItem("roleid");
+        localStorage.removeItem("id");
         localStorage.removeItem("time_expired");
         break;
       }

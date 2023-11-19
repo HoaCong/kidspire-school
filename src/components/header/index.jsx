@@ -66,7 +66,7 @@ function Header({ menuIcon, children, classHead }) {
           </div>
         ) : (
           <Link to={ROUTES.LOGIN}>
-            Login <i class="fas fa-sign-in-alt ms-1"></i>
+            Login <i className="fas fa-sign-in-alt ms-1"></i>
           </Link>
         )}
       </div>

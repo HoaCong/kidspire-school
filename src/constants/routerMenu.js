@@ -47,23 +47,11 @@ const MENU = [
     icon: <i className="fas fa-book-open"></i>,
   },
 
-  // {
-  //   label: "Thông Báo",
-  //   active: false,
-  //   icon: <i className="fas fa-bell"></i>,
-  //   src: ROUTES.ADMIN_MESSAGES,
-  // },
-  // {
-  //   label: "Cài Đặt",
-  //   active: false,
-  //   icon: <i className="fas fa-cog"></i>,
-  //   src: ROUTES.ADMIN_SETTING,
-  // },
-  // {
-  //   label: "Sign Out",
-  //   active: false,
-  //   icon: <i className="fas fa-sign-out-alt"></i>,
-  //   src: ROUTES.ADMIN_SIGNOUT,
-  // },
+  {
+    label: "Question",
+    active: false,
+    src: ROUTES.ADMIN_QUESTION,
+    icon: <i className="fas fa-question"></i>,
+  },
 ];
 export default MENU;

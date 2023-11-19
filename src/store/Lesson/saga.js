@@ -1,6 +1,5 @@
 import { ENDPOINT } from "constants/routerApi";
 import { get, post, put as puts, remove } from "helper/ajax";
-import _omit from "lodash/omit";
 import { all, call, put, takeLatest, takeLeading } from "redux-saga/effects";
 import { addToast } from "store/Toast/action";
 import {
@@ -17,11 +16,7 @@ import {
 import * as ActionTypes from "./constant";
 function* callApiList({ params }) {
   try {
-    const response = yield call(
-      get,
-      ENDPOINT.LIST_LESSON,
-      _omit(params, ["limit"])
-    );
+    const response = yield call(get, ENDPOINT.LIST_LESSON, params);
 
     if (response.status === 200) {
       yield put(actionGetListSuccess(response.data));

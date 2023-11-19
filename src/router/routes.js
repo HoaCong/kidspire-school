@@ -4,13 +4,14 @@ import { ROUTES } from "constants/routerWeb";
 import Category from "pages/Admin/Category";
 import Dashboard from "pages/Admin/Dashboard";
 import Lesson from "pages/Admin/Lesson";
+import Question from "pages/Admin/Question";
+import Topic from "pages/Admin/Topic";
+import Users from "pages/Admin/User";
+import CreUpUser from "pages/Admin/User/CreUpUser";
 import HomePage from "pages/HomePage";
 import Login from "pages/Login";
 import PageNotFound from "pages/NotFoundPage";
 import Register from "pages/Register";
-import Topic from "pages/Admin/Topic";
-import Users from "pages/Admin/User";
-import CreUpUser from "pages/Admin/User/CreUpUser";
 
 export const EnumHome = {
   1: ROUTES.ADMIN_HOME_PAGE,
@@ -49,8 +50,13 @@ export const adminRoutes = [
       },
       {
         path: ROUTES.ADMIN_LESSON,
-        name: "Category",
+        name: "Lesson",
         element: <Lesson />,
+      },
+      {
+        path: ROUTES.ADMIN_QUESTION,
+        name: "Question",
+        element: <Question />,
       },
       { path: "*", name: "Not Found Page", element: <PageNotFound /> },
     ],
