@@ -1,5 +1,11 @@
+import Topic from "pages/Client/Topic";
+
 function HomePage(props) {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <Topic />
+    </div>
+  );
 }
 
 export default HomePage;

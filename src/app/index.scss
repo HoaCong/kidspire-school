@@ -52,3 +52,12 @@ code {
     background-color: #2f2f2f;
   }
 }
+
+.positionX-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom-12px {
+  bottom: 12px;
+}
