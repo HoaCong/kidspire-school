@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionAdd, actionEdit } from "store/Question/action";
 
 const initialData = {
-  idtopic: 1,
-  idcategory: 1,
+  idtopic: undefined,
+  idcategory: undefined,
   level: 1,
   name: "",
   answera: "",
@@ -82,6 +82,8 @@ function FormQuestion({
     });
     if (validates) {
       const newData = { ...data, idcreated: +user.id };
+      if (!newData?.idtopic) newData.idtopic = listTopic[0].id;
+      if (!newData?.idcategory) newData.idcategory = listCategory[0].id;
       if (type === "create") onAddQuestion(newData);
       if (type === "edit") onEditQuestion(newData);
     }
