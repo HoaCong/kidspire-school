@@ -26,4 +26,9 @@ export const ENDPOINT = {
   ADD_QUESTION: "question/create",
   EDIT_QUESTION: "question/",
   DELETE_QUESTION: "question/",
+  // ======Quiz======
+  LIST_QUIZ: "quiz/search",
+  ADD_QUIZ: "quiz/create",
+  EDIT_QUIZ: "quiz/",
+  DELETE_QUIZ: "quiz/",
 };

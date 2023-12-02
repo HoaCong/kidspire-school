@@ -5,6 +5,7 @@ import categoryReducer from "./Category/reducer";
 import lessonReducer from "./Lesson/reducer";
 import loginReducer from "./Login/reducer";
 import questionReducer from "./Question/reducer";
+import quizReducer from "./Quiz/reducer";
 import toastReducer from "./Toast/reducer";
 import topicReducer from "./Topic/reducer";
 import userReducer from "./User/reducer";
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   categoryReducer,
   lessonReducer,
   questionReducer,
+  quizReducer,
 });
 
 export default rootReducer;

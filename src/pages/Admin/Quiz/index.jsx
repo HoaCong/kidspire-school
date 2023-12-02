@@ -2,6 +2,7 @@
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import CustomTooltip from "components/common/CustomTooltip";
+import LazyLoadImage from "components/common/LazyLoadImage";
 import LinearProgress from "components/common/LinearProgress";
 import _map from "lodash/map";
 import _omit from "lodash/omit";
@@ -10,10 +11,10 @@ import { useEffect, useState } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetList as callListCategory } from "store/Category/action";
-import { actionDelete, actionGetList, resetData } from "store/Question/action";
+import { actionDelete, actionGetList, resetData } from "store/Quiz/action";
 import { actionGetList as callListTopic } from "store/Topic/action";
 import TemplateContent from "../../../components/layout/TemplateContent";
-import FormQuestion from "./FormQuestion";
+import FormQuiz from "./FormQuiz";
 
 const EnumAnswer = {
   A: "answera",
@@ -24,23 +25,23 @@ const EnumAnswer = {
 
 const initialData = { idtopic: 0, idcategory: 0 };
 
-function Question() {
+function Quiz() {
   const {
     listStatus: { isLoading },
     actionStatus: { isLoading: actionLoading, isSuccess: actionSuccess },
     list,
     params,
     meta,
-  } = useSelector((state) => state.questionReducer);
+  } = useSelector((state) => state.quizReducer);
 
   const { list: listTopic } = useSelector((state) => state.topicReducer);
   const { list: listCategory } = useSelector((state) => state.categoryReducer);
 
   const dispatch = useDispatch();
-  const onGetListQuestion = (body) => dispatch(actionGetList(body));
+  const onGetListQuiz = (body) => dispatch(actionGetList(body));
   const onGetListCategory = (body) => dispatch(callListCategory(body));
   const onGetListTopic = (body) => dispatch(callListTopic(body));
-  const onDeleteQuestion = (body) => dispatch(actionDelete(body));
+  const onDeleteQuiz = (body) => dispatch(actionDelete(body));
   const onResetData = () => dispatch(resetData());
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,7 +59,7 @@ function Question() {
 
   useEffect(() => {
     if (!isLoading) {
-      onGetListQuestion(params);
+      onGetListQuiz(params);
       onGetListTopic({ page: 1, limit: 30 });
       onGetListCategory({ page: 1, limit: 50 });
     }
@@ -71,13 +72,9 @@ function Question() {
     if (actionSuccess) onCloseTooltip();
   }, [actionSuccess]);
 
-  const getAnswerTrue = (key, value) => {
-    return EnumAnswer[key] === value ? "text-success" : "text-danger";
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    onGetListQuestion({ ...params, page });
+    onGetListQuiz({ ...params, page });
   };
 
   const onCloseTooltip = () => {
@@ -98,14 +95,14 @@ function Question() {
     const idcategory =
       !+data.idcategory || type === "reset" ? null : data.idcategory;
     const newParams = _omit(params, ["idtopic", "idcategory"]);
-    onGetListQuestion({ ...newParams, page: 1, idtopic, idcategory });
+    onGetListQuiz({ ...newParams, page: 1, idtopic, idcategory });
     setCurrentPage(1);
     if (type === "reset") setData(initialData);
   };
   return (
     <div className="mb-5">
       <TemplateContent
-        title="Danh sách câu hỏi"
+        title="Danh sách bài kiểm tra"
         showNew
         btnProps={{
           onClick: () =>
@@ -167,19 +164,10 @@ function Question() {
                   #
                 </th>
                 <th scope="col" className="min-w-300px">
-                  Nội dung câu hỏi
+                  Tên bài kiểm tra
                 </th>
                 <th scope="col" className="min-w-150px">
-                  Đáp án A
-                </th>
-                <th scope="col" className="min-w-150px">
-                  Đáp án B
-                </th>
-                <th scope="col" className="min-w-150px">
-                  Đáp án C
-                </th>
-                <th scope="col" className="min-w-150px">
-                  Đáp án D
+                  Hình ảnh
                 </th>
                 <th scope="col" className="min-w-100px">
                   Chủ đề
@@ -216,37 +204,14 @@ function Question() {
                     {index + 1}
                   </th>
                   <td className="align-middle"> {item.name}</td>
-                  <td
-                    className={`align-middle ${getAnswerTrue(
-                      item.answer,
-                      "answera"
-                    )}`}
-                  >
-                    {item.answera}
-                  </td>
-                  <td
-                    className={`align-middle ${getAnswerTrue(
-                      item.answer,
-                      "answerb"
-                    )}`}
-                  >
-                    {item.answerb}
-                  </td>
-                  <td
-                    className={`align-middle ${getAnswerTrue(
-                      item.answer,
-                      "answerc"
-                    )}`}
-                  >
-                    {item.answerc}
-                  </td>
-                  <td
-                    className={`align-middle ${getAnswerTrue(
-                      item.answer,
-                      "answerd"
-                    )}`}
-                  >
-                    {item.answerd}
+                  <td className="align-middle">
+                    <LazyLoadImage
+                      src={item.image}
+                      alt={item.name}
+                      witdh={50}
+                      height={50}
+                      key={item.image}
+                    />
                   </td>
                   <td className="align-middle">{item.topic?.name || "-"}</td>
                   <td className="align-middle">{item.category?.name || "-"}</td>
@@ -293,21 +258,21 @@ function Question() {
           currentPage={currentPage}
         />
       </TemplateContent>
-      <FormQuestion
+      <FormQuiz
         data={detail}
         listTopic={listTopic}
         listCategory={listCategory}
         onClear={() => setDetail({ info: {}, visible: false, type: "" })}
       />
       <CustomTooltip
-        content="Bạn có chắc muốn xóa câu hỏi này không?"
+        content="Bạn có chắc muốn xóa bài kiểm tra này không?"
         tooltip={tooltip}
         loading={actionLoading}
         onClose={onCloseTooltip}
-        onDelete={() => onDeleteQuestion(tooltip.id)}
+        onDelete={() => onDeleteQuiz(tooltip.id)}
       />
     </div>
   );
 }
 
-export default Question;
+export default Quiz;

@@ -46,12 +46,17 @@ const MENU = [
     src: ROUTES.ADMIN_LESSON,
     icon: <i className="fas fa-book-open"></i>,
   },
-
   {
     label: "Question",
     active: false,
     src: ROUTES.ADMIN_QUESTION,
     icon: <i className="fas fa-question"></i>,
+  },
+  {
+    label: "Quiz",
+    active: false,
+    src: ROUTES.ADMIN_QUIZ,
+    icon: <i className="far fa-question-circle"></i>,
   },
 ];
 export default MENU;

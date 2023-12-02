@@ -5,6 +5,7 @@ import categorycSaga from "./Category/saga";
 import lessonSaga from "./Lesson/saga";
 import loginSaga from "./Login/saga";
 import questionSaga from "./Question/saga";
+import quizSaga from "./Quiz/saga";
 import topicSaga from "./Topic/saga";
 import userSaga from "./User/saga";
 
@@ -16,5 +17,6 @@ export default function* rootSaga() {
     fork(categorycSaga),
     fork(lessonSaga),
     fork(questionSaga),
+    fork(quizSaga),
   ]);
 }

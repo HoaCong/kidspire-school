@@ -119,7 +119,7 @@ function FormUser({ data: { type, visible, info }, onClear }) {
             name="email"
             defaultValue={data.email}
             aria-describedby="helperEmail"
-            disabled={type === "detail"}
+            disabled={["detail", "edit"].includes(type)}
             onChange={handleChange}
           />
           {error.email && (

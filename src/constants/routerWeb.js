@@ -14,5 +14,6 @@ export const ROUTES = {
   ADMIN_TOPIC: "/admin/topics",
   ADMIN_LESSON: "/admin/lessons",
   ADMIN_QUESTION: "/admin/questions",
+  ADMIN_QUIZ: "/admin/quiz",
   ADMIN_SIGNOUT: "/admin/singout",
 };

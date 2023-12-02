@@ -5,6 +5,7 @@ import Category from "pages/Admin/Category";
 import Dashboard from "pages/Admin/Dashboard";
 import Lesson from "pages/Admin/Lesson";
 import Question from "pages/Admin/Question";
+import Quiz from "pages/Admin/Quiz";
 import Topic from "pages/Admin/Topic";
 import Users from "pages/Admin/User";
 import CreUpUser from "pages/Admin/User/CreUpUser";
@@ -57,6 +58,11 @@ export const adminRoutes = [
         path: ROUTES.ADMIN_QUESTION,
         name: "Question",
         element: <Question />,
+      },
+      {
+        path: ROUTES.ADMIN_QUIZ,
+        name: "Quiz",
+        element: <Quiz />,
       },
       { path: "*", name: "Not Found Page", element: <PageNotFound /> },
     ],
