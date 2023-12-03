@@ -16,13 +16,6 @@ import { actionGetList as callListTopic } from "store/Topic/action";
 import TemplateContent from "../../../components/layout/TemplateContent";
 import FormQuiz from "./FormQuiz";
 
-const EnumAnswer = {
-  A: "answera",
-  B: "answerb",
-  C: "answerc",
-  D: "answerd",
-};
-
 const initialData = { idtopic: 0, idcategory: 0 };
 
 function Quiz() {

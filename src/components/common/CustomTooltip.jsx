@@ -2,7 +2,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Button, Overlay, Spinner, Tooltip } from "react-bootstrap";
 
-function CustomTooltip({ content, tooltip, loading, onClose, onDelete }) {
+function CustomTooltip({
+  content,
+  tooltip,
+  loading,
+  onClose,
+  onDelete,
+  showAction = true,
+}) {
   return (
     <>
       <Overlay target={tooltip.target} show={tooltip.visible} placement="top">
@@ -10,28 +17,30 @@ function CustomTooltip({ content, tooltip, loading, onClose, onDelete }) {
           <Tooltip id="tooltip" {...props}>
             <div style={{ zIndex: 2 }}>
               {content}
-              <div className="d-flex justify-content-end gap-2 py-2">
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={onClose}
-                  disabled={loading}
-                >
-                  Hủy
-                </Button>
-                <Button size="sm" onClick={onDelete} disabled={loading}>
-                  {loading && (
-                    <Spinner
-                      as="span"
-                      animation="border"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                  )}
-                  Đồng ý
-                </Button>
-              </div>
+              {showAction && (
+                <div className="d-flex justify-content-end gap-2 py-2">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={onClose}
+                    disabled={loading}
+                  >
+                    Hủy
+                  </Button>
+                  <Button size="sm" onClick={onDelete} disabled={loading}>
+                    {loading && (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                    )}
+                    Đồng ý
+                  </Button>
+                </div>
+              )}
             </div>
           </Tooltip>
         )}
@@ -52,6 +61,7 @@ CustomTooltip.propTypes = {
   tooltip: PropTypes.object,
   onClose: PropTypes.func,
   onDelete: PropTypes.func,
+  showAction: PropTypes.bool,
 };
 
 export default CustomTooltip;

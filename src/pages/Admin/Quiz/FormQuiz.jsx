@@ -1,12 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import CustomTooltip from "components/common/CustomTooltip";
 import ModalBlock from "components/common/Modal";
 import UploadImage from "components/common/UploadImage";
 import _capitalize from "lodash/capitalize";
+import _debounce from "lodash/debounce";
+import _isArray from "lodash/isArray";
 import _isEmpty from "lodash/isEmpty";
+import _isString from "lodash/isString";
 import _map from "lodash/map";
 import React, { useEffect, useState } from "react";
+import { ListGroup } from "react-bootstrap";
+import { Typeahead } from "react-bootstrap-typeahead";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
+import { actionGetList, resetData } from "store/Question/action";
 import { actionAdd, actionEdit } from "store/Quiz/action";
 
 const initialData = {
@@ -14,24 +21,9 @@ const initialData = {
   idtopic: undefined,
   idcategory: undefined,
   image: "",
-  groupquestion: "",
+  groupquestion: [],
   // idcreated: 1,
 };
-
-const listGroupQuiz = [
-  {
-    label: "Nhóm lộn xộn",
-    value: [3, 6, 7, 10],
-  },
-  {
-    label: "Nhóm ngăn nấp",
-    value: [3, 4, 5, 6],
-  },
-  {
-    label: "Nhóm vipro",
-    value: [3, 4, 5, 7, 10],
-  },
-];
 
 function FormQuiz({
   data: { type, visible, info },
@@ -44,16 +36,31 @@ function FormQuiz({
   } = useSelector((state) => state.quizReducer);
 
   const {
+    listStatus: { isLoading: loadingQues },
+    list,
+    params,
+  } = useSelector((state) => state.questionReducer);
+
+  const {
     data: { user },
   } = useSelector((state) => state.loginReducer);
 
   const dispatch = useDispatch();
   const onAddQuiz = (body) => dispatch(actionAdd(body));
   const onEditQuiz = (body) => dispatch(actionEdit(body));
+  const onGetListQuestion = (body) => dispatch(actionGetList(body));
+  const onResetData = () => dispatch(resetData());
+
+  const ref = React.createRef();
 
   const [data, setData] = useState(initialData);
-
   const [error, setError] = useState(initialData);
+  const [selectedOption, setSelectedOption] = useState([]);
+  const [tooltip, setTooltip] = useState({
+    target: null,
+    visible: false,
+    id: null,
+  });
 
   useEffect(() => {
     if (!_isEmpty(info)) setData(info);
@@ -61,8 +68,7 @@ function FormQuiz({
 
   useEffect(() => {
     if (isSuccess) {
-      onClear();
-      setData(initialData);
+      handleClose();
     }
   }, [isSuccess]);
 
@@ -88,16 +94,18 @@ function FormQuiz({
       const newData = { ...data, idcreated: +user.id };
       if (!newData?.idtopic) newData.idtopic = listTopic[0].id;
       if (!newData?.idcategory) newData.idcategory = listCategory[0].id;
-      if (!newData?.groupquestion)
-        newData.groupquestion = JSON.stringify(listGroupQuiz[0].value);
+      if (_isArray(newData.groupquestion))
+        newData.groupquestion = JSON.stringify(newData.groupquestion);
       if (type === "create") onAddQuiz(newData);
       if (type === "edit") onEditQuiz(newData);
     }
   };
   const handleClose = () => {
     onClear();
+    onResetData();
     setData(initialData);
     setError(initialData);
+    setSelectedOption([]);
   };
 
   const getTitle = {
@@ -105,6 +113,78 @@ function FormQuiz({
     edit: "Chỉnh sửa bài kiểm tra",
     create: "Thêm mới bài kiểm tra",
   };
+
+  const handleListQuestion = (search) => {
+    let idtopic = data.idtopic;
+    let idcategory = data.idcategory;
+    if (!data?.idtopic) idtopic = listTopic[0].id;
+    if (!data?.idcategory) idcategory = listCategory[0].id;
+    onGetListQuestion({
+      ...params,
+      query: search,
+      limit: 30,
+      idtopic,
+      idcategory,
+    });
+  };
+  const debouncedHandleListQuestion = _debounce(handleListQuestion, 500);
+
+  const handleSelectOption = (listOption) => {
+    const option = listOption[0];
+    if (!!option?.id) {
+      ref.current.clear();
+      ref.current.blur();
+    }
+    const isOptionSelected =
+      !!option?.id && data.groupquestion.includes(option?.id);
+
+    if (!isOptionSelected) {
+      setSelectedOption((prevSelected) => [...prevSelected, option]);
+      setData((prev) => {
+        const newGroup = _isString(prev.groupquestion)
+          ? JSON.parse(prev.groupquestion)
+          : prev.groupquestion;
+        return {
+          ...prev,
+          groupquestion: [...newGroup, option.id],
+        };
+      });
+    }
+  };
+
+  const onRemoveQuestion = (id) => {
+    setSelectedOption((prevSelected) =>
+      prevSelected.filter((item) => item.id !== id)
+    );
+    setData((prev) => {
+      const newGroup = _isString(prev.groupquestion)
+        ? JSON.parse(prev.groupquestion)
+        : prev.groupquestion;
+      return {
+        ...prev,
+        groupquestion: newGroup.filter((item) => item !== id),
+      };
+    });
+  };
+
+  const onOpenTooltip = (e) => {
+    setTooltip((prev) => {
+      return {
+        visible: prev.target === e.target ? !tooltip.visible : true,
+        target: e.target,
+        id: null,
+      };
+    });
+  };
+
+  const onCloseTooltip = () => {
+    setTooltip({
+      visible: false,
+      target: null,
+      id: null,
+    });
+  };
+
   return (
     <ModalBlock
       title={getTitle[type]}
@@ -113,10 +193,19 @@ function FormQuiz({
       onSave={handleSubmit}
       hideSave={type === "detail"}
       loading={isLoading}
+      propsModal={{
+        size: "xl",
+      }}
     >
       <form className="custom-scrollbar">
         <div>
-          <Form.Label htmlFor="topic">Chủ đề</Form.Label>
+          <Form.Label htmlFor="topic">
+            Chủ đề{" "}
+            <i
+              className="fas fa-info-circle text-warning"
+              onClick={onOpenTooltip}
+            ></i>
+          </Form.Label>
           <Form.Select
             id="topic"
             aria-label="Chủ đề"
@@ -133,7 +222,13 @@ function FormQuiz({
           </Form.Select>
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="category">Danh mục</Form.Label>
+          <Form.Label htmlFor="category">
+            Danh mục{" "}
+            <i
+              className="fas fa-info-circle text-warning"
+              onClick={onOpenTooltip}
+            ></i>
+          </Form.Label>
           <Form.Select
             id="category"
             aria-label="Danh mục"
@@ -171,26 +266,13 @@ function FormQuiz({
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="groupquestion">Nhóm câu hỏi</Form.Label>
-          <Form.Select
-            id="groupquestion"
-            aria-label="Nhóm câu hỏi"
-            name="groupquestion"
-            value={data.groupquestion}
-            onChange={handleChange}
-            disabled={type === "detail"}
-          >
-            {_map(listGroupQuiz, (item) => (
-              <option key={item.value} value={JSON.stringify(item.value)}>
-                {item.label}
-              </option>
-            ))}
-          </Form.Select>
-        </div>
-        <div className="mt-3">
           <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
           <UploadImage
             image={data.image}
+            size={{
+              width: 250,
+              height: 180,
+            }}
             callback={(url) =>
               handleChange({
                 target: {
@@ -212,7 +294,57 @@ function FormQuiz({
             </Form.Text>
           )}
         </div>
+        <div className="mt-3">
+          <Form.Label htmlFor="groupquestion">Nhóm câu hỏi</Form.Label>
+          <Typeahead
+            id="groupquestion"
+            ref={ref}
+            labelKey="name"
+            onChange={handleSelectOption}
+            options={loadingQues ? [{ name: "Loading..." }] : list}
+            placeholder="Tìm câu hỏi bằng nội dung câu hỏi"
+            onInputChange={(search) => debouncedHandleListQuestion(search)}
+            onFocus={() => list.length === 0 && handleListQuestion()}
+            isLoading={loadingQues}
+            // selected={selectedOption}
+            // renderMenu={(results, menuProps) => (
+            //   <Menu {...menuProps}>
+            //     {results.map((result, index) => (
+            //       <MenuItem option={result} position={index}>
+            //         {result.name}
+            //       </MenuItem>
+            //     ))}
+            //   </Menu>
+            // )}
+          />
+        </div>
+        <div className="mt-3">
+          <ListGroup>
+            {selectedOption.map((item, index) => (
+              <ListGroup.Item key={item.id}>
+                <div className="d-flex justify-content-between align-items-center">
+                  <div>{item.name}</div>
+                  <div>
+                    <button
+                      className="btn btn-outline-danger rounded-circle d-flex justify-content-center align-items-center"
+                      style={{ width: 30, height: 30 }}
+                      onClick={() => onRemoveQuestion(item.id)}
+                    >
+                      <i className="far fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </div>
       </form>
+      <CustomTooltip
+        content="Thực hiện thay đổi sẽ đặt lại nhóm câu hỏi về mảng rỗng"
+        tooltip={tooltip}
+        onClose={onCloseTooltip}
+        showAction={false}
+      />
     </ModalBlock>
   );
 }
