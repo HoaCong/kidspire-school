@@ -1,29 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ROUTES } from "constants/routerWeb";
-import { parserRouter } from "helper/function";
+import { speak } from "helper/function";
 import _size from "lodash/size";
 import { useEffect } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { actionGetList } from "store/Topic/action";
-function Topic() {
+import { useParams } from "react-router-dom";
+import { actionGetList, resetData } from "store/Lesson/action";
+function Lesson() {
   const {
-    listStatus: { isLoading },
+    listStatus: { isLoading, isSuccess },
     list,
     params,
-  } = useSelector((state) => state.topicReducer);
-
+  } = useSelector((state) => state.lessonReducer);
+  const { id } = useParams();
   const dispatch = useDispatch();
   const onGetListTopic = (body) => dispatch(actionGetList(body));
-  // const onResetData = () => dispatch(resetData());
+  const onResetData = () => dispatch(resetData());
 
   useEffect(() => {
-    if (!isLoading && list.length === 0)
-      onGetListTopic({ ...params, limit: 50 });
-    // return () => {
-    //   onResetData();
-    // };
+    if (!isLoading) onGetListTopic({ ...params, limit: 50, idtopic: id });
+    return () => {
+      onResetData();
+    };
   }, []);
 
   return (
@@ -38,7 +36,6 @@ function Topic() {
           </Spinner>
         </div>
       )}
-
       <Row className="mb-3">
         {list.map((item, index) => (
           <Col xs="12" sm="6" md="3" className="p-2" key={index}>
@@ -46,20 +43,20 @@ function Topic() {
               <Card.Img variant="top" src={item.image} />
               <Card.Body className="pb-5">
                 <Card.Title>{item.name}</Card.Title>
-                <Link to={parserRouter(ROUTES.LESSON, item.id)}>
-                  <Button
-                    variant="primary"
-                    className="position-absolute positionX-center bottom-12px"
-                  >
-                    Study Now!
-                  </Button>
-                </Link>
+                <Button
+                  variant="primary"
+                  className="position-absolute positionX-center bottom-12px"
+                  onClick={() => speak(item.name)}
+                >
+                  Speak
+                </Button>
               </Card.Body>
             </Card>
           </Col>
         ))}
+        {isSuccess && list.length === 0 && "Không có bài học nào !"}
       </Row>
     </div>
   );
 }
-export default Topic;
+export default Lesson;

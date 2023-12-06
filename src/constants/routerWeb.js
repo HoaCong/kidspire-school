@@ -16,4 +16,8 @@ export const ROUTES = {
   ADMIN_QUESTION: "/admin/questions",
   ADMIN_QUIZ: "/admin/quiz",
   ADMIN_SIGNOUT: "/admin/singout",
+  // user routes
+  TOPIC: "/topics",
+  LESSON: "/:id/lessons",
+  QUIZ: "/quiz",
 };
