@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import CustomTooltip from "components/common/CustomTooltip";
 import ModalBlock from "components/common/Modal";
 import UploadImage from "components/common/UploadImage";
 import _capitalize from "lodash/capitalize";
@@ -56,11 +55,6 @@ function FormQuiz({
   const [data, setData] = useState(initialData);
   const [error, setError] = useState(initialData);
   const [selectedOption, setSelectedOption] = useState([]);
-  const [tooltip, setTooltip] = useState({
-    target: null,
-    visible: false,
-    id: null,
-  });
 
   useEffect(() => {
     if (!_isEmpty(info)) setData(info);
@@ -167,24 +161,6 @@ function FormQuiz({
     });
   };
 
-  const onOpenTooltip = (e) => {
-    setTooltip((prev) => {
-      return {
-        visible: prev.target === e.target ? !tooltip.visible : true,
-        target: e.target,
-        id: null,
-      };
-    });
-  };
-
-  const onCloseTooltip = () => {
-    setTooltip({
-      visible: false,
-      target: null,
-      id: null,
-    });
-  };
-
   return (
     <ModalBlock
       title={getTitle[type]}
@@ -199,20 +175,14 @@ function FormQuiz({
     >
       <form className="custom-scrollbar">
         <div>
-          <Form.Label htmlFor="topic">
-            Chủ đề{" "}
-            <i
-              className="fas fa-info-circle text-warning"
-              onClick={onOpenTooltip}
-            ></i>
-          </Form.Label>
+          <Form.Label htmlFor="topic">Chủ đề </Form.Label>
           <Form.Select
             id="topic"
             aria-label="Chủ đề"
             name="idtopic"
             value={data.idtopic}
             onChange={handleChange}
-            disabled={type === "detail"}
+            disabled={["detail", "edit"].includes(type)}
           >
             {_map(listTopic, (item) => (
               <option key={item.id} value={item.id}>
@@ -222,20 +192,14 @@ function FormQuiz({
           </Form.Select>
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="category">
-            Danh mục{" "}
-            <i
-              className="fas fa-info-circle text-warning"
-              onClick={onOpenTooltip}
-            ></i>
-          </Form.Label>
+          <Form.Label htmlFor="category">Danh mục </Form.Label>
           <Form.Select
             id="category"
             aria-label="Danh mục"
             name="idcategory"
             value={data.idcategory}
             onChange={handleChange}
-            disabled={type === "detail"}
+            disabled={["detail", "edit"].includes(type)}
           >
             {_map(listCategory, (item) => (
               <option key={item.id} value={item.id}>
@@ -306,6 +270,7 @@ function FormQuiz({
             onInputChange={(search) => debouncedHandleListQuestion(search)}
             onFocus={() => list.length === 0 && handleListQuestion()}
             isLoading={loadingQues}
+            disabled={type === "detail"}
             // selected={selectedOption}
             // renderMenu={(results, menuProps) => (
             //   <Menu {...menuProps}>
@@ -339,12 +304,6 @@ function FormQuiz({
           </ListGroup>
         </div>
       </form>
-      <CustomTooltip
-        content="Thực hiện thay đổi sẽ đặt lại nhóm câu hỏi về mảng rỗng"
-        tooltip={tooltip}
-        onClose={onCloseTooltip}
-        showAction={false}
-      />
     </ModalBlock>
   );
 }
