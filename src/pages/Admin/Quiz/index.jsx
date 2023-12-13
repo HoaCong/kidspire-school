@@ -27,6 +27,10 @@ function Quiz() {
     meta,
   } = useSelector((state) => state.quizReducer);
 
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+
   const { list: listTopic } = useSelector((state) => state.topicReducer);
   const { list: listCategory } = useSelector((state) => state.categoryReducer);
 
@@ -213,6 +217,8 @@ function Quiz() {
                   </td>
                   <td className="align-middle">
                     <ActionTable
+                      propsEdit={{ disabled: item.idcreated !== user.id }}
+                      propsDelete={{ disabled: item.idcreated !== user.id }}
                       onDetail={() =>
                         setDetail({ info: item, visible: true, type: "detail" })
                       }

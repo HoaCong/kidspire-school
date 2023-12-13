@@ -24,6 +24,10 @@ function Lesson() {
     meta,
   } = useSelector((state) => state.lessonReducer);
 
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+
   const { list: listTopic } = useSelector((state) => state.topicReducer);
   const { list: listUser } = useSelector((state) => state.userReducer);
 
@@ -178,6 +182,8 @@ function Lesson() {
                 </td>
                 <td className="align-middle">
                   <ActionTable
+                    propsEdit={{ disabled: item.idcreated !== user.id }}
+                    propsDelete={{ disabled: item.idcreated !== user.id }}
                     onDetail={() =>
                       setDetail({ info: item, visible: true, type: "detail" })
                     }

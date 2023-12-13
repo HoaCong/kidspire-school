@@ -21,7 +21,7 @@ function useLazyLoadImage(src, defaultImage) {
       setLoaded(true);
       setImageSrc(defaultImage);
     };
-  }, []);
+  }, [src]);
 
   return { imageSrc, isLoaded };
 }

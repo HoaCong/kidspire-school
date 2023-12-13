@@ -19,6 +19,10 @@ function Topic(props) {
     meta,
   } = useSelector((state) => state.topicReducer);
 
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+
   const dispatch = useDispatch();
   const onGetListTopic = (body) => dispatch(actionGetList(body));
   const onDeleteTopic = (body) => dispatch(actionDelete(body));
@@ -110,6 +114,8 @@ function Topic(props) {
                 </td>
                 <td className="align-middle" style={{ width: 200 }}>
                   <ActionTable
+                    propsEdit={{ disabled: item.idcreated !== user.id }}
+                    propsDelete={{ disabled: item.idcreated !== user.id }}
                     onDetail={() =>
                       setDetail({ info: item, visible: true, type: "detail" })
                     }

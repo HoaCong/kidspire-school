@@ -58,6 +58,8 @@ function FormLesson({ data: { type, visible, info }, listTopic, onClear }) {
       }
     });
     if (validates) {
+      const newData = { ...data };
+      if (!newData?.idtopic) newData.idtopic = listTopic[0].id;
       if (type === "create") onAddLesson(data);
       if (type === "edit") onEditLesson(data);
     }

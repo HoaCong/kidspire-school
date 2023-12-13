@@ -20,6 +20,10 @@ function Category(props) {
     meta,
   } = useSelector((state) => state.categoryReducer);
 
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+
   const dispatch = useDispatch();
   const onGetListCategory = (body) => dispatch(actionGetList(body));
   const onDeleteCategory = (body) => dispatch(actionDelete(body));
@@ -111,6 +115,8 @@ function Category(props) {
                 </td>
                 <td className="align-middle" style={{ width: 200 }}>
                   <ActionTable
+                    propsEdit={{ disabled: item.idcreated !== user.id }}
+                    propsDelete={{ disabled: item.idcreated !== user.id }}
                     onDetail={() =>
                       setDetail({ info: item, visible: true, type: "detail" })
                     }
