@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ModalBlock from "components/common/Modal";
+import UploadImage from "components/common/UploadImage";
 import _capitalize from "lodash/capitalize";
 import _isEmpty from "lodash/isEmpty";
 import _map from "lodash/map";
@@ -13,6 +14,7 @@ const initialData = {
   email: "",
   birthday: "",
   password: "",
+  image: "",
   roleid: 3,
 };
 
@@ -192,6 +194,31 @@ function FormUser({ data: { type, visible, info }, onClear }) {
               </option>
             ))}
           </Form.Select>
+        </div>
+        <div className="mt-3">
+          <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
+          <UploadImage
+            image={data.image || ""}
+            callback={(url) =>
+              handleChange({
+                target: {
+                  name: "image",
+                  value: url,
+                },
+              })
+            }
+            geometry="radius"
+            showUpload={type !== "detail"}
+          />
+          {error.image && (
+            <Form.Text
+              id="helperImage"
+              danger="true"
+              bsPrefix="d-inline-block text-danger lh-1"
+            >
+              {error.image}
+            </Form.Text>
+          )}
         </div>
       </form>
     </ModalBlock>

@@ -2,6 +2,7 @@
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import CustomTooltip from "components/common/CustomTooltip";
+import LazyLoadImage from "components/common/LazyLoadImage";
 import ToggleSwitch from "components/common/ToggleSwitch";
 import TemplateContent from "components/layout/TemplateContent";
 import _size from "lodash/size";
@@ -77,6 +78,7 @@ function Users(props) {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Tên tài khoản</th>
+              <th scope="col">Hình ảnh</th>
               <th scope="col">Mật khẩu</th>
               <th scope="col">Email </th>
               <th scope="col">Ngày sinh </th>
@@ -106,6 +108,14 @@ function Users(props) {
                   {index + 1}
                 </th>
                 <td className="align-middle">{item.username}</td>
+                <td className="align-middle">
+                  <LazyLoadImage
+                    src={item?.image}
+                    alt={item?.username}
+                    witdh={50}
+                    height={50}
+                  />
+                </td>
                 <td className="align-middle">**********</td>
                 <td className="align-middle">{item.email}</td>
                 <td className="align-middle">{formatBirthday(item)}</td>
