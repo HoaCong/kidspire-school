@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ModalBlock from "components/common/Modal";
-import UploadImage from "components/common/UploadImage";
 import _capitalize from "lodash/capitalize";
 import _isEmpty from "lodash/isEmpty";
 import _map from "lodash/map";
@@ -14,7 +13,6 @@ const initialData = {
   email: "",
   birthday: "",
   password: "",
-  image: "",
   roleid: 3,
 };
 
@@ -93,7 +91,9 @@ function FormUser({ data: { type, visible, info }, onClear }) {
     >
       <form>
         <div>
-          <Form.Label htmlFor="Username">Tên tài khoản</Form.Label>
+          <Form.Label htmlFor="Username">
+            Tên tài khoản <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="text"
             id="Username"
@@ -114,7 +114,9 @@ function FormUser({ data: { type, visible, info }, onClear }) {
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="Name">Email</Form.Label>
+          <Form.Label htmlFor="Name">
+            Email <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="email"
             id="Email"
@@ -136,7 +138,9 @@ function FormUser({ data: { type, visible, info }, onClear }) {
         </div>
 
         <div className="mt-3">
-          <Form.Label htmlFor="Name">Ngày sinh</Form.Label>
+          <Form.Label htmlFor="Name">
+            Ngày sinh <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="date"
             id="Birthday"
@@ -158,7 +162,9 @@ function FormUser({ data: { type, visible, info }, onClear }) {
         </div>
 
         <div className="mt-3">
-          <Form.Label htmlFor="Name">Mật khẩu</Form.Label>
+          <Form.Label htmlFor="Name">
+            Mật khẩu <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="password"
             id="Password"
@@ -180,7 +186,9 @@ function FormUser({ data: { type, visible, info }, onClear }) {
         </div>
 
         <div className="mt-3">
-          <Form.Label htmlFor="Role">Quyền</Form.Label>
+          <Form.Label htmlFor="Role">
+            Quyền <span className="required">*</span>
+          </Form.Label>
           <Form.Select
             aria-label="Quyền"
             name="roleid"
@@ -194,31 +202,6 @@ function FormUser({ data: { type, visible, info }, onClear }) {
               </option>
             ))}
           </Form.Select>
-        </div>
-        <div className="mt-3">
-          <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
-          <UploadImage
-            image={data.image || ""}
-            callback={(url) =>
-              handleChange({
-                target: {
-                  name: "image",
-                  value: url,
-                },
-              })
-            }
-            geometry="radius"
-            showUpload={type !== "detail"}
-          />
-          {error.image && (
-            <Form.Text
-              id="helperImage"
-              danger="true"
-              bsPrefix="d-inline-block text-danger lh-1"
-            >
-              {error.image}
-            </Form.Text>
-          )}
         </div>
       </form>
     </ModalBlock>

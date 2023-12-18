@@ -2,7 +2,7 @@
 import { ROUTES } from "constants/routerWeb";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import { EnumHome } from "router";
 const checkTimeExpired = (timeExpired) => {
   const now = new Date().getTime();
@@ -17,6 +17,12 @@ const CheckTokenMiddleware = ({ children }) => {
   } = useSelector((state) => state.loginReducer);
 
   useEffect(() => {
+    // clear start_quiz
+    if (!matchPath("/start_quiz/:id", pathname)) {
+      sessionStorage.removeItem("start_quiz");
+    }
+
+    // lofgic check token
     const isLoginPage = [ROUTES.LOGIN, ROUTES.REGISTER].includes(pathname);
     if (
       !access_token ||

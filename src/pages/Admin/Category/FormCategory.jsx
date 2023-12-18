@@ -80,7 +80,9 @@ function FormCategory({ data: { type, visible, info }, onClear }) {
     >
       <form>
         <div>
-          <Form.Label htmlFor="Name">Tên danh mục</Form.Label>
+          <Form.Label htmlFor="Name">
+            Tên danh mục <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="text"
             id="Name"
@@ -101,7 +103,9 @@ function FormCategory({ data: { type, visible, info }, onClear }) {
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
+          <Form.Label htmlFor="Image">
+            Hình ảnh <span className="required">*</span>
+          </Form.Label>
           <UploadImage
             image={data.image || ""}
             callback={(url) =>

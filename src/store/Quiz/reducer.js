@@ -1,6 +1,6 @@
 import produce from "immer";
 import * as ActionTypes from "./constant";
-
+import listquestion from "./data.json";
 // DEFAULT STATE
 const status = { isLoading: false, isSuccess: false, isFailure: false };
 const initialState = {
@@ -11,6 +11,7 @@ const initialState = {
   meta: {
     total: 0,
   },
+  listquestion,
 };
 
 const quizReducer = (state = initialState, action) => {

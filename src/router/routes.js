@@ -10,6 +10,8 @@ import AdminTopic from "pages/Admin/Topic";
 import AdminUsers from "pages/Admin/User";
 import AdminCreUpUser from "pages/Admin/User/CreUpUser";
 import Lesson from "pages/Client/Lesson";
+import Quiz from "pages/Client/Quiz";
+import StartQuiz from "pages/Client/StartQuiz";
 import Topic from "pages/Client/Topic";
 import HomePage from "pages/HomePage";
 import Login from "pages/Login";
@@ -85,6 +87,16 @@ export const userRoutes = [
     path: ROUTES.LESSON,
     name: "Lesson",
     element: <Lesson />,
+  },
+  {
+    path: ROUTES.QUIZ,
+    name: "Quiz",
+    element: <Quiz />,
+  },
+  {
+    path: ROUTES.START_QUIZ,
+    name: "StartQuiz",
+    element: <StartQuiz />,
   },
 ];
 

@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ImagePopup from "components/common/ImagePopup";
 import ToastSnackbar from "components/common/ToastSnackbar";
 import CheckTokenMiddleware from "middleware/checkToken";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { adminRoutes, publicRoutes, userRoutes } from "router";

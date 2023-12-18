@@ -7,6 +7,7 @@ import _isArray from "lodash/isArray";
 import _isEmpty from "lodash/isEmpty";
 import _isString from "lodash/isString";
 import _map from "lodash/map";
+import _omit from "lodash/omit";
 import React, { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { Typeahead } from "react-bootstrap-typeahead";
@@ -21,6 +22,7 @@ const initialData = {
   idcategory: undefined,
   image: "",
   groupquestion: [],
+  listQuestions: [],
   // idcreated: 1,
 };
 
@@ -54,7 +56,6 @@ function FormQuiz({
 
   const [data, setData] = useState(initialData);
   const [error, setError] = useState(initialData);
-  const [selectedOption, setSelectedOption] = useState([]);
 
   useEffect(() => {
     if (!_isEmpty(info)) setData(info);
@@ -85,7 +86,9 @@ function FormQuiz({
       }
     });
     if (validates) {
-      const newData = { ...data, idcreated: +user.id };
+      const newData = _omit({ ...data, idcreated: +user.id }, [
+        "listQuestions",
+      ]);
       if (!newData?.idtopic) newData.idtopic = listTopic[0].id;
       if (!newData?.idcategory) newData.idcategory = listCategory[0].id;
       if (_isArray(newData.groupquestion))
@@ -99,7 +102,6 @@ function FormQuiz({
     onResetData();
     setData(initialData);
     setError(initialData);
-    setSelectedOption([]);
   };
 
   const getTitle = {
@@ -124,6 +126,7 @@ function FormQuiz({
   const debouncedHandleListQuestion = _debounce(handleListQuestion, 500);
 
   const handleSelectOption = (listOption) => {
+    console.log("handleSelectOption  listOption:", listOption);
     const option = listOption[0];
     if (!!option?.id) {
       ref.current.clear();
@@ -133,7 +136,6 @@ function FormQuiz({
       !!option?.id && data.groupquestion.includes(option?.id);
 
     if (!isOptionSelected) {
-      setSelectedOption((prevSelected) => [...prevSelected, option]);
       setData((prev) => {
         const newGroup = _isString(prev.groupquestion)
           ? JSON.parse(prev.groupquestion)
@@ -141,15 +143,13 @@ function FormQuiz({
         return {
           ...prev,
           groupquestion: [...newGroup, option.id],
+          listQuestions: [...prev.listQuestions, option],
         };
       });
     }
   };
 
   const onRemoveQuestion = (id) => {
-    setSelectedOption((prevSelected) =>
-      prevSelected.filter((item) => item.id !== id)
-    );
     setData((prev) => {
       const newGroup = _isString(prev.groupquestion)
         ? JSON.parse(prev.groupquestion)
@@ -157,6 +157,7 @@ function FormQuiz({
       return {
         ...prev,
         groupquestion: newGroup.filter((item) => item !== id),
+        listQuestions: prev.listQuestions.filter((item) => item.id !== id),
       };
     });
   };
@@ -175,7 +176,9 @@ function FormQuiz({
     >
       <form className="custom-scrollbar">
         <div>
-          <Form.Label htmlFor="topic">Chủ đề </Form.Label>
+          <Form.Label htmlFor="topic">
+            Chủ đề <span className="required">*</span>
+          </Form.Label>
           <Form.Select
             id="topic"
             aria-label="Chủ đề"
@@ -192,7 +195,9 @@ function FormQuiz({
           </Form.Select>
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="category">Danh mục </Form.Label>
+          <Form.Label htmlFor="category">
+            Danh mục <span className="required">*</span>
+          </Form.Label>
           <Form.Select
             id="category"
             aria-label="Danh mục"
@@ -209,7 +214,9 @@ function FormQuiz({
           </Form.Select>
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="Name">Tên bài kiểm tra</Form.Label>
+          <Form.Label htmlFor="Name">
+            Tên bài kiểm tra <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="text"
             id="Name"
@@ -230,7 +237,9 @@ function FormQuiz({
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
+          <Form.Label htmlFor="Image">
+            Hình ảnh <span className="required">*</span>
+          </Form.Label>
           <UploadImage
             image={data.image}
             size={{
@@ -259,7 +268,9 @@ function FormQuiz({
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="groupquestion">Nhóm câu hỏi</Form.Label>
+          <Form.Label htmlFor="groupquestion">
+            Nhóm câu hỏi <span className="required">*</span>
+          </Form.Label>
           <Typeahead
             id="groupquestion"
             ref={ref}
@@ -285,15 +296,16 @@ function FormQuiz({
         </div>
         <div className="mt-3">
           <ListGroup>
-            {selectedOption.map((item, index) => (
-              <ListGroup.Item key={item.id}>
+            {data.listQuestions.map((item, index) => (
+              <ListGroup.Item key={item?.id || index}>
                 <div className="d-flex justify-content-between align-items-center">
-                  <div>{item.name}</div>
+                  <div>{item?.name}</div>
                   <div>
                     <button
                       className="btn btn-outline-danger rounded-circle d-flex justify-content-center align-items-center"
                       style={{ width: 30, height: 30 }}
-                      onClick={() => onRemoveQuestion(item.id)}
+                      disabled={type === "detail"}
+                      onClick={() => onRemoveQuestion(item?.id)}
                     >
                       <i className="far fa-trash-alt"></i>
                     </button>

@@ -86,7 +86,9 @@ function FormLesson({ data: { type, visible, info }, listTopic, onClear }) {
     >
       <form>
         <div>
-          <Form.Label htmlFor="Name">Tên bài học</Form.Label>
+          <Form.Label htmlFor="Name">
+            Tên bài học <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="text"
             id="Name"
@@ -107,7 +109,9 @@ function FormLesson({ data: { type, visible, info }, listTopic, onClear }) {
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="sound">Âm thanh</Form.Label>
+          <Form.Label htmlFor="sound">
+            Âm thanh <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="text"
             id="sound"
@@ -128,7 +132,9 @@ function FormLesson({ data: { type, visible, info }, listTopic, onClear }) {
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="topic">Chủ đề</Form.Label>
+          <Form.Label htmlFor="topic">
+            Chủ đề <span className="required">*</span>
+          </Form.Label>
           <Form.Select
             id="topic"
             aria-label="Chủ đề"
@@ -145,7 +151,9 @@ function FormLesson({ data: { type, visible, info }, listTopic, onClear }) {
           </Form.Select>
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
+          <Form.Label htmlFor="Image">
+            Hình ảnh <span className="required">*</span>
+          </Form.Label>
           <UploadImage
             image={data.image || ""}
             callback={(url) =>

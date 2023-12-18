@@ -74,6 +74,7 @@ function* callApiEdit({ params }) {
       answerc,
       answerd,
       answer,
+      image,
       level,
     } = params;
     const response = yield call(puts, ENDPOINT.EDIT_QUESTION + id, {
@@ -86,6 +87,7 @@ function* callApiEdit({ params }) {
       answerc,
       answerd,
       answer,
+      image,
       level,
     });
 

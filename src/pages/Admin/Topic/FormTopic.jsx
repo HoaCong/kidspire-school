@@ -81,7 +81,9 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
     >
       <form>
         <div>
-          <Form.Label htmlFor="Name">Tên chủ đề</Form.Label>
+          <Form.Label htmlFor="Name">
+            Tên chủ đề <span className="required">*</span>
+          </Form.Label>
           <Form.Control
             type="text"
             id="Name"
@@ -102,7 +104,9 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
           )}
         </div>
         <div className="mt-3">
-          <Form.Label htmlFor="Image">Hình ảnh</Form.Label>
+          <Form.Label htmlFor="Image">
+            Hình ảnh <span className="required">*</span>
+          </Form.Label>
           <UploadImage
             image={data.image}
             callback={(url) =>

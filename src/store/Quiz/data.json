@@ -1,0 +1,293 @@
+[
+  {
+    "id": 5,
+    "name": "The company started to recognize the increasing _____ of using resources responsibly.",
+    "image": "",
+    "idtopic": 1,
+    "idcategory": 2,
+    "idcreated": 1,
+    "answera": "more important",
+    "answerb": "importantly",
+    "answerc": "importance",
+    "answerd": "important",
+    "answer": "C",
+    "level": 1,
+    "createdat": 1700211991,
+    "updatedat": 1700211991,
+    "created": {
+      "id": 1,
+      "username": "admin",
+      "password": "$2b$10$zzvCmm7H02WJhECJeyH4/.YXuwVBPmorc28z1txJxdgF1cxcm3Xn.",
+      "email": "admin@gmail.com",
+      "birthday": "19990101",
+      "roleid": 2,
+      "active": 1,
+      "createdat": 1698674797,
+      "updatedat": 1702801823
+    },
+    "topic": {
+      "id": 1,
+      "name": "WORK & STUDIES",
+      "image": "https://kubtool.000webhostapp.com/uploads/download.jpeg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1702386241
+    },
+    "category": {
+      "id": 2,
+      "name": "Foods",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1700016360
+    }
+  },
+  {
+    "id": 6,
+    "name": "Abc ___ efgh",
+    "image": "",
+    "idtopic": 1,
+    "idcategory": 3,
+    "idcreated": 1,
+    "answera": "d",
+    "answerb": "i",
+    "answerc": "k",
+    "answerd": "m",
+    "answer": "B",
+    "level": 1,
+    "createdat": 1700409578,
+    "updatedat": 1701525996,
+    "created": {
+      "id": 1,
+      "username": "admin",
+      "password": "$2b$10$zzvCmm7H02WJhECJeyH4/.YXuwVBPmorc28z1txJxdgF1cxcm3Xn.",
+      "email": "admin@gmail.com",
+      "birthday": "19990101",
+      "roleid": 2,
+      "active": 1,
+      "createdat": 1698674797,
+      "updatedat": 1702801823
+    },
+    "topic": {
+      "id": 1,
+      "name": "WORK & STUDIES",
+      "image": "https://kubtool.000webhostapp.com/uploads/download.jpeg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1702386241
+    },
+    "category": {
+      "id": 3,
+      "name": "Fruits",
+      "image": "https://cdn.britannica.com/36/123536-050-95CB0C6E/Variety-fruits-vegetables.jpg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1700016360
+    }
+  },
+  {
+    "id": 10,
+    "name": "She is ___ girl",
+    "image": "",
+    "idtopic": 1,
+    "idcategory": 2,
+    "idcreated": 1,
+    "answera": "beautiful",
+    "answerb": "beautifully",
+    "answerc": "beauti",
+    "answerd": "beautifun",
+    "answer": "A",
+    "level": 1,
+    "createdat": 1700832376,
+    "updatedat": 1700832376,
+    "created": {
+      "id": 1,
+      "username": "admin",
+      "password": "$2b$10$zzvCmm7H02WJhECJeyH4/.YXuwVBPmorc28z1txJxdgF1cxcm3Xn.",
+      "email": "admin@gmail.com",
+      "birthday": "19990101",
+      "roleid": 2,
+      "active": 1,
+      "createdat": 1698674797,
+      "updatedat": 1702801823
+    },
+    "topic": {
+      "id": 1,
+      "name": "WORK & STUDIES",
+      "image": "https://kubtool.000webhostapp.com/uploads/download.jpeg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1702386241
+    },
+    "category": {
+      "id": 2,
+      "name": "Foods",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1700016360
+    }
+  },
+  {
+    "id": 11,
+    "name": "The company started to recognize the increasing _____ of using resources responsibly.",
+    "image": "",
+    "idtopic": 1,
+    "idcategory": 2,
+    "idcreated": 1,
+    "answera": "more important",
+    "answerb": "importantly",
+    "answerc": "importance",
+    "answerd": "important",
+    "answer": "C",
+    "level": 1,
+    "createdat": 1701482467,
+    "updatedat": 1701522875,
+    "created": {
+      "id": 1,
+      "username": "admin",
+      "password": "$2b$10$zzvCmm7H02WJhECJeyH4/.YXuwVBPmorc28z1txJxdgF1cxcm3Xn.",
+      "email": "admin@gmail.com",
+      "birthday": "19990101",
+      "roleid": 2,
+      "active": 1,
+      "createdat": 1698674797,
+      "updatedat": 1702801823
+    },
+    "topic": {
+      "id": 1,
+      "name": "WORK & STUDIES",
+      "image": "https://kubtool.000webhostapp.com/uploads/download.jpeg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1702386241
+    },
+    "category": {
+      "id": 2,
+      "name": "Foods",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1700016360
+    }
+  },
+  {
+    "id": 12,
+    "name": "The company started to recognize the increasing _____ of using resources responsibly.",
+    "image": "",
+    "idtopic": 1,
+    "idcategory": 2,
+    "idcreated": 1,
+    "answera": "more important",
+    "answerb": "importantly",
+    "answerc": "importance",
+    "answerd": "important",
+    "answer": "C",
+    "level": 1,
+    "createdat": 1701482496,
+    "updatedat": 1701482496,
+    "created": {
+      "id": 1,
+      "username": "admin",
+      "password": "$2b$10$zzvCmm7H02WJhECJeyH4/.YXuwVBPmorc28z1txJxdgF1cxcm3Xn.",
+      "email": "admin@gmail.com",
+      "birthday": "19990101",
+      "roleid": 2,
+      "active": 1,
+      "createdat": 1698674797,
+      "updatedat": 1702801823
+    },
+    "topic": {
+      "id": 1,
+      "name": "WORK & STUDIES",
+      "image": "https://kubtool.000webhostapp.com/uploads/download.jpeg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1702386241
+    },
+    "category": {
+      "id": 2,
+      "name": "Foods",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1700016360
+    }
+  },
+  {
+    "id": 14,
+    "name": "How are you?",
+    "image": "",
+    "idtopic": 1,
+    "idcategory": 3,
+    "idcreated": 21,
+    "answera": "I'm fine",
+    "answerb": "Thank you",
+    "answerc": "Thank you",
+    "answerd": "Thank you",
+    "answer": "A",
+    "level": 2,
+    "createdat": 1702478212,
+    "updatedat": 1702478212,
+    "created": {
+      "id": 21,
+      "username": "admin",
+      "password": "$2b$10$bwqMpJkepYJ2IBMdQDG94O6Ley8bKH6BNH4dUc12fUxpFM1Msyxpq",
+      "email": "admin1@gmail.com",
+      "birthday": "20001010",
+      "roleid": 1,
+      "active": 1,
+      "createdat": 1702474912,
+      "updatedat": 1702476911
+    },
+    "topic": {
+      "id": 1,
+      "name": "WORK & STUDIES",
+      "image": "https://kubtool.000webhostapp.com/uploads/download.jpeg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1702386241
+    },
+    "category": {
+      "id": 3,
+      "name": "Fruits",
+      "image": "https://cdn.britannica.com/36/123536-050-95CB0C6E/Variety-fruits-vegetables.jpg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1700016360
+    }
+  },
+  {
+    "id": 15,
+    "name": "The company started to recognize the increasing _____ of using resources responsibly.",
+    "image": "ssss",
+    "idtopic": 1,
+    "idcategory": 2,
+    "idcreated": -1,
+    "answera": "more important",
+    "answerb": "importantly",
+    "answerc": "importance",
+    "answerd": "important",
+    "answer": "C",
+    "level": 1,
+    "createdat": 1702559828,
+    "updatedat": 1702559828,
+    "created": null,
+    "topic": {
+      "id": 1,
+      "name": "WORK & STUDIES",
+      "image": "https://kubtool.000webhostapp.com/uploads/download.jpeg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1702386241
+    },
+    "category": {
+      "id": 2,
+      "name": "Foods",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg",
+      "idcreated": 1,
+      "createdat": 1700016360,
+      "updatedat": 1700016360
+    }
+  }
+]

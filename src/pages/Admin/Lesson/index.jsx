@@ -182,8 +182,8 @@ function Lesson() {
                 </td>
                 <td className="align-middle">
                   <ActionTable
-                    propsEdit={{ disabled: item.idcreated !== user.id }}
-                    propsDelete={{ disabled: item.idcreated !== user.id }}
+                    propsEdit={{ disabled: item.idcreated !== +user.id }}
+                    propsDelete={{ disabled: item.idcreated !== +user.id }}
                     onDetail={() =>
                       setDetail({ info: item, visible: true, type: "detail" })
                     }

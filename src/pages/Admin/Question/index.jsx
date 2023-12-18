@@ -2,6 +2,7 @@
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import CustomTooltip from "components/common/CustomTooltip";
+import LazyLoadImage from "components/common/LazyLoadImage";
 import LinearProgress from "components/common/LinearProgress";
 import _map from "lodash/map";
 import _omit from "lodash/omit";
@@ -170,8 +171,17 @@ function Question() {
                 <th scope="col" className="max-w-max">
                   #
                 </th>
+                <th scope="col" className="min-w-100px">
+                  Hình ảnh
+                </th>
                 <th scope="col" className="min-w-300px">
                   Nội dung câu hỏi
+                </th>
+                <th scope="col" className="min-w-150px">
+                  Loại câu hỏi
+                </th>
+                <th scope="col" className="min-w-150px">
+                  Đáp án
                 </th>
                 <th scope="col" className="min-w-150px">
                   Đáp án A
@@ -219,14 +229,26 @@ function Question() {
                   <th scope="row" className="align-middle">
                     {index + 1}
                   </th>
+                  <td className="align-middle">
+                    <LazyLoadImage
+                      src={item.image}
+                      alt={item.name}
+                      witdh={50}
+                      height={50}
+                    />
+                  </td>
                   <td className="align-middle"> {item.name}</td>
+                  <td className="align-middle">
+                    {item.type ? "Tự luận" : "Trắc nghiệm"}
+                  </td>
+                  <td className="align-middle">{item.answer}</td>
                   <td
                     className={`align-middle ${getAnswerTrue(
                       item.answer,
                       "answera"
                     )}`}
                   >
-                    {item.answera}
+                    {item.answera || "_"}
                   </td>
                   <td
                     className={`align-middle ${getAnswerTrue(
@@ -234,7 +256,7 @@ function Question() {
                       "answerb"
                     )}`}
                   >
-                    {item.answerb}
+                    {item.answerb || "_"}
                   </td>
                   <td
                     className={`align-middle ${getAnswerTrue(
@@ -242,7 +264,7 @@ function Question() {
                       "answerc"
                     )}`}
                   >
-                    {item.answerc}
+                    {item.answerc || "_"}
                   </td>
                   <td
                     className={`align-middle ${getAnswerTrue(
@@ -250,7 +272,7 @@ function Question() {
                       "answerd"
                     )}`}
                   >
-                    {item.answerd}
+                    {item.answerd || "_"}
                   </td>
                   <td className="align-middle">{item.topic?.name || "-"}</td>
                   <td className="align-middle">{item.category?.name || "-"}</td>
@@ -259,8 +281,8 @@ function Question() {
                   </td>
                   <td className="align-middle">
                     <ActionTable
-                      propsEdit={{ disabled: item.idcreated !== user.id }}
-                      propsDelete={{ disabled: item.idcreated !== user.id }}
+                      propsEdit={{ disabled: item.idcreated !== +user.id }}
+                      propsDelete={{ disabled: item.idcreated !== +user.id }}
                       onDetail={() =>
                         setDetail({ info: item, visible: true, type: "detail" })
                       }
