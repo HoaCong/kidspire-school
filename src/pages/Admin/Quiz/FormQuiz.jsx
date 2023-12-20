@@ -126,7 +126,6 @@ function FormQuiz({
   const debouncedHandleListQuestion = _debounce(handleListQuestion, 500);
 
   const handleSelectOption = (listOption) => {
-    console.log("handleSelectOption  listOption:", listOption);
     const option = listOption[0];
     if (!!option?.id) {
       ref.current.clear();

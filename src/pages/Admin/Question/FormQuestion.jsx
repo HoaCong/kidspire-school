@@ -47,10 +47,6 @@ function FormQuestion({
     actionStatus: { isLoading, isSuccess },
   } = useSelector((state) => state.questionReducer);
 
-  const {
-    data: { user },
-  } = useSelector((state) => state.loginReducer);
-
   const dispatch = useDispatch();
   const onAddQuestion = (body) => dispatch(actionAdd(body));
   const onEditQuestion = (body) => dispatch(actionEdit(body));
@@ -109,10 +105,10 @@ function FormQuestion({
       if (!newData?.idcategory) newData.idcategory = listCategory[0].id;
       newData.type = +newData.type;
       if (!!newData.type) {
-        newData.answera = "_";
-        newData.answerb = "_";
-        newData.answerc = "_";
-        newData.answerd = "_";
+        newData.answera = "";
+        newData.answerb = "";
+        newData.answerc = "";
+        newData.answerd = "";
       }
       if (type === "create") onAddQuestion(newData);
       if (type === "edit") onEditQuestion(newData);

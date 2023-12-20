@@ -1,17 +1,16 @@
 import produce from "immer";
 import * as ActionTypes from "./constant";
-import listquestion from "./data.json";
 // DEFAULT STATE
 const status = { isLoading: false, isSuccess: false, isFailure: false };
 const initialState = {
   listStatus: { ...status },
   actionStatus: { ...status },
   list: [],
+  detail: {},
   params: { limit: 10, page: 1 },
   meta: {
     total: 0,
   },
-  listquestion,
 };
 
 const quizReducer = (state = initialState, action) => {
@@ -86,6 +85,23 @@ const quizReducer = (state = initialState, action) => {
         break;
 
       case ActionTypes.DELETE_FAILED:
+        draft.actionStatus.isLoading = false;
+        draft.actionStatus.isFailure = true;
+        break;
+
+      case ActionTypes.DETAIL:
+        draft.actionStatus.isLoading = true;
+        draft.actionStatus.isSuccess = false;
+        draft.actionStatus.isFailure = false;
+        break;
+
+      case ActionTypes.DETAIL_SUCCESS:
+        draft.actionStatus.isLoading = false;
+        draft.actionStatus.isSuccess = true;
+        draft.detail = action.payload;
+        break;
+
+      case ActionTypes.DETAIL_FAILED:
         draft.actionStatus.isLoading = false;
         draft.actionStatus.isFailure = true;
         break;

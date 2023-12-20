@@ -14,4 +14,8 @@ export const DELETE = "DELETE_QUIZ";
 export const DELETE_SUCCESS = "DELETE_QUIZ_SUCCESS";
 export const DELETE_FAILED = "DELETE_QUIZ_FAILED";
 
+export const DETAIL = "DETAIL_QUIZ";
+export const DETAIL_SUCCESS = "DETAIL_QUIZ_SUCCESS";
+export const DETAIL_FAILED = "DETAIL_QUIZ_FAILED";
+
 export const RESET_DATA = "RESET_DATA_QUIZ";

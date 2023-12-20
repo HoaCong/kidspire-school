@@ -1,4 +1,4 @@
-import CountDown from "components/common/CountDown";
+
 import React from "react";
 import Chart from "react-apexcharts";
 function Dashboard(props) {
@@ -48,7 +48,7 @@ function Dashboard(props) {
 
   return (
     <>
-      <CountDown seconds={300}></CountDown>
+
       <div className="row">
         <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
           <h2> Doanh thu 2023</h2>

@@ -68,7 +68,6 @@ function* callApiEdit({ params }) {
       name,
       idtopic,
       idcategory,
-      idcreated,
       answera,
       answerb,
       answerc,
@@ -76,12 +75,12 @@ function* callApiEdit({ params }) {
       answer,
       image,
       level,
+      type,
     } = params;
     const response = yield call(puts, ENDPOINT.EDIT_QUESTION + id, {
       name,
       idtopic,
       idcategory,
-      idcreated,
       answera,
       answerb,
       answerc,
@@ -89,6 +88,7 @@ function* callApiEdit({ params }) {
       answer,
       image,
       level,
+      type,
     });
 
     if (response.status === 200) {

@@ -31,4 +31,5 @@ export const ENDPOINT = {
   ADD_QUIZ: "quiz/create",
   EDIT_QUIZ: "quiz/",
   DELETE_QUIZ: "quiz/",
+  DETAIL_QUIZ: "quiz/",
 };

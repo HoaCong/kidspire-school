@@ -1,16 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
-const CountDown = React.memo(({ seconds }) => {
+const CountDown = React.memo(({ seconds, callback }) => {
   const [time, setTime] = useState({
     hours: Math.floor(seconds / 3600),
     minutes: Math.floor((seconds % 3600) / 60),
-    seconds: seconds % 60,
+    seconds: Math.round(seconds % 60),
   });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) {
         clearInterval(intervalId);
+        callback();
       } else {
         setTime((prevTime) => {
           let newHours = prevTime.hours;
@@ -40,16 +42,12 @@ const CountDown = React.memo(({ seconds }) => {
   }, [time]);
 
   return (
-    <div>
-      <p>
-        Demo Time:&nbsp;
-        <b>{time.hours.toString().padStart(2, "0")}</b>
-        &nbsp;giờ &nbsp;
-        <b>{time.minutes.toString().padStart(2, "0")}</b>
-        &nbsp;phút &nbsp;
-        <b>{time.seconds.toString().padStart(2, "0")}</b>
-        &nbsp; giây
-      </p>
+    <div className="text-center">
+      <h1 className="d-inline-block p-1 border border-2 rounded-2">
+        {time.hours.toString().padStart(2, "0")}:
+        {time.minutes.toString().padStart(2, "0")}:
+        {time.seconds.toString().padStart(2, "0")}
+      </h1>
     </div>
   );
 });
