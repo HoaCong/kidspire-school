@@ -1,4 +1,4 @@
-import Topic from "pages/Client/Topic";
+import Topic from "pages/Client/Topic/Topic";
 
 function HomePage(props) {
   return (

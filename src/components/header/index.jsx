@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { EnumHome } from "router";
 import { actionLogout } from "store/Login/action";
 import "./header.scss";
-function Header({ menuIcon, children, classHead }) {
+function Header({ menuIcon, children, classHead, showProfile }) {
   const {
     data: { user },
   } = useSelector((state) => state.loginReducer);
@@ -55,9 +55,11 @@ function Header({ menuIcon, children, classHead }) {
                   !isActive ? "d-none" : ""
                 } sub-menu-account list-unstyled`}
               >
-                <li>
-                  <Link>My Profile</Link>
-                </li>
+                {showProfile && (
+                  <li onClick={() => navigate(ROUTES.USER_DETAIL)}>
+                    <Link>My Profile</Link>
+                  </li>
+                )}
                 <li onClick={handleLogout}>
                   <Link>Logout</Link>
                 </li>

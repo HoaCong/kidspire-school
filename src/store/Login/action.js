@@ -34,3 +34,8 @@ export const actionRegisterFailed = (error) => ({
   type: ActionTypes.REGISTER_FAILED,
   error,
 });
+
+export const actionUpdateUserLogin = (data) => ({
+  type: ActionTypes.UPDATE_USER_LOGIN,
+  data,
+});

@@ -14,4 +14,8 @@ export const DELETE = "DELETE_USER";
 export const DELETE_SUCCESS = "DELETE_USER_SUCCESS";
 export const DELETE_FAILED = "DELETE_USER_FAILED";
 
+export const DETAIL = "DETAIL_USER";
+export const DETAIL_SUCCESS = "DETAIL_USER_SUCCESS";
+export const DETAIL_FAILED = "DETAIL_USER_FAILED";
+
 export const RESET_DATA = "RESET_DATA_USER";

@@ -7,6 +7,8 @@ import {
   actionAddSuccess,
   actionDeleteFailed,
   actionDeleteSuccess,
+  actionDetailFailed,
+  actionDetailSuccess,
   actionEditFailed,
   actionEditSuccess,
   actionGetListFailed,
@@ -130,11 +132,25 @@ function* callApiDelete({ id }) {
   }
 }
 
+function* callApiDetail({ id }) {
+  try {
+    const response = yield call(get, ENDPOINT.DETAIL_USER + id);
+    if (response.status === 200) {
+      yield put(actionDetailSuccess(response.data.data));
+    } else {
+      yield put(actionDetailFailed());
+    }
+  } catch (error) {
+    yield put(actionDetailFailed(error.response.data.error));
+  }
+}
+
 export default function* userSaga() {
   yield all([
     yield takeLeading(ActionTypes.LIST, callApiList),
     yield takeLatest(ActionTypes.ADD, callApiAdd),
     yield takeLatest(ActionTypes.EDIT, callApiEdit),
     yield takeLatest(ActionTypes.DELETE, callApiDelete),
+    yield takeLatest(ActionTypes.DETAIL, callApiDetail),
   ]);
 }

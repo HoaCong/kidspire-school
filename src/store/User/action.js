@@ -60,6 +60,21 @@ export const actionDeleteFailed = (error) => ({
   error,
 });
 
+export const actionDetail = (id) => ({
+  type: ActionTypes.DETAIL,
+  id,
+});
+
+export const actionDetailSuccess = (payload) => ({
+  type: ActionTypes.DETAIL_SUCCESS,
+  payload,
+});
+
+export const actionDetailFailed = (error) => ({
+  type: ActionTypes.DETAIL_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

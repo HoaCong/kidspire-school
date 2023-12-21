@@ -8,7 +8,7 @@ function UserLayout(props) {
   return (
     <>
       <div>
-        <Header classHead="container">
+        <Header classHead="container" showProfile>
           <div className="me-auto">
             <Link to={ROUTES.TOPIC}>
               <span className="fs-5 text">Topic</span>

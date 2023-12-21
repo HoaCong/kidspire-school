@@ -40,7 +40,7 @@ export default function StartQuiz() {
     const hashQuiz = JSON.parse(sessionStorage.getItem("answer_quiz")) || {};
 
     if (!_has(startQuiz, id)) {
-      const seconds = 30; // Đặt thời gian là 5 phút (5 * 60 giây)
+      const seconds = 5 * 60; // Đặt thời gian là 5 phút (5 * 60 giây)
       const futureTime = new Date().getTime() + seconds * 1000; // Thời điểm sau 5 phút
       startQuiz[id] = futureTime;
 

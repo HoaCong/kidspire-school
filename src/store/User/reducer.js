@@ -7,6 +7,7 @@ const initialState = {
   listStatus: { ...status },
   actionStatus: { ...status },
   list: [],
+  detail: {},
   params: { limit: 10, page: 1 },
   meta: {
     total: 0,
@@ -89,6 +90,23 @@ const userReducer = (state = initialState, action) => {
       case ActionTypes.DELETE_FAILED:
         draft.actionStatus.isLoading = false;
         draft.actionStatus.isFailure = true;
+        break;
+
+      case ActionTypes.DETAIL:
+        draft.listStatus.isLoading = true;
+        draft.listStatus.isSuccess = false;
+        draft.listStatus.isFailure = false;
+        break;
+
+      case ActionTypes.DETAIL_SUCCESS:
+        draft.listStatus.isLoading = false;
+        draft.listStatus.isSuccess = true;
+        draft.detail = action.payload;
+        break;
+
+      case ActionTypes.DETAIL_FAILED:
+        draft.listStatus.isLoading = false;
+        draft.listStatus.isFailure = true;
         break;
 
       case ActionTypes.RESET_DATA:

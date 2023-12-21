@@ -18,6 +18,7 @@ export const ROUTES = {
   ADMIN_SIGNOUT: "/admin/singout",
   // user routes
   TOPIC: "/topics",
+  USER_DETAIL: "/user-detail",
   LESSON: "/:id/lessons",
   QUIZ: "/quiz",
   START_QUIZ: "/start_quiz/:id",

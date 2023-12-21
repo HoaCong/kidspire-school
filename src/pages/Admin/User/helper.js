@@ -6,6 +6,13 @@ export const formatBirthday = (info) => {
   );
 };
 
+export const formatBirthday2 = (info) => {
+  return _get(info, "birthday", "31011999").replace(
+    /^(\d{2})(\d{2})(\d{4})$/,
+    "$3-$2-$1"
+  );
+};
+
 export const roleEnum = {
   1: "Admin",
   2: "Manager",

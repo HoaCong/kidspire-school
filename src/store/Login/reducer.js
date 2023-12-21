@@ -87,6 +87,10 @@ const loginReducer = (state = initialState, action) => {
         };
         break;
 
+      case ActionTypes.UPDATE_USER_LOGIN:
+        draft.data.user = { ...state.data.user, ...action.data };
+        break;
+
       default:
         return state;
     }
