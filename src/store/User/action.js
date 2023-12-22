@@ -45,6 +45,21 @@ export const actionEditFailed = (error) => ({
   error,
 });
 
+export const actionUpdate = (params) => ({
+  type: ActionTypes.UPDATE,
+  params,
+});
+
+export const actionUpdateSuccess = (payload) => ({
+  type: ActionTypes.UPDATE_SUCCESS,
+  payload,
+});
+
+export const actionUpdateFailed = (error) => ({
+  type: ActionTypes.UPDATE_FAILED,
+  error,
+});
+
 export const actionDelete = (id) => ({
   type: ActionTypes.DELETE,
   id,

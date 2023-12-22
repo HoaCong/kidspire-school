@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionUpdateUserLogin } from "store/Login/action";
-import { actionDetail, actionEdit } from "store/User/action";
+import { actionDetail, actionUpdate } from "store/User/action";
 /* eslint-disable react-hooks/exhaustive-deps */
 const initialData = {
   username: "",
@@ -25,7 +25,7 @@ function DetailUser() {
   } = useSelector((state) => state.loginReducer);
 
   const dispatch = useDispatch();
-  const onEditUser = (body) => dispatch(actionEdit(body));
+  const onUpdateUser = (body) => dispatch(actionUpdate(body));
   const onGetDetailUser = (id) => dispatch(actionDetail(id));
   const onUpdateUserLogin = (id) => dispatch(actionUpdateUserLogin(id));
 
@@ -71,7 +71,7 @@ function DetailUser() {
       }
     });
     if (validates) {
-      onEditUser({ ...data, birthday: data.birthday.split("-").join("") });
+      onUpdateUser({ ...data, birthday: data.birthday.split("-").join("") });
     }
   };
   return (

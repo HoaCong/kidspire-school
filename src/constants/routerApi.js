@@ -7,6 +7,7 @@ export const ENDPOINT = {
   EDIT_USER: "user/",
   ACTIVE_USER: "user/active/",
   DETAIL_USER: "user/",
+  UPDATE_DETAIL_USER: "user/detail/",
   // ======topic======
   LIST_TOPIC: "topic/search",
   ADD_TOPIC: "topic/create",

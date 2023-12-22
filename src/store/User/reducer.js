@@ -109,6 +109,23 @@ const userReducer = (state = initialState, action) => {
         draft.listStatus.isFailure = true;
         break;
 
+      case ActionTypes.UPDATE:
+        draft.actionStatus.isLoading = true;
+        draft.actionStatus.isSuccess = false;
+        draft.actionStatus.isFailure = false;
+        break;
+
+      case ActionTypes.UPDATE_SUCCESS:
+        draft.actionStatus.isLoading = false;
+        draft.actionStatus.isSuccess = true;
+        draft.detail = action.payload;
+        break;
+
+      case ActionTypes.UPDATE_FAILED:
+        draft.actionStatus.isLoading = false;
+        draft.actionStatus.isFailure = true;
+        break;
+
       case ActionTypes.RESET_DATA:
         return initialState;
 

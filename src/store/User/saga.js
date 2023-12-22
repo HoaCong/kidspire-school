@@ -145,6 +145,42 @@ function* callApiDetail({ id }) {
   }
 }
 
+function* callApơUpdateDetail({ params }) {
+  try {
+    const { id } = params;
+    const response = yield call(puts, ENDPOINT.UPDATE_DETAIL_USER + id, params);
+
+    if (response.status === 200) {
+      yield put(actionEditSuccess(response.data.data));
+      yield put(
+        addToast({
+          text: response.data.message,
+          type: "success",
+          title: "",
+        })
+      );
+    } else {
+      yield put(actionEditFailed());
+      yield put(
+        addToast({
+          text: "Update user failed",
+          type: "danger",
+          title: "",
+        })
+      );
+    }
+  } catch (error) {
+    yield put(actionEditFailed(error.response.data.error));
+    yield put(
+      addToast({
+        text: "Update user failed",
+        type: "danger",
+        title: "",
+      })
+    );
+  }
+}
+
 export default function* userSaga() {
   yield all([
     yield takeLeading(ActionTypes.LIST, callApiList),
@@ -152,5 +188,6 @@ export default function* userSaga() {
     yield takeLatest(ActionTypes.EDIT, callApiEdit),
     yield takeLatest(ActionTypes.DELETE, callApiDelete),
     yield takeLatest(ActionTypes.DETAIL, callApiDetail),
+    yield takeLatest(ActionTypes.UPDATE, callApơUpdateDetail),
   ]);
 }
