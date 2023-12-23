@@ -23,7 +23,7 @@ function Header({ menuIcon, children, classHead, showProfile }) {
     navigate(ROUTES.LOGIN);
   };
   return (
-    <div className="header ">
+    <div className="header h-60px">
       <div
         className={`${classHead} d-flex h-100 justify-content-between align-items-center px-2`}
       >

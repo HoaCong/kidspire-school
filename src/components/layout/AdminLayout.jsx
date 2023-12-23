@@ -26,12 +26,10 @@ function AdminLayout(props) {
       <div className="d-flex">
         <Menu collapsed={collapsed} />
         <main className="w-100">
-          <div className="layout">
-            <div className="min-h-100">
-              <Outlet />
-            </div>
-            <Footer />
+          <div className="min-h-100 p-2">
+            <Outlet />
           </div>
+          <Footer />
         </main>
       </div>
     </>

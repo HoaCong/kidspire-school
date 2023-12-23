@@ -18,7 +18,7 @@ const CheckTokenMiddleware = ({ children }) => {
 
   useEffect(() => {
     // clear start_quiz
-    if (!matchPath("/start_quiz/:id", pathname)) {
+    if (!matchPath(ROUTES.START_QUIZ, pathname)) {
       sessionStorage.removeItem("start_quiz");
     }
 

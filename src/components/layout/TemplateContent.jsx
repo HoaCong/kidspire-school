@@ -11,7 +11,7 @@ function TemplateContent({
   filterProps,
 }) {
   return (
-    <div className="d-grid gap-3 mt-2" id="template">
+    <div className="d-grid gap-3" id="template">
       <div className="col-12 card">
         <div className="card-body d-flex justify-content-between align-items-center">
           <h5 className="m-0 title">

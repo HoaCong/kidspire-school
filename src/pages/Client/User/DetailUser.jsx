@@ -144,7 +144,7 @@ function DetailUser() {
                 />
                 <label htmlFor="password">Mật khẩu</label>
               </div>
-              {error.username && (
+              {error.password && (
                 <small className="text-danger">{error.password}</small>
               )}
               <div className="text-end my-3">
@@ -172,7 +172,5 @@ function DetailUser() {
     </>
   );
 }
-
-DetailUser.propTypes = {};
 
 export default DetailUser;

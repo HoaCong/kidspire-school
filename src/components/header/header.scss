@@ -1,14 +1,18 @@
 .header {
   background-color: rgba(255, 255, 255, 0.9);
-  height: 60px;
   border-bottom: 0.5px solid rgba(145, 158, 171, 0.3);
 }
 .logo-header {
-  width: 220px;
   .logo-header-img {
     width: 30px;
     height: 30px;
   }
+  &.line-right {
+    border-right: 2px solid black;
+  }
+}
+.desc-logo {
+  font-family: "Public Sans", sans-serif;
 }
 .account-header {
   cursor: pointer;
@@ -49,6 +53,35 @@
     }
   }
 }
+
+#navbar {
+  .nav-item {
+    .nav-link {
+      border-radius: 5px;
+      &:hover {
+        background-color: #6c757d;
+        color: #fff;
+      }
+      &.active {
+        background-color: #6c757d;
+        color: #fff;
+      }
+    }
+  }
+}
+.dropdown-menu {
+  .dropdown-item {
+    &:focus {
+      background-color: #6c757d;
+      color: #fff;
+    }
+    &:hover {
+      background-color: #6c757d;
+      color: #fff;
+    }
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .brand-header,
   .account-info {
