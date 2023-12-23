@@ -36,9 +36,9 @@ function Lesson() {
           </Spinner>
         </div>
       )}
-      <div class="container">
-        <div class="row">
-          <div class="col-8 p-2">
+      <div className="container">
+        <div className="row">
+          <div className="col-8 p-2">
             {lesson && (
               <div className="position-relative rounded overflow-hidden">
                 <img
@@ -58,14 +58,14 @@ function Lesson() {
                   style={{ background: "#3b3a3a9c" }}
                 >
                   <i
-                    class="fas fa-volume-up fs-1 text text-white"
+                    className="fas fa-volume-up fs-1 text text-white"
                     onClick={() => speak(lesson.name)}
                   ></i>
                 </div>
               </div>
             )}
           </div>
-          <div class="col-4 custom-scrollbar max-h-100">
+          <div className="col-4 custom-scrollbar max-h-100">
             <Row className="mb-3">
               {list.map((item, index) => (
                 <Col xs="12" className="p-2" key={index}>

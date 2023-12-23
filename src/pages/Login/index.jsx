@@ -78,7 +78,7 @@ function Login() {
   };
 
   return (
-    <section className="vh-100">
+    <section className="vh-100 login-box">
       <div className="container-fluid h-custom">
         <img
           src={imgLogin}

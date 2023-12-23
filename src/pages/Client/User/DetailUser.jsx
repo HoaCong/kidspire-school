@@ -76,98 +76,96 @@ function DetailUser() {
   };
   return (
     <>
-      <div className="row mt-3">
-        <div className="col-12 col-md-8 mx-auto">
-          <h4>Cập nhật tài khoản</h4>
-          {isLoading && (
-            <div
-              className="d-flex justify-content-center align-items-center w-full"
-              style={{ height: 400 }}
-            >
-              <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
+      <div className="container">
+        <h4 className="mt-3">Cập nhật tài khoản</h4>
+        {isLoading && (
+          <div
+            className="d-flex justify-content-center align-items-center w-full"
+            style={{ height: 400 }}
+          >
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        )}
+        {isSuccess && (
+          <>
+            <div className="form-floating mt-3">
+              <input
+                type="text"
+                className="form-control"
+                id="username"
+                name="username"
+                placeholder="Tên tài khoản"
+                value={data.username}
+                onChange={handleChange}
+              />
+              <label htmlFor="username">Tên tài khoản</label>
             </div>
-          )}
-          {isSuccess && (
-            <>
-              <div className="form-floating mt-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="username"
-                  name="username"
-                  placeholder="Tên tài khoản"
-                  value={data.username}
-                  onChange={handleChange}
-                />
-                <label htmlFor="username">Tên tài khoản</label>
-              </div>
-              {error.username && (
-                <small className="text-danger">{error.username}</small>
-              )}
+            {error.username && (
+              <small className="text-danger">{error.username}</small>
+            )}
 
-              <div className="form-floating mt-3">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  placeholder="name@example.com"
-                  value={data.email}
-                  onChange={handleChange}
-                  disabled
-                />
-                <label htmlFor="email">Email</label>
-              </div>
+            <div className="form-floating mt-3">
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                placeholder="name@example.com"
+                value={data.email}
+                onChange={handleChange}
+                disabled
+              />
+              <label htmlFor="email">Email</label>
+            </div>
 
-              <div className="form-floating mt-3">
-                <input
-                  type="date"
-                  id="Birthday"
-                  name="birthday"
-                  className="form-control"
-                  defaultValue={data.birthday}
-                  onChange={handleChange}
-                />
-                <label htmlFor="Birthday">Ngày sinh</label>
-              </div>
-              <div className="form-floating mt-3">
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  placeholder="Mật khẩu"
-                  value={data.password}
-                  onChange={handleChange}
-                />
-                <label htmlFor="password">Mật khẩu</label>
-              </div>
-              {error.password && (
-                <small className="text-danger">{error.password}</small>
-              )}
-              <div className="text-end my-3">
-                <Button
-                  variant="secondary"
-                  disabled={loading}
-                  onClick={handleSubmit}
-                >
-                  {loading && (
-                    <Spinner
-                      as="span"
-                      animation="border"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                  )}
-                  Save changes
-                </Button>
-              </div>
-            </>
-          )}
-        </div>
+            <div className="form-floating mt-3">
+              <input
+                type="date"
+                id="Birthday"
+                name="birthday"
+                className="form-control"
+                defaultValue={data.birthday}
+                onChange={handleChange}
+              />
+              <label htmlFor="Birthday">Ngày sinh</label>
+            </div>
+            <div className="form-floating mt-3">
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="Mật khẩu"
+                value={data.password}
+                onChange={handleChange}
+              />
+              <label htmlFor="password">Mật khẩu</label>
+            </div>
+            {error.password && (
+              <small className="text-danger">{error.password}</small>
+            )}
+            <div className="text-end my-3">
+              <Button
+                variant="secondary"
+                disabled={loading}
+                onClick={handleSubmit}
+              >
+                {loading && (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                )}
+                Save changes
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
