@@ -25,9 +25,8 @@ const CheckTokenMiddleware = ({ children }) => {
     // lofgic check token
     const isLoginPage = [ROUTES.LOGIN, ROUTES.REGISTER].includes(pathname);
     if (
-      !access_token ||
-      checkTimeExpired(timeExpired)
-      // && pathname !== ROUTES.HOME_PAGE
+      (!access_token || checkTimeExpired(timeExpired)) &&
+      pathname !== ROUTES.HOME_PAGE
     ) {
       if (isLoginPage) return;
       return navigate(ROUTES.LOGIN);

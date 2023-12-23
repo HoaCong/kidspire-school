@@ -1,5 +1,5 @@
 import Footer from "components/footer";
-import Header from "components/header";
+import Header from "components/header/HeaderUser";
 import { Link, Outlet } from "react-router-dom";
 // import styles
 import { ROUTES } from "constants/routerWeb";

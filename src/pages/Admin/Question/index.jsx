@@ -212,7 +212,7 @@ function Question() {
             <tbody>
               {isLoading && _size(list) === 0 && (
                 <tr>
-                  <td colSpan={9}>
+                  <td colSpan={13}>
                     <div
                       className="d-flex justify-content-center align-items-center w-full"
                       style={{ height: 400 }}

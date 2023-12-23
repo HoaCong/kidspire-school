@@ -10,6 +10,8 @@ import { actionAdd, actionEdit } from "store/Topic/action";
 const initialData = {
   name: "",
   image: "",
+  video: "",
+  description: "",
 };
 function FormTopic({ data: { type, visible, info }, onClear }) {
   const {
@@ -100,6 +102,52 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
               bsPrefix="d-inline-block text-danger lh-1"
             >
               {error.name}
+            </Form.Text>
+          )}
+        </div>
+        <div>
+          <Form.Label htmlFor="Video">
+            Video <span className="required">*</span>
+          </Form.Label>
+          <Form.Control
+            type="text"
+            id="Video"
+            name="video"
+            defaultValue={data.video}
+            aria-describedby="helperVideo"
+            disabled={type === "detail"}
+            onChange={handleChange}
+          />
+          {error.video && (
+            <Form.Text
+              id="helperVideo"
+              danger="true"
+              bsPrefix="d-inline-block text-danger lh-1"
+            >
+              {error.video}
+            </Form.Text>
+          )}
+        </div>
+        <div>
+          <Form.Label htmlFor="Desc">
+            Mô tả <span className="required">*</span>
+          </Form.Label>
+          <Form.Control
+            type="text"
+            id="Desc"
+            name="description"
+            defaultValue={data.description}
+            aria-describedby="helperDesc"
+            disabled={type === "detail"}
+            onChange={handleChange}
+          />
+          {error.description && (
+            <Form.Text
+              id="helperDesc"
+              danger="true"
+              bsPrefix="d-inline-block text-danger lh-1"
+            >
+              {error.description}
             </Form.Text>
           )}
         </div>

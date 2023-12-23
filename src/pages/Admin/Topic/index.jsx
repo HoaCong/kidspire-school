@@ -80,13 +80,15 @@ function Topic(props) {
               <th scope="col">#</th>
               <th scope="col">Chủ đề</th>
               <th scope="col">Hình ảnh</th>
+              <th scope="col">Video</th>
+              <th scope="col">Mô tả</th>
               <th scope="col">Hành động</th>
             </tr>
           </thead>
           <tbody>
             {isLoading && _size(list) === 0 && (
               <tr>
-                <td colSpan={4}>
+                <td colSpan={6}>
                   <div
                     className="d-flex justify-content-center align-items-center w-full"
                     style={{ height: 400 }}
@@ -112,6 +114,8 @@ function Topic(props) {
                     height={50}
                   />
                 </td>
+                <td className="align-middle">{item.video || "_"}</td>
+                <td className="align-middle">{item.description || "_"}</td>
                 <td className="align-middle" style={{ width: 200 }}>
                   <ActionTable
                     propsEdit={{ disabled: item.idcreated !== +user.id }}
