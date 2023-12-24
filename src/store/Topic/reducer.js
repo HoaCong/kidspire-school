@@ -4,7 +4,7 @@ import * as ActionTypes from "./constant";
 // DEFAULT STATE
 const status = { isLoading: false, isSuccess: false, isFailure: false };
 const initialState = {
-  listStatus: { ...status },
+  listStatus: { ...status, isLoadmore: false },
   actionStatus: { ...status },
   list: [],
   params: { limit: 10, page: 1 },
@@ -20,7 +20,10 @@ const topicReducer = (state = initialState, action) => {
         draft.listStatus.isLoading = true;
         draft.listStatus.isSuccess = false;
         draft.listStatus.isFailure = false;
-        draft.params.page = action.params.page;
+        if (action.isLoadmore) {
+          draft.listStatus.isLoadmore = true;
+        }
+        draft.params = action.params;
         break;
 
       case ActionTypes.LIST_SUCCESS:
@@ -28,11 +31,18 @@ const topicReducer = (state = initialState, action) => {
         draft.listStatus.isSuccess = true;
         draft.list = action.payload.data;
         draft.meta.total = action.payload.total;
+        if (state.listStatus.isLoadmore) {
+          draft.listStatus.isLoadmore = false;
+          draft.list = [...state.list, ...action.payload.data];
+        } else {
+          draft.list = action.payload.data;
+        }
         break;
 
       case ActionTypes.LIST_FAILED:
         draft.listStatus.isLoading = false;
         draft.listStatus.isFailure = true;
+        draft.listStatus.isLoadmore = false;
         draft.list = [];
         break;
 

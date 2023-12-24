@@ -63,10 +63,12 @@ function* callApiAdd({ params }) {
 
 function* callApiEdit({ params }) {
   try {
-    const { id, name, image } = params;
+    const { id, name, image, video, description } = params;
     const response = yield call(puts, ENDPOINT.EDIT_TOPIC + id, {
       name,
       image,
+      video,
+      description,
     });
 
     if (response.status === 200) {

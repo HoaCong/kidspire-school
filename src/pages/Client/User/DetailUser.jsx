@@ -77,7 +77,9 @@ function DetailUser() {
   return (
     <>
       <div className="container">
-        <h4 className="mt-3">Cập nhật tài khoản</h4>
+        <h4 className="mt-3 ff-title">
+          <b>Cập nhật tài khoản</b>
+        </h4>
         {isLoading && (
           <div
             className="d-flex justify-content-center align-items-center w-full"
@@ -147,8 +149,8 @@ function DetailUser() {
               <small className="text-danger">{error.password}</small>
             )}
             <div className="text-end my-3">
-              <Button
-                variant="secondary"
+              <button
+                className="btn btn-submit-quiz"
                 disabled={loading}
                 onClick={handleSubmit}
               >
@@ -162,7 +164,7 @@ function DetailUser() {
                   />
                 )}
                 Save changes
-              </Button>
+              </button>
             </div>
           </>
         )}

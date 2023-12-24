@@ -1,8 +1,9 @@
 import * as ActionTypes from "./constant";
 
-export const actionGetList = (params) => ({
+export const actionGetList = (params, isLoadmore = false) => ({
   type: ActionTypes.LIST,
   params,
+  isLoadmore,
 });
 
 export const actionGetListSuccess = (payload) => ({

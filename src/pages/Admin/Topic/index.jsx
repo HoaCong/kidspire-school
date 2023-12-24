@@ -41,7 +41,7 @@ function Topic(props) {
   });
 
   useEffect(() => {
-    if (!isLoading) onGetListTopic(params);
+    if (!isLoading) onGetListTopic({ ...params, limit: 10 });
     return () => {
       onResetData();
     };
@@ -118,8 +118,14 @@ function Topic(props) {
                 <td className="align-middle">{item.description || "_"}</td>
                 <td className="align-middle" style={{ width: 200 }}>
                   <ActionTable
-                    propsEdit={{ disabled: item.idcreated !== +user.id }}
-                    propsDelete={{ disabled: item.idcreated !== +user.id }}
+                    propsEdit={{
+                      disabled:
+                        item.idcreated !== +user.id && item.idcreated !== -1,
+                    }}
+                    propsDelete={{
+                      disabled:
+                        item.idcreated !== +user.id && item.idcreated !== -1,
+                    }}
                     onDetail={() =>
                       setDetail({ info: item, visible: true, type: "detail" })
                     }

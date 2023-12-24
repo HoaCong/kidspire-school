@@ -2,6 +2,30 @@
   background-color: rgba(255, 255, 255, 0.9);
   border-bottom: 0.5px solid rgba(145, 158, 171, 0.3);
 }
+.header-1 {
+  background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #fcbfc1 51.55%,
+    #fc8a51 45%
+  );
+}
+.header-2 {
+  background: linear-gradient(
+    286.37deg,
+    #ffe1bc 22.63%,
+    #fcbfc1 33%,
+    #fc8a51 56%
+  );
+}
+.header-3 {
+  background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #fcbfc1 51.55%,
+    #fc8a51 45%
+  );
+}
 .logo-header {
   .logo-header-img {
     width: 30px;
@@ -11,9 +35,7 @@
     border-right: 2px solid black;
   }
 }
-.desc-logo {
-  font-family: "Public Sans", sans-serif;
-}
+
 .account-header {
   cursor: pointer;
   position: relative;
@@ -57,14 +79,13 @@
 #navbar {
   .nav-item {
     .nav-link {
-      border-radius: 5px;
+      border-radius: 12px 0 12px 0;
+      color: #ab0033;
+      border: 2px solid #ab0033;
+      &.active,
       &:hover {
-        background-color: #6c757d;
-        color: #fff;
-      }
-      &.active {
-        background-color: #6c757d;
-        color: #fff;
+        background-color: #ab0033;
+        color: #ffe300;
       }
     }
   }

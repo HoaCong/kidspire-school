@@ -20,6 +20,7 @@ const CheckTokenMiddleware = ({ children }) => {
     // clear start_quiz
     if (!matchPath(ROUTES.START_QUIZ, pathname)) {
       sessionStorage.removeItem("start_quiz");
+      sessionStorage.removeItem("answer_quiz");
     }
 
     // lofgic check token

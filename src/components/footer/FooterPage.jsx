@@ -2,9 +2,9 @@ import React from "react";
 
 const FooterPage = () => {
   return (
-    <div className="container mt-5 text-secondary">
+    <section className="container text-secondary">
       <div className="row">
-        <div className="col-12 col-sm-4">
+        <div className="col-12 col-sm-4 mt-5">
           <h3 className="text-info">Kidspire</h3>
           <div className="desc mt-4">
             <span className="text-info">Kidspire</span> provides broad range of
@@ -16,7 +16,7 @@ const FooterPage = () => {
             <li> Awards and Ceremony</li>
           </ul>
         </div>
-        <div className="col-12 col-sm-4">
+        <div className="col-12 col-sm-4 mt-5">
           <h3 className="text-warning">Contact Us</h3>
           <div className="mt-4">
             <span
@@ -46,7 +46,7 @@ const FooterPage = () => {
             Address: 99 BlueStar - Galaxy - Mitsubixy
           </div>
         </div>
-        <div className="col-12 col-sm-4">
+        <div className="col-12 col-sm-4 mt-5 mb-5">
           <h3 className="text-danger">Newsletter Signup</h3>
           <div className="desc mt-4">
             Get latest updates, news, surveys & offers
@@ -57,19 +57,19 @@ const FooterPage = () => {
               className="form-control"
               placeholder="Enter your email"
               aria-label="Enter your email"
-              aria-describedby="button-addon2"
+              aria-describedby="btn-send"
             />
             <button
               className="btn btn-outline-primary"
               type="button"
-              id="button-addon2"
+              id="btn-send"
             >
               Send
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

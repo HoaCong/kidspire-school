@@ -3,53 +3,67 @@ import slider2 from "assets/images/slider2.jpg";
 import slider3 from "assets/images/slider3.jpg";
 import { useState } from "react";
 import { Carousel } from "react-bootstrap";
+const list = [
+  {
+    image: slider1,
+    title: "The best school",
+    subtitle: "for your kids",
+    desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    Accusantium fugit id cum ad? Consectetur praesentium dolorem
+    totam tenetur. Minus, doloremque?`,
+  },
+  {
+    image: slider2,
+    title: "The best school",
+    subtitle: "for your kids",
+    desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    Accusantium fugit id cum ad? Consectetur praesentium dolorem
+    totam tenetur. Minus, doloremque?`,
+  },
+  {
+    image: slider3,
+    title: "The best school",
+    subtitle: "for your kids",
+    desc: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    Accusantium fugit id cum ad? Consectetur praesentium dolorem
+    totam tenetur. Minus, doloremque?`,
+    position: "caption-left",
+    color: "text-white",
+  },
+];
 
 function Slider() {
-  const [index, setIndex] = useState(0);
+  const [activeIndex, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-        <img src={slider1} className="d-block w-100" alt="..." />
-        <div className="caption ">
-          <h3 className="title text-info">The best school</h3>
-          <h3 className=" text-danger sub-title fw-bold">for your kids</h3>
-          <p className="desc text-secondary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-            fugit id cum ad? Consectetur praesentium dolorem totam tenetur.
-            Minus, doloremque?
-          </p>
-        </div>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img src={slider2} className="d-block w-100" alt="..." />
-        <div className="caption">
-          <h3 className="title text-info">The best school</h3>
-          <h3 className="sub-title text-danger fw-bold">for your kids</h3>
-          <p className="desc text-secondary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-            fugit id cum ad? Consectetur praesentium dolorem totam tenetur.
-            Minus, doloremque?
-          </p>
-        </div>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img src={slider3} className="d-block w-100" alt="..." />
-        <div className="caption caption-left ">
-          <h3 className="title text-info">The best school</h3>
-          <h3 className="sub-title text-danger fw-bold">for your kids</h3>
-          <p className="desc text-white">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-            fugit id cum ad? Consectetur praesentium dolorem totam tenetur.
-            Minus, doloremque?
-          </p>
-        </div>
-      </Carousel.Item>
-    </Carousel>
+    <section>
+      <Carousel activeIndex={activeIndex} onSelect={handleSelect}>
+        {list.map((item, index) => (
+          <Carousel.Item key={index}>
+            <img
+              src={item.image}
+              className="d-block w-100"
+              alt="images slider"
+            />
+            <div className={`caption ${item?.position}`}>
+              <div className="box-caption mx-auto">
+                <h3 className="title text-info">{item.title}</h3>
+                <h3 className=" text-danger sub-title fw-bold">
+                  {item.subtitle}
+                </h3>
+                <p className={`desc text-secondary ${item?.color}`}>
+                  {item.desc}
+                </p>
+              </div>
+            </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </section>
   );
 }
 

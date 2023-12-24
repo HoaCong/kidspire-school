@@ -6,13 +6,14 @@ import _has from "lodash/has";
 import _map from "lodash/map";
 import _size from "lodash/size";
 import React, { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
+import { Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { actionDetail } from "store/Quiz/action";
 import { addToast } from "store/Toast/action";
 import { OptionAnswer, TextAnswer } from "./OptionAnswer";
+import "./quiz.scss";
 export default function StartQuiz() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -116,8 +117,8 @@ export default function StartQuiz() {
   };
 
   return (
-    <>
-      <div className="mt-3 mb-5">
+    <section id="section-start_quiz">
+      <div className="container py-5">
         {isLoading && (
           <div
             className="d-flex justify-content-center align-items-center w-full"
@@ -129,37 +130,35 @@ export default function StartQuiz() {
           </div>
         )}
         {isSuccess && (
-          <>
+          <div className="box-quiz p-5">
             <CountDown seconds={time} callback={handleSubmit}></CountDown>
-            <div className="col-12 card mt-3">
+            <div className="card col-12 p-4 mt-3">
               <div className="card-body">
                 <h5 className="m-0 card-title">{list[current]?.name}</h5>
-                <div className="card-text mt-3">
-                  {list[current]?.type ? (
-                    <TextAnswer
-                      key={current}
-                      handleEnterAnswer={handleEnterAnswer}
-                      answer={hash[list[current]?.id]}
-                    />
-                  ) : (
-                    <OptionAnswer
-                      handleAnswer={handleAnswer}
-                      current={current}
-                      list={list}
-                      answer={hash[list[current]?.id]}
-                    />
-                  )}
-                </div>
               </div>
             </div>
+            <Row className="box-answer mt-3">
+              {list[current]?.type ? (
+                <TextAnswer
+                  key={current}
+                  handleEnterAnswer={handleEnterAnswer}
+                  answer={hash[list[current]?.id]}
+                />
+              ) : (
+                <OptionAnswer
+                  handleAnswer={handleAnswer}
+                  current={current}
+                  list={list}
+                  answer={hash[list[current]?.id]}
+                />
+              )}
+            </Row>
             <div className="d-flex gap-2 justify-content-center mt-3">
               {_map(list, (item, index) => (
                 <Button
                   key={index}
                   variant={
-                    item.id === list[current]?.id
-                      ? "primary"
-                      : "outline-primary"
+                    item.id === list[current]?.id ? "danger" : "outline-danger"
                   }
                   onClick={() => setCurrent(index)}
                 >
@@ -167,21 +166,24 @@ export default function StartQuiz() {
                 </Button>
               ))}
             </div>
-            <Button
-              className="mx-auto"
-              onClick={(e) =>
-                setTooltip((prev) => {
-                  return {
-                    visible: prev.target === e.target ? !tooltip.visible : true,
-                    target: e.target,
-                    id: list[current]?.id,
-                  };
-                })
-              }
-            >
-              Submit a Quiz
-            </Button>
-          </>
+            <div className="d-flex justify-content-end">
+              <button
+                className="btn btn-submit-quiz"
+                onClick={(e) =>
+                  setTooltip((prev) => {
+                    return {
+                      visible:
+                        prev.target === e.target ? !tooltip.visible : true,
+                      target: e.target,
+                      id: list[current]?.id,
+                    };
+                  })
+                }
+              >
+                Submit a Quiz
+              </button>
+            </div>
+          </div>
         )}
         <CustomTooltip
           content="Thời gian chưa hết, bạn có chắc là muốn nạp bài sớm không"
@@ -191,6 +193,6 @@ export default function StartQuiz() {
           onDelete={handleSubmit}
         />
       </div>
-    </>
+    </section>
   );
 }

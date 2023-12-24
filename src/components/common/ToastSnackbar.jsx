@@ -9,7 +9,11 @@ function ToastComponent() {
   const onSetToast = (body) => dispatch(setToast(body));
 
   return (
-    <ToastContainer position="top-end" className="p-3" style={{ zIndex: 3101 }}>
+    <ToastContainer
+      position="top-end"
+      className="p-3 position-fixed"
+      style={{ zIndex: 3101 }}
+    >
       {toasts.map((toast, index) => (
         <Toast
           key={toast.key}

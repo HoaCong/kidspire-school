@@ -56,7 +56,7 @@ function Quiz() {
 
   useEffect(() => {
     if (!isLoading) {
-      onGetListQuiz(params);
+      onGetListQuiz({ ...params, limit: 10 });
       onGetListTopic({ page: 1, limit: 30 });
       onGetListCategory({ page: 1, limit: 50 });
     }
@@ -217,8 +217,14 @@ function Quiz() {
                   </td>
                   <td className="align-middle">
                     <ActionTable
-                      propsEdit={{ disabled: item.idcreated !== +user.id }}
-                      propsDelete={{ disabled: item.idcreated !== +user.id }}
+                      propsEdit={{
+                        disabled:
+                          item.idcreated !== +user.id && item.idcreated !== -1,
+                      }}
+                      propsDelete={{
+                        disabled:
+                          item.idcreated !== +user.id && item.idcreated !== -1,
+                      }}
                       onDetail={() =>
                         setDetail({ info: item, visible: true, type: "detail" })
                       }

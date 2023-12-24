@@ -25,7 +25,7 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
   };
   return (
     <>
-      <div className="header h-60px">
+      <div className="header header-1 h-60px">
         <div
           className={`${classHead} h-100 d-flex justify-content-end align-items-center`}
         >
@@ -76,7 +76,7 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
           )}
         </div>
       </div>
-      <div className="header h-100px">
+      <div className="header header-2 h-100px">
         <div className={`${classHead} h-100 d-flex align-items-center`}>
           {/* Logo header */}
           <div className="logo-header d-flex align-items-center gap-2 pe-4 line-right">
@@ -88,11 +88,13 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
               <h2 className="brand-header mb-1">Kidspire</h2>
             </Link>
           </div>
-          <b className="desc-logo fs-3 text m-0 ms-4">LearnEnglish Kids</b>
+          <b className="desc-logo ff-title fs-3 text m-0 ms-4">
+            LearnEnglish Kids
+          </b>
         </div>
       </div>
-      <div className="header">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="header header-3">
+        <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container">
             <button
               className="navbar-toggler ms-auto mb-2"
@@ -106,11 +108,11 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbar">
-              <ul className="navbar-nav gap-2">
+              <ul className="navbar-nav gap-1">
                 <li className="nav-item">
                   <Link
                     to={ROUTES.HOME_PAGE}
-                    className={`nav-link px-2 ${
+                    className={`nav-link px-5 ${
                       matchPath(ROUTES.HOME_PAGE, pathname) && "active"
                     }`}
                   >
@@ -120,7 +122,7 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
                 <li className="nav-item">
                   <Link
                     to={ROUTES.TOPIC}
-                    className={`nav-link px-2 ${
+                    className={`nav-link px-5 ${
                       matchPath(ROUTES.TOPIC, pathname) && "active"
                     }`}
                   >
@@ -130,7 +132,7 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
                 <li className="nav-item">
                   <Link
                     to={ROUTES.QUIZ}
-                    className={`nav-link px-2 ${
+                    className={`nav-link px-5 ${
                       matchPath(ROUTES.QUIZ, pathname) && "active"
                     }`}
                   >
@@ -140,7 +142,7 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
                 <li className="nav-item">
                   <Link
                     to={ROUTES.USER_DETAIL}
-                    className={`nav-link px-2 ${
+                    className={`nav-link px-5 ${
                       matchPath(ROUTES.USER_DETAIL, pathname) && "active"
                     }`}
                   >
@@ -149,7 +151,7 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
                 </li>
                 {/* <li className="nav-item dropdown">
                   <Link
-                    className="nav-link px-2 dropdown-toggle fs-5 text"
+                    className="nav-link px-5 dropdown-toggle fs-5 text"
                     id="menu-dropdown"
                     role="button"
                     data-bs-toggle="dropdown"

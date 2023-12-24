@@ -1,14 +1,18 @@
-import Content1 from "./Content1";
-import FooterPage from "./FooterPage";
+import ContentLesson from "./ContentLesson";
+import ContentQuiz from "./ContentQuiz";
 import Slider from "./Slider";
+import Social from "./Social";
+import Welcome from "./Welcome";
 import "./homepage.scss";
 
 function HomePage(props) {
   return (
     <>
       <Slider />
-      <Content1 />
-      <FooterPage />
+      <Welcome />
+      <ContentLesson />
+      <ContentQuiz />
+      <Social />
     </>
   );
 }

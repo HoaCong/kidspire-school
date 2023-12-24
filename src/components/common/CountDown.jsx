@@ -43,7 +43,7 @@ const CountDown = React.memo(({ seconds, callback }) => {
 
   return (
     <div className="text-center">
-      <h1 className="d-inline-block p-1 border border-2 rounded-2">
+      <h1 className="d-inline-block box-countdown">
         {time.hours.toString().padStart(2, "0")}:
         {time.minutes.toString().padStart(2, "0")}:
         {time.seconds.toString().padStart(2, "0")}
