@@ -22,4 +22,5 @@ export const ROUTES = {
   LESSON: "/:id/lessons",
   QUIZ: "/quiz",
   START_QUIZ: "/start_quiz/:id",
+  RESULT_QUIZ: "/result_quiz/:id",
 };

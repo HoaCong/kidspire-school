@@ -2,33 +2,37 @@ import React from "react";
 import { Col } from "react-bootstrap";
 
 export function TextAnswer({
-  handleEnterAnswer,
+  handleEnterAnswer = () => {},
   answer = "",
   disabled = false,
+  exact = false,
 }) {
   return (
     <textarea
       disabled={disabled}
       defaultValue={answer}
       placeholder="Enter an answer ..."
-      className="text-answer w-100 p-2"
+      className={`text-answer w-100 p-2 ${exact && "exact"}`}
       onKeyDown={handleEnterAnswer}
     />
   );
 }
 
 export function OptionAnswer({
-  handleAnswer,
+  handleAnswer = () => {},
   current,
   list,
   answer,
   disabled = false,
 }) {
+  console.log("answer:", answer);
   return (
     <>
       <Col xs="12" sm="6" className="p-1">
         <label
-          className={`form-check p-2 ${answer === "A" && "active"}`}
+          className={`form-check p-2 ${answer === "A" && "active"} ${
+            list[current]?.answer === "A" && "exact"
+          }`}
           htmlFor="answer1"
         >
           <input
@@ -50,7 +54,9 @@ export function OptionAnswer({
 
       <Col xs="12" sm="6" className="p-1">
         <label
-          className={`form-check p-2 ${answer === "B" && "active"}`}
+          className={`form-check p-2 ${answer === "B" && "active"} ${
+            list[current]?.answer === "B" && "exact"
+          }`}
           htmlFor="answer2"
         >
           <input
@@ -72,7 +78,9 @@ export function OptionAnswer({
 
       <Col xs="12" sm="6" className="p-1">
         <label
-          className={`form-check p-2 ${answer === "C" && "active"}`}
+          className={`form-check p-2 ${answer === "C" && "active"} ${
+            list[current]?.answer === "C" && "exact"
+          }`}
           htmlFor="answer3"
         >
           <input
@@ -94,7 +102,9 @@ export function OptionAnswer({
 
       <Col xs="12" sm="6" className="p-1">
         <label
-          className={`form-check p-2 ${answer === "D" && "active"}`}
+          className={`form-check p-2 ${answer === "D" && "active"} ${
+            list[current]?.answer === "D" && "exact"
+          }`}
           htmlFor="answer4"
         >
           <input

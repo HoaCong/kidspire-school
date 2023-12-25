@@ -5,7 +5,7 @@ import { ROUTES } from "constants/routerWeb";
 import _has from "lodash/has";
 import _map from "lodash/map";
 import _size from "lodash/size";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,6 @@ export default function StartQuiz() {
     detail,
     actionStatus: { isLoading, isSuccess },
     submitStatus: { isLoading: submiting, isSuccess: success },
-    result,
   } = useSelector((state) => state.quizReducer);
   const {
     data: { user },
@@ -47,7 +46,7 @@ export default function StartQuiz() {
     const submitQuiz = JSON.parse(sessionStorage.getItem("submit_quiz")) || {};
 
     if (!_has(startQuiz, id)) {
-      const seconds = 5; // Đặt thời gian là 5 phút (5 * 60 giây)
+      const seconds = 5 * 60; // Đặt thời gian là 5 phút (5 * 60 giây)
       const futureTime = new Date().getTime() + seconds * 1000; // Thời điểm sau 5 phút
       startQuiz[id] = futureTime;
 
@@ -58,7 +57,9 @@ export default function StartQuiz() {
         if (!submiting && !submitQuiz) handleSubmit();
       } else {
         setTime((startQuiz[id] - new Date().getTime()) / 1000);
-        if (!isLoading) onGetDetailQuiz(id);
+        if (!isLoading) {
+          onGetDetailQuiz(id);
+        }
       }
     }
     if (_has(hashQuiz, id)) {
@@ -69,6 +70,7 @@ export default function StartQuiz() {
       // second
     };
   }, []);
+
   useEffect(() => {
     if (isSuccess) {
       let tmp_ques = {};
@@ -77,6 +79,13 @@ export default function StartQuiz() {
       setList(tmp_ques);
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    const submitQuiz = JSON.parse(sessionStorage.getItem("submit_quiz")) || {};
+    if (success && submitQuiz?.id) {
+      navigate(ROUTES.RESULT_QUIZ.replace(":id", id));
+    }
+  }, [success]);
 
   const handleAnswer = (answer) => {
     setHash((prev) => {
@@ -89,8 +98,8 @@ export default function StartQuiz() {
 
     setCurrent((prev) => {
       const newPos = +prev + 1;
-      if (newPos <= _size(list)) return newPos;
-      return _size(list);
+      if (newPos > _size(list)) return 1;
+      return newPos;
     });
   };
 

@@ -9,6 +9,7 @@ import AdminQuiz from "pages/Admin/Quiz";
 import AdminTopic from "pages/Admin/Topic";
 import AdminUsers from "pages/Admin/User";
 import Quiz from "pages/Client/Quiz/Quiz";
+import ResultQuiz from "pages/Client/Quiz/ResultQuiz";
 import StartQuiz from "pages/Client/Quiz/StartQuiz";
 import Lesson from "pages/Client/Topic/Lesson";
 import Topic from "pages/Client/Topic/Topic";
@@ -100,6 +101,11 @@ export const userRoutes = [
     path: ROUTES.START_QUIZ,
     name: "StartQuiz",
     element: <StartQuiz />,
+  },
+  {
+    path: ROUTES.RESULT_QUIZ,
+    name: "ResultQuiz",
+    element: <ResultQuiz />,
   },
   {
     path: ROUTES.USER_DETAIL,

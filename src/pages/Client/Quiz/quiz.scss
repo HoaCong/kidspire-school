@@ -30,6 +30,18 @@
     color: #ffe300;
   }
   .box-answer {
+    &.none-hover {
+      .form-check {
+        cursor: unset;
+        &:hover {
+          background: #ffe300;
+          color: #ab0033;
+        }
+        &.exact {
+          border-color: green;
+        }
+      }
+    }
     .form-check {
       cursor: pointer;
       border: 2px solid #ab0033;
@@ -45,6 +57,9 @@
     }
   }
   .text-answer {
+    &.exact {
+      border-color: green;
+    }
     &:focus {
       outline: none;
     }
