@@ -13,6 +13,8 @@ import {
   actionEditSuccess,
   actionGetListFailed,
   actionGetListSuccess,
+  actionSubmitFailed,
+  actionSubmitSuccess,
 } from "./action";
 import * as ActionTypes from "./constant";
 function* callApiList({ params }) {
@@ -155,6 +157,29 @@ function* callApiDetail({ id }) {
     yield put(actionDetailFailed(error.response.data.error));
   }
 }
+function* callApiSubmitQuiz({ params }) {
+  try {
+    const response = yield call(post, ENDPOINT.SUBMIT_QUIZ, params);
+
+    if (response.status === 200) {
+      yield put(actionSubmitSuccess(response.data.scrore));
+      addToast({
+        text: "Nạp bài thành công",
+        type: "success",
+        title: "",
+      });
+    } else {
+      yield put(actionSubmitFailed());
+      addToast({
+        text: "Nạp bài thất bại",
+        type: "danger",
+        title: "",
+      });
+    }
+  } catch (error) {
+    yield put(actionDetailFailed(error.response.data.error));
+  }
+}
 
 export default function* quizSaga() {
   yield all([
@@ -163,5 +188,6 @@ export default function* quizSaga() {
     yield takeLatest(ActionTypes.EDIT, callApiEdit),
     yield takeLatest(ActionTypes.DELETE, callApiDelete),
     yield takeLatest(ActionTypes.DETAIL, callApiDetail),
+    yield takeLatest(ActionTypes.SUBMIT, callApiSubmitQuiz),
   ]);
 }

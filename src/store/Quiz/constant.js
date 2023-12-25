@@ -18,4 +18,9 @@ export const DETAIL = "DETAIL_QUIZ";
 export const DETAIL_SUCCESS = "DETAIL_QUIZ_SUCCESS";
 export const DETAIL_FAILED = "DETAIL_QUIZ_FAILED";
 
+export const SUBMIT = "SUBMIT_QUIZ";
+export const SUBMIT_SUCCESS = "SUBMIT_QUIZ_SUCCESS";
+export const SUBMIT_FAILED = "SUBMIT_QUIZ_FAILED";
+
 export const RESET_DATA = "RESET_DATA_QUIZ";
+export const RESET_SUBMIT = "RESET_SUBMIT_QUIZ";

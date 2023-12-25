@@ -1,9 +1,14 @@
 import React from "react";
 import { Col } from "react-bootstrap";
 
-export function TextAnswer({ handleEnterAnswer, answer = "" }) {
+export function TextAnswer({
+  handleEnterAnswer,
+  answer = "",
+  disabled = false,
+}) {
   return (
     <textarea
+      disabled={disabled}
       defaultValue={answer}
       placeholder="Enter an answer ..."
       className="text-answer w-100 p-2"
@@ -12,7 +17,13 @@ export function TextAnswer({ handleEnterAnswer, answer = "" }) {
   );
 }
 
-export function OptionAnswer({ handleAnswer, current, list, answer }) {
+export function OptionAnswer({
+  handleAnswer,
+  current,
+  list,
+  answer,
+  disabled = false,
+}) {
   return (
     <>
       <Col xs="12" sm="6" className="p-1">
@@ -21,6 +32,7 @@ export function OptionAnswer({ handleAnswer, current, list, answer }) {
           htmlFor="answer1"
         >
           <input
+            disabled={disabled}
             className="form-check-input"
             type="radio"
             name="answer"
@@ -42,6 +54,7 @@ export function OptionAnswer({ handleAnswer, current, list, answer }) {
           htmlFor="answer2"
         >
           <input
+            disabled={disabled}
             className="form-check-input"
             type="radio"
             name="answer"
@@ -63,6 +76,7 @@ export function OptionAnswer({ handleAnswer, current, list, answer }) {
           htmlFor="answer3"
         >
           <input
+            disabled={disabled}
             className="form-check-input"
             type="radio"
             name="answer"
@@ -84,6 +98,7 @@ export function OptionAnswer({ handleAnswer, current, list, answer }) {
           htmlFor="answer4"
         >
           <input
+            disabled={disabled}
             className="form-check-input"
             type="radio"
             name="answer"

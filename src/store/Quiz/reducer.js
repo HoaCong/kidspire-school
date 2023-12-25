@@ -5,12 +5,14 @@ const status = { isLoading: false, isSuccess: false, isFailure: false };
 const initialState = {
   listStatus: { ...status, isLoadmore: false },
   actionStatus: { ...status },
+  submitStatus: { ...status },
   list: [],
   detail: {},
   params: { limit: 10, page: 1 },
   meta: {
     total: 0,
   },
+  result: {},
 };
 
 const quizReducer = (state = initialState, action) => {
@@ -114,6 +116,28 @@ const quizReducer = (state = initialState, action) => {
       case ActionTypes.DETAIL_FAILED:
         draft.actionStatus.isLoading = false;
         draft.actionStatus.isFailure = true;
+        break;
+
+      case ActionTypes.SUBMIT:
+        draft.submitStatus.isLoading = true;
+        draft.submitStatus.isSuccess = false;
+        draft.submitStatus.isFailure = false;
+        break;
+
+      case ActionTypes.SUBMIT_SUCCESS:
+        draft.submitStatus.isLoading = false;
+        draft.submitStatus.isSuccess = true;
+        draft.result = action.payload;
+        break;
+
+      case ActionTypes.SUBMIT_FAILED:
+        draft.submitStatus.isLoading = false;
+        draft.submitStatus.isFailure = true;
+        break;
+
+      case ActionTypes.RESET_SUBMIT:
+        draft.submitStatus = { ...status };
+        draft.result = {};
         break;
 
       case ActionTypes.RESET_DATA:

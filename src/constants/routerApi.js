@@ -34,4 +34,5 @@ export const ENDPOINT = {
   EDIT_QUIZ: "quiz/",
   DELETE_QUIZ: "quiz/",
   DETAIL_QUIZ: "quiz/",
+  SUBMIT_QUIZ: "quiz/check",
 };

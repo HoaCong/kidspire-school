@@ -10,8 +10,7 @@ import { Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { actionDetail } from "store/Quiz/action";
-import { addToast } from "store/Toast/action";
+import { actionDetail, actionSubmit } from "store/Quiz/action";
 import { OptionAnswer, TextAnswer } from "./OptionAnswer";
 import "./quiz.scss";
 export default function StartQuiz() {
@@ -21,10 +20,16 @@ export default function StartQuiz() {
   const {
     detail,
     actionStatus: { isLoading, isSuccess },
+    submitStatus: { isLoading: submiting, isSuccess: success },
+    result,
   } = useSelector((state) => state.quizReducer);
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
 
   const dispatch = useDispatch();
   const onGetDetailQuiz = (id) => dispatch(actionDetail(id));
+  const onSubmitQuiz = (params) => dispatch(actionSubmit(params));
   const [list, setList] = useState({});
   const [current, setCurrent] = useState(0);
   const [hash, setHash] = useState({});
@@ -39,9 +44,10 @@ export default function StartQuiz() {
   useEffect(() => {
     const startQuiz = JSON.parse(sessionStorage.getItem("start_quiz")) || {};
     const hashQuiz = JSON.parse(sessionStorage.getItem("answer_quiz")) || {};
+    const submitQuiz = JSON.parse(sessionStorage.getItem("submit_quiz")) || {};
 
     if (!_has(startQuiz, id)) {
-      const seconds = 5 * 60; // Đặt thời gian là 5 phút (5 * 60 giây)
+      const seconds = 5; // Đặt thời gian là 5 phút (5 * 60 giây)
       const futureTime = new Date().getTime() + seconds * 1000; // Thời điểm sau 5 phút
       startQuiz[id] = futureTime;
 
@@ -49,7 +55,7 @@ export default function StartQuiz() {
       sessionStorage.setItem("start_quiz", JSON.stringify(startQuiz));
     } else {
       if (startQuiz[id] < new Date().getTime()) {
-        handleSubmit();
+        if (!submiting && !submitQuiz) handleSubmit();
       } else {
         setTime((startQuiz[id] - new Date().getTime()) / 1000);
         if (!isLoading) onGetDetailQuiz(id);
@@ -104,16 +110,16 @@ export default function StartQuiz() {
   };
 
   const handleSubmit = () => {
-    dispatch(
-      addToast({
-        text: "Nạp bài thành công",
-        type: "success",
-        title: "",
-      })
-    );
+    // sessionStorage.removeItem("answer_quiz");
+    sessionStorage.setItem("submit_quiz", JSON.stringify({ id }));
+    const payload = {
+      idquiz: id,
+      iduser: user.id,
+      total: _size(list),
+      list: _map(hash, (value, key) => ({ id: key, answer: value })),
+    };
+    onSubmitQuiz(payload);
     onCloseTooltip();
-    navigate(ROUTES.QUIZ);
-    sessionStorage.removeItem("answer_quiz");
   };
 
   return (
@@ -169,6 +175,7 @@ export default function StartQuiz() {
             <div className="d-flex justify-content-end">
               <button
                 className="btn btn-submit-quiz"
+                disabled={submiting}
                 onClick={(e) =>
                   setTooltip((prev) => {
                     return {
@@ -180,6 +187,15 @@ export default function StartQuiz() {
                   })
                 }
               >
+                {submiting && (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                )}
                 Submit a Quiz
               </button>
             </div>

@@ -76,6 +76,25 @@ export const actionDetailFailed = (error) => ({
   error,
 });
 
+export const actionSubmit = (params) => ({
+  type: ActionTypes.SUBMIT,
+  params,
+});
+
+export const actionSubmitSuccess = (payload) => ({
+  type: ActionTypes.SUBMIT_SUCCESS,
+  payload,
+});
+
+export const actionSubmitFailed = (error) => ({
+  type: ActionTypes.SUBMIT_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
+});
+
+export const resetSubmit = () => ({
+  type: ActionTypes.RESET_SUBMIT,
 });
