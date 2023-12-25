@@ -25,7 +25,6 @@ export function OptionAnswer({
   answer,
   disabled = false,
 }) {
-  console.log("answer:", answer);
   return (
     <>
       <Col xs="12" sm="6" className="p-1">
