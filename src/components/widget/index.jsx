@@ -31,6 +31,15 @@ const listWidget = [
       },
     ],
   },
+  {
+    title: "History quizs",
+    options: [
+      {
+        label: "History",
+        link: ROUTES.HISTORY_QUIZ,
+      },
+    ],
+  },
 ];
 
 function Widget() {

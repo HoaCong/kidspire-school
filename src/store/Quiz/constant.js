@@ -22,5 +22,13 @@ export const SUBMIT = "SUBMIT_QUIZ";
 export const SUBMIT_SUCCESS = "SUBMIT_QUIZ_SUCCESS";
 export const SUBMIT_FAILED = "SUBMIT_QUIZ_FAILED";
 
+export const RANK = "RANK_QUIZ";
+export const RANK_SUCCESS = "RANK_QUIZ_SUCCESS";
+export const RANK_FAILED = "RANK_QUIZ_FAILED";
+
+export const HISTORY = "HISTORY_QUIZ";
+export const HISTORY_SUCCESS = "HISTORY_QUIZ_SUCCESS";
+export const HISTORY_FAILED = "HISTORY_QUIZ_FAILED";
+
 export const RESET_DATA = "RESET_DATA_QUIZ";
 export const RESET_SUBMIT = "RESET_SUBMIT_QUIZ";

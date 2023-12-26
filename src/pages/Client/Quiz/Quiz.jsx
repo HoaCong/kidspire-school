@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import trophy from "assets/images/trophy.png";
 import Widget from "components/widget";
 import { ROUTES } from "constants/routerWeb";
 import { parserRouter } from "helper/function";
@@ -6,7 +7,7 @@ import _size from "lodash/size";
 import { useEffect } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { actionGetList } from "store/Quiz/action";
 function Quiz() {
   const {
@@ -15,6 +16,7 @@ function Quiz() {
     params,
     meta: { total },
   } = useSelector((state) => state.quizReducer);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const onGetListQuiz = (params, isLoadmore) =>
@@ -77,6 +79,19 @@ function Quiz() {
                               ></div>
                               <Card className="p-4 card-radius w-100">
                                 <Card.Body>
+                                  <img
+                                    className="position-absolute end-0 top-0 trophy"
+                                    src={trophy}
+                                    alt="trophy"
+                                    width={64}
+                                    height={64}
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() =>
+                                      navigate(
+                                        ROUTES.RANK_QUIZ.replace(":id", item.id)
+                                      )
+                                    }
+                                  />
                                   <Card.Title>{item.name}</Card.Title>
 
                                   <Card.Text>

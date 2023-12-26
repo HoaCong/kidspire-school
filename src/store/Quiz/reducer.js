@@ -5,8 +5,12 @@ const status = { isLoading: false, isSuccess: false, isFailure: false };
 const initialState = {
   listStatus: { ...status, isLoadmore: false },
   actionStatus: { ...status },
+  rankStatus: { ...status },
+  historyStatus: { ...status },
   submitStatus: { ...status },
   list: [],
+  rank: [],
+  history: [],
   detail: {},
   params: { limit: 10, page: 1 },
   meta: {
@@ -133,6 +137,40 @@ const quizReducer = (state = initialState, action) => {
       case ActionTypes.SUBMIT_FAILED:
         draft.submitStatus.isLoading = false;
         draft.submitStatus.isFailure = true;
+        break;
+
+      case ActionTypes.RANK:
+        draft.rankStatus.isLoading = true;
+        draft.rankStatus.isSuccess = false;
+        draft.rankStatus.isFailure = false;
+        break;
+
+      case ActionTypes.RANK_SUCCESS:
+        draft.rankStatus.isLoading = false;
+        draft.rankStatus.isSuccess = true;
+        draft.rank = action.payload;
+        break;
+
+      case ActionTypes.RANK_FAILED:
+        draft.rankStatus.isLoading = false;
+        draft.rankStatus.isFailure = true;
+        break;
+
+      case ActionTypes.HISTORY:
+        draft.historyStatus.isLoading = true;
+        draft.historyStatus.isSuccess = false;
+        draft.historyStatus.isFailure = false;
+        break;
+
+      case ActionTypes.HISTORY_SUCCESS:
+        draft.historyStatus.isLoading = false;
+        draft.historyStatus.isSuccess = true;
+        draft.history = action.payload;
+        break;
+
+      case ActionTypes.HISTORY_FAILED:
+        draft.historyStatus.isLoading = false;
+        draft.historyStatus.isFailure = true;
         break;
 
       case ActionTypes.RESET_SUBMIT:

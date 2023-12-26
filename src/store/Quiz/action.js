@@ -91,6 +91,36 @@ export const actionSubmitFailed = (error) => ({
   error,
 });
 
+export const actionRank = (id) => ({
+  type: ActionTypes.RANK,
+  id,
+});
+
+export const actionRankSuccess = (payload) => ({
+  type: ActionTypes.RANK_SUCCESS,
+  payload,
+});
+
+export const actionRankFailed = (error) => ({
+  type: ActionTypes.RANK_FAILED,
+  error,
+});
+
+export const actionHistory = (id) => ({
+  type: ActionTypes.HISTORY,
+  id,
+});
+
+export const actionHistorySuccess = (payload) => ({
+  type: ActionTypes.HISTORY_SUCCESS,
+  payload,
+});
+
+export const actionHistoryFailed = (error) => ({
+  type: ActionTypes.HISTORY_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

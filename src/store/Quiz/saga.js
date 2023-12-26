@@ -15,6 +15,10 @@ import {
   actionEditSuccess,
   actionGetListFailed,
   actionGetListSuccess,
+  actionHistoryFailed,
+  actionHistorySuccess,
+  actionRankFailed,
+  actionRankSuccess,
   actionSubmitFailed,
   actionSubmitSuccess,
 } from "./action";
@@ -159,6 +163,35 @@ function* callApiDetail({ id }) {
     yield put(actionDetailFailed(error.response.data.error));
   }
 }
+
+function* callApiRankQuiz({ id }) {
+  try {
+    const response = yield call(get, ENDPOINT.RANK_QUIZ + id);
+
+    if (response.status === 200) {
+      yield put(actionRankSuccess(response.data.data));
+    } else {
+      yield put(actionRankFailed());
+    }
+  } catch (error) {
+    yield put(actionRankFailed(error.response.data.error));
+  }
+}
+
+function* callApiHistoryQuiz({ id }) {
+  try {
+    const response = yield call(get, ENDPOINT.HISTORY_QUIZ + id);
+
+    if (response.status === 200) {
+      yield put(actionHistorySuccess(response.data.data));
+    } else {
+      yield put(actionHistoryFailed());
+    }
+  } catch (error) {
+    yield put(actionHistoryFailed(error.response.data.error));
+  }
+}
+
 function* callApiSubmitQuiz({ params }) {
   try {
     const response = yield call(post, ENDPOINT.SUBMIT_QUIZ, params);
@@ -191,5 +224,7 @@ export default function* quizSaga() {
     yield takeLatest(ActionTypes.DELETE, callApiDelete),
     yield takeLatest(ActionTypes.DETAIL, callApiDetail),
     yield takeLatest(ActionTypes.SUBMIT, callApiSubmitQuiz),
+    yield takeLatest(ActionTypes.RANK, callApiRankQuiz),
+    yield takeLatest(ActionTypes.HISTORY, callApiHistoryQuiz),
   ]);
 }
