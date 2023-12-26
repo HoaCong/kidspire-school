@@ -28,21 +28,8 @@
     border-radius: 24px 0 24px 0;
     background: #ab0033;
     color: #ffe300;
- 
   }
   .box-answer {
-    &.none-hover {
-      .form-check {
-        cursor: unset;
-        &:hover {
-          background: #ffe300;
-          color: #ab0033;
-        }
-        &.exact {
-          border-color: green;
-        }
-      }
-    }
     .form-check {
       cursor: pointer;
       border: 2px solid #ab0033;
@@ -50,16 +37,42 @@
       background: #ffe300;
       color: #ab0033;
       border-radius: 12px 0 12px 0;
+      transition: 0.3s;
       &.active,
       &:hover {
         background: #ab0033;
         color: #ffe300;
       }
     }
+    &.none-hover {
+      .form-check {
+        cursor: unset;
+        &:hover {
+          background: #ffe300;
+          color: #ab0033;
+        }
+        &.false {
+          &.active {
+            &:hover {
+              background: #ab0033;
+              color: #ffe300;
+            }
+          }
+        }
+        &.exact {
+          border-color: #006300;
+          &.active {
+            background-color: #90f590;
+            color: #ab0033;
+          }
+        }
+      }
+    }
   }
   .text-answer {
     &.exact {
-      border-color: green;
+      border-color: #006300;
+      background-color: #90f590;
     }
     &:focus {
       outline: none;

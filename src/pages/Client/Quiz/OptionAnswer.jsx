@@ -29,9 +29,9 @@ export function OptionAnswer({
     <>
       <Col xs="12" sm="6" className="p-1">
         <label
-          className={`form-check p-2 ${answer === "A" && "active"} ${
+          className={`form-check p-2 ${
             list[current]?.answer === "A" && "exact"
-          }`}
+          } ${answer === "A" && "active"}`}
           htmlFor="answer1"
         >
           <input
