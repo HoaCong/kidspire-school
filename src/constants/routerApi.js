@@ -37,4 +37,6 @@ export const ENDPOINT = {
   SUBMIT_QUIZ: "quiz/check",
   RANK_QUIZ: "quiz/rankquizz/",
   HISTORY_QUIZ: "quiz/history/",
+
+  DASHBOARD: "/dashboard",
 };
