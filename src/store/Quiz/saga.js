@@ -195,7 +195,7 @@ function* callApiSubmitQuiz({ params }) {
     const response = yield call(post, ENDPOINT.SUBMIT_QUIZ, params);
 
     if (response.status === 200) {
-      yield put(actionSubmitSuccess(response.data.scrore));
+      yield put(actionSubmitSuccess(response.data.score));
       addToast({
         text: "Nạp bài thành công",
         type: "success",

@@ -18,6 +18,7 @@ export default function ResultQuiz() {
   const [hash, setHash] = useState({});
 
   useEffect(() => {
+    console.log("result", result?.historyanswer);
     if (detail?.listQuestions && result?.historyanswer) {
       let tmp_ques = {};
       let tmp_hash = {};
@@ -33,6 +34,7 @@ export default function ResultQuiz() {
       );
       setHash(tmp_hash);
     } else {
+      console.log(321312);
       navigate(ROUTES.QUIZ);
     }
   }, []);
