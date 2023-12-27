@@ -18,7 +18,6 @@ export default function ResultQuiz() {
   const [hash, setHash] = useState({});
 
   useEffect(() => {
-    console.log("result", result?.historyanswer);
     if (detail?.listQuestions && result?.historyanswer) {
       let tmp_ques = {};
       let tmp_hash = {};
