@@ -4,9 +4,8 @@ import _map from "lodash/map";
 import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { resetSubmit } from "store/Quiz/action";
 import { OptionAnswer, TextAnswer } from "./OptionAnswer";
 import "./quiz.scss";
 export default function ResultQuiz() {
@@ -14,8 +13,6 @@ export default function ResultQuiz() {
 
   const { detail, result } = useSelector((state) => state.quizReducer);
 
-  const dispatch = useDispatch();
-  const onResetQuiz = () => dispatch(resetSubmit());
   const [list, setList] = useState({});
   const [current, setCurrent] = useState(0);
   const [hash, setHash] = useState({});
@@ -38,16 +35,18 @@ export default function ResultQuiz() {
     } else {
       navigate(ROUTES.QUIZ);
     }
-
-    return () => {
-      sessionStorage.removeItem("submit_quiz");
-      onResetQuiz();
-    };
   }, []);
+
+  const getScore = (score, total) => {
+    return total === 0 ? 0 : Math.round((score * 100) / total);
+  };
+
   return (
     <section id="section-start_quiz">
       <div className="container py-5">
-        <h1 className="ff-title text-center">SCORE: {result?.score || 0}</h1>
+        <h1 className="ff-title text-center">
+          SCORE: {getScore(result?.score, result?.total) || 0}
+        </h1>
         <div className="box-quiz p-5">
           <div className="card col-12 p-4 mt-3">
             <div className="card-body">

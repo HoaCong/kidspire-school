@@ -46,12 +46,13 @@ export default function StartQuiz() {
     const submitQuiz = JSON.parse(sessionStorage.getItem("submit_quiz")) || {};
 
     if (!_has(startQuiz, id)) {
-      const seconds = 5 * 60; // Đặt thời gian là 5 phút (5 * 60 giây)
+      const seconds = 5 * 60 - 1; // Đặt thời gian là 5 phút (5 * 60 giây)
       const futureTime = new Date().getTime() + seconds * 1000; // Thời điểm sau 5 phút
       startQuiz[id] = futureTime;
 
       setTime(seconds);
       sessionStorage.setItem("start_quiz", JSON.stringify(startQuiz));
+      sessionStorage.removeItem("submit_quiz");
     } else {
       if (startQuiz[id] < new Date().getTime()) {
         if (!submiting && !submitQuiz) handleSubmit();

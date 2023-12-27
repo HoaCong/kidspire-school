@@ -7,6 +7,7 @@ import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { actionDetail, actionRank } from "store/Quiz/action";
+
 function RankQuiz() {
   const {
     actionStatus: { isLoading, isSuccess },
@@ -31,6 +32,10 @@ function RankQuiz() {
     //   onResetData();
     // };
   }, []);
+
+  const getScore = (score, total) => {
+    return total === 0 ? 0 : Math.round((score * 100) / total);
+  };
 
   return (
     <section className="pb-5" id="section-topic">
@@ -109,7 +114,9 @@ function RankQuiz() {
                                   {index + 1}
                                 </th>
                                 <td>{item.user.username}</td>
-                                <td className="text-center">{item.score}</td>
+                                <td className="text-center">
+                                  {getScore(item.score, item.total)}
+                                </td>
                               </tr>
                             );
                           return null;

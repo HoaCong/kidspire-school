@@ -29,6 +29,10 @@ function HistoryQuiz() {
     // };
   }, []);
 
+  const getScore = (score, total) => {
+    return total === 0 ? 0 : Math.round((score * 100) / total);
+  };
+
   return (
     <section className="pb-5" id="section-topic">
       <div className="container">
@@ -80,7 +84,9 @@ function HistoryQuiz() {
                                   {index + 1}
                                 </th>
                                 <td>{item.quizz?.name || "Not found"}</td>
-                                <td className="text-center">{item.score}</td>
+                                <td className="text-center">
+                                  {getScore(item.score, item.total)}
+                                </td>
                               </tr>
                             );
                           return null;
