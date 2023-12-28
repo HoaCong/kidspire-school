@@ -2,6 +2,7 @@
 import ActionTable from "components/common/ActionTable";
 import CustomPagination from "components/common/CustomPagination";
 import CustomTooltip from "components/common/CustomTooltip";
+import LazyLoadImage from "components/common/LazyLoadImage";
 import ToggleSwitch from "components/common/ToggleSwitch";
 import TemplateContent from "components/layout/TemplateContent";
 import _size from "lodash/size";
@@ -76,6 +77,7 @@ function Users(props) {
           <thead>
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Hình ảnh</th>
               <th scope="col">Tên tài khoản</th>
               <th scope="col">Mật khẩu</th>
               <th scope="col">Email </th>
@@ -88,7 +90,7 @@ function Users(props) {
           <tbody>
             {isLoading && _size(list) === 0 && (
               <tr>
-                <td colSpan={8}>
+                <td colSpan={9}>
                   <div
                     className="d-flex justify-content-center align-items-center w-full"
                     style={{ height: 400 }}
@@ -105,6 +107,14 @@ function Users(props) {
                 <th scope="row" className="align-middle">
                   {index + 1}
                 </th>
+                <td className="align-middle">
+                  <LazyLoadImage
+                    src={item.image}
+                    alt={item.name}
+                    witdh={50}
+                    height={50}
+                  />
+                </td>
                 <td className="align-middle">{item.username}</td>
                 <td className="align-middle">**********</td>
                 <td className="align-middle">{item.email}</td>

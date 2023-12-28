@@ -20,7 +20,7 @@ function ContentToggle({ title, content, statusCheck = false }) {
         </div>
       </div>
 
-      <div className="form-switch fs-5 text text-right p-0">
+      <div className="form-switch fs-2 text text-right p-0">
         <input
           className="form-check-input bg-success"
           type="checkbox"

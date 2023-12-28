@@ -15,10 +15,7 @@ import ResultQuiz from "pages/Client/Quiz/ResultQuiz";
 import StartQuiz from "pages/Client/Quiz/StartQuiz";
 import Lesson from "pages/Client/Topic/Lesson";
 import Topic from "pages/Client/Topic/Topic";
-import {
-  default as AdminCreUpUser,
-  default as DetailUser,
-} from "pages/Client/User/DetailUser";
+import DetailUser from "pages/Client/User/DetailUser";
 import HomePage from "pages/HomePage";
 import Login from "pages/Login";
 import PageNotFound from "pages/NotFoundPage";
@@ -43,16 +40,6 @@ export const adminRoutes = [
         element: <AdminDashboard />,
       },
       { path: ROUTES.ADMIN_USER, name: "Users", element: <AdminUsers /> },
-      {
-        path: ROUTES.ADMIN_ADD_USER,
-        name: "Add User",
-        element: <AdminCreUpUser />,
-      },
-      {
-        path: ROUTES.ADMIN_UPDATE_USER,
-        name: "Update User",
-        element: <AdminCreUpUser />,
-      },
       {
         path: ROUTES.ADMIN_TOPIC,
         name: "Topic",
