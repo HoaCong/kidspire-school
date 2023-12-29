@@ -12,11 +12,7 @@ const initialState = {
   },
   data: {
     access_token: localStorage.getItem("access_token") || "",
-    user: {
-      id: localStorage.getItem("id") || null,
-      username: localStorage.getItem("username") || "",
-      roleid: localStorage.getItem("roleid") || null,
-    },
+    user: JSON.parse(localStorage.getItem("user")),
     timeExpired: localStorage.getItem("time_expired") || 0,
     error: "",
   },

@@ -8,7 +8,6 @@ import AdminQuestion from "pages/Admin/Question";
 import AdminQuiz from "pages/Admin/Quiz";
 import AdminTopic from "pages/Admin/Topic";
 import AdminUsers from "pages/Admin/User";
-import HistoryQuiz from "pages/Client/Quiz/HistoryQuiz";
 import Quiz from "pages/Client/Quiz/Quiz";
 import RankQuiz from "pages/Client/Quiz/RankQuiz";
 import ResultQuiz from "pages/Client/Quiz/ResultQuiz";
@@ -105,11 +104,6 @@ export const userRoutes = [
     path: ROUTES.RANK_QUIZ,
     name: "RankQuiz",
     element: <RankQuiz />,
-  },
-  {
-    path: ROUTES.HISTORY_QUIZ,
-    name: "HistoryQuiz",
-    element: <HistoryQuiz />,
   },
 ];
 

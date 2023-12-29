@@ -20,15 +20,11 @@ function* callApiLogin({ params, isRemember }) {
     if (response.status === 200) {
       if (isRemember) {
         localStorage.setItem("access_token", response.data.access_token);
-        localStorage.setItem("username", response.data.user.username);
-        localStorage.setItem("roleid", response.data.user.roleid);
-        localStorage.setItem("id", response.data.user.id);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("time_expired", getTimeExpired());
       } else {
         localStorage.removeItem("access_token");
-        localStorage.removeItem("username");
-        localStorage.removeItem("id");
-        localStorage.removeItem("roleid");
+        localStorage.removeItem("user");
         localStorage.removeItem("time_expired");
       }
       yield put(

@@ -36,7 +36,7 @@ const listWidget = [
     options: [
       {
         label: "History",
-        link: ROUTES.HISTORY_QUIZ,
+        link: ROUTES.USER_DETAIL,
       },
     ],
   },

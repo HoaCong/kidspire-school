@@ -35,7 +35,11 @@ function HeaderUser({ menuIcon, classHead, showProfile }) {
                 onClick={() => setIsActive((prev) => !prev)}
                 className="account-header d-flex gap-2 align-items-center"
               >
-                <img className="avatar-account" src={avatar} alt="avatar" />
+                <img
+                  className="avatar-account"
+                  src={user.image || avatar}
+                  alt="avatar"
+                />
                 <div className="account-info">
                   <b className="user-role m-0">{user?.username}</b>
                 </div>

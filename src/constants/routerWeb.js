@@ -22,5 +22,4 @@ export const ROUTES = {
   START_QUIZ: "/start_quiz/:id",
   RESULT_QUIZ: "/result_quiz/:id",
   RANK_QUIZ: "/quiz/rank/:id",
-  HISTORY_QUIZ: "/quiz/history",
 };
