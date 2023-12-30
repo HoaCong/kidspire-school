@@ -115,7 +115,7 @@ function Dashboard() {
       {isSuccess && success && (
         <div className="row">
           <div className="col-12 col-sm-6">
-            <h2> Doanh thu 2023</h2>
+            <h2> Thống kê quiz</h2>
             <div className="mixed-chart">
               <Chart
                 options={chartData.options}
