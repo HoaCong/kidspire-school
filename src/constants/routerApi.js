@@ -39,4 +39,5 @@ export const ENDPOINT = {
   HISTORY_QUIZ: "quiz/history/",
 
   DASHBOARD: "/dashboard",
+  STATIC_QUIZ: "/staticquizz",
 };
