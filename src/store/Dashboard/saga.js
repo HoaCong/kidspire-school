@@ -6,6 +6,8 @@ import {
   actionDashboardSuccess,
   actionStaticQuizFailed,
   actionStaticQuizSuccess,
+  actionStaticRankFailed,
+  actionStaticRankSuccess,
 } from "./action";
 import * as ActionTypes from "./constant";
 function* callApiDashboard() {
@@ -36,9 +38,24 @@ function* callApiStaticQuiz() {
   }
 }
 
+function* callApiStaticRank() {
+  try {
+    const response = yield call(get, ENDPOINT.STATIC_RANK);
+
+    if (response.status === 200) {
+      yield put(actionStaticRankSuccess(response.data.data));
+    } else {
+      yield put(actionStaticRankFailed());
+    }
+  } catch (error) {
+    yield put(actionStaticRankFailed(error.response.data.error));
+  }
+}
+
 export default function* dashboardSaga() {
   yield all([
     yield takeLeading(ActionTypes.DASHBOARD, callApiDashboard),
     yield takeLeading(ActionTypes.STATIC_QUIZ, callApiStaticQuiz),
+    yield takeLeading(ActionTypes.STATIC_RANK, callApiStaticRank),
   ]);
 }

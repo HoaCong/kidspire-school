@@ -40,4 +40,5 @@ export const ENDPOINT = {
 
   DASHBOARD: "/dashboard",
   STATIC_QUIZ: "/staticquizz",
+  STATIC_RANK: "/staticrank",
 };

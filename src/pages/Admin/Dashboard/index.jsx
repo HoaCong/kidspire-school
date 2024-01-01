@@ -1,9 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import _map from "lodash/map";
 import React, { useEffect } from "react";
 import Chart from "react-apexcharts";
 import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { actionDashboard, actionStaticQuiz } from "store/Dashboard/action";
+import {
+  actionDashboard,
+  actionStaticQuiz,
+  actionStaticRank,
+} from "store/Dashboard/action";
 const enumData = {
   "Tổng số quiz": "totalQuiz",
   "Tổng số câu hỏi": "totalQuestion",
@@ -47,13 +52,16 @@ function Dashboard() {
   const {
     dashboardStatus: { isLoading, isSuccess },
     staticQuizStatus: { isLoading: loading, isSuccess: success },
+    staticRankStatus: { isLoading: loadingRank, isSuccess: successRank },
     dashboard,
     staticQuiz,
+    staticRank,
   } = useSelector((state) => state.dashboardReducer);
 
   const dispatch = useDispatch();
   const onGetDashboard = () => dispatch(actionDashboard());
   const onGetStaticQuiz = () => dispatch(actionStaticQuiz());
+  const onGetStaticRank = () => dispatch(actionStaticRank());
 
   useEffect(() => {
     if (!isLoading) {
@@ -61,6 +69,9 @@ function Dashboard() {
     }
     if (!loading) {
       onGetStaticQuiz();
+    }
+    if (!loadingRank) {
+      onGetStaticRank();
     }
   }, []);
 
@@ -134,6 +145,32 @@ function Dashboard() {
               type="donut"
               width="100%"
             />
+          </div>
+        </div>
+      )}
+      {successRank && (
+        <div className="card">
+          <div className="card-body">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Người dùng</th>
+                  <th scope="col">Số lần làm Quiz</th>
+                </tr>
+              </thead>
+              <tbody>
+                {_map(staticRank, (item, index) => (
+                  <tr key={index}>
+                    <th scope="row" className="align-middle">
+                      {index + 1}
+                    </th>
+                    <td className="align-middle"> {item.user.username}</td>
+                    <td className="align-middle"> {item.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}

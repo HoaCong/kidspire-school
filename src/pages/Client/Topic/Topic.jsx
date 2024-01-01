@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import ImgCover from "components/common/ImgCover";
 import useHash from "components/common/useHash";
 import Widget from "components/widget";
 import { ROUTES } from "constants/routerWeb";
