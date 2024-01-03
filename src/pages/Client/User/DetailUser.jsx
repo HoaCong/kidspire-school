@@ -1,4 +1,5 @@
 import UploadImage from "components/common/UploadImage";
+import { format } from "date-fns";
 import _capitalize from "lodash/capitalize";
 import _omit from "lodash/omit";
 import { formatBirthday2 } from "pages/Admin/User/helper";
@@ -229,6 +230,9 @@ function DetailUser() {
                       <th scope="col" className="text-center">
                         Score
                       </th>
+                      <th scope="col" className="text-center">
+                        Date
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -242,6 +246,12 @@ function DetailUser() {
                             <td>{item.quizz?.name || "Not found"}</td>
                             <td className="text-center">
                               {getScore(item.score, item.total)}
+                            </td>
+                            <td className="text-center">
+                              {format(
+                                new Date(item.createdat * 1000),
+                                "dd-MM-yyyy"
+                              )}
                             </td>
                           </tr>
                         );

@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionAdd, actionEdit } from "store/Question/action";
 
 const initialData = {
-  idtopic: undefined,
   idcategory: undefined,
   level: 1,
   name: "",
@@ -101,7 +100,7 @@ function FormQuestion({
 
     if (validates) {
       const newData = { ...data };
-      if (!newData?.idtopic) newData.idtopic = listTopic[0].id;
+      newData.idtopic = listTopic[0].id;
       if (!newData?.idcategory) newData.idcategory = listCategory[0].id;
       newData.type = +newData.type;
       if (!!newData.type) {
@@ -135,25 +134,6 @@ function FormQuestion({
       loading={isLoading}
     >
       <form className="custom-scrollbar">
-        <div>
-          <Form.Label htmlFor="topic">
-            Chủ đề <span className="required">*</span>
-          </Form.Label>
-          <Form.Select
-            id="topic"
-            aria-label="Chủ đề"
-            name="idtopic"
-            value={data.idtopic}
-            onChange={handleChange}
-            disabled={type === "detail"}
-          >
-            {_map(listTopic, (item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </Form.Select>
-        </div>
         <div className="mt-3">
           <Form.Label htmlFor="category">
             Danh mục <span className="required">*</span>

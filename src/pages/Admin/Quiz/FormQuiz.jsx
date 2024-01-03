@@ -18,7 +18,6 @@ import { actionAdd, actionEdit } from "store/Quiz/action";
 
 const initialData = {
   name: "",
-  idtopic: undefined,
   idcategory: undefined,
   image: "",
   groupquestion: [],
@@ -74,10 +73,11 @@ function FormQuiz({
   };
 
   const handleSubmit = () => {
-    const tmpKey = Object.keys(data);
+    const tmpKey = Object.keys(_omit(data, ["idcategory"]));
+
     let validates = true;
     tmpKey.forEach((key) => {
-      if (data[key] === "") {
+      if (_isEmpty(data[key])) {
         setError((prevError) => ({
           ...prevError,
           [key]: `${_capitalize(key)} required`,
@@ -89,7 +89,7 @@ function FormQuiz({
       const newData = _omit({ ...data, idcreated: +user.id }, [
         "listQuestions",
       ]);
-      if (!newData?.idtopic) newData.idtopic = listTopic[0].id;
+      newData.idtopic = listTopic[0].id;
       if (!newData?.idcategory) newData.idcategory = listCategory[0].id;
       if (_isArray(newData.groupquestion))
         newData.groupquestion = JSON.stringify(newData.groupquestion);
@@ -111,15 +111,12 @@ function FormQuiz({
   };
 
   const handleListQuestion = (search) => {
-    let idtopic = data.idtopic;
     let idcategory = data.idcategory;
-    if (!data?.idtopic) idtopic = listTopic[0].id;
     if (!data?.idcategory) idcategory = listCategory[0].id;
     onGetListQuestion({
       ...params,
       query: search,
       limit: 30,
-      idtopic,
       idcategory,
     });
   };
@@ -131,6 +128,7 @@ function FormQuiz({
       ref.current.clear();
       ref.current.blur();
     }
+    setError((prev) => ({ ...prev, listQuestions: "" }));
     const isOptionSelected =
       !!option?.id && data.groupquestion.includes(option?.id);
 
@@ -174,25 +172,6 @@ function FormQuiz({
       }}
     >
       <form className="custom-scrollbar">
-        <div>
-          <Form.Label htmlFor="topic">
-            Chủ đề <span className="required">*</span>
-          </Form.Label>
-          <Form.Select
-            id="topic"
-            aria-label="Chủ đề"
-            name="idtopic"
-            value={data.idtopic}
-            onChange={handleChange}
-            disabled={["detail", "edit"].includes(type)}
-          >
-            {_map(listTopic, (item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </Form.Select>
-        </div>
         <div className="mt-3">
           <Form.Label htmlFor="category">
             Danh mục <span className="required">*</span>
@@ -313,6 +292,11 @@ function FormQuiz({
               </ListGroup.Item>
             ))}
           </ListGroup>
+          {error.listQuestions && (
+            <Form.Text danger="true" bsPrefix="d-inline-block text-danger lh-1">
+              {error.listQuestions}
+            </Form.Text>
+          )}
         </div>
       </form>
     </ModalBlock>

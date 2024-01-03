@@ -16,7 +16,7 @@ import { actionGetList as callListTopic } from "store/Topic/action";
 import TemplateContent from "../../../components/layout/TemplateContent";
 import FormQuiz from "./FormQuiz";
 
-const initialData = { idtopic: 0, idcategory: 0 };
+const initialData = { query: "", idcategory: 0 };
 
 function Quiz() {
   const {
@@ -88,11 +88,11 @@ function Quiz() {
   };
 
   const handleSearch = (type) => {
-    const idtopic = !+data.idtopic || type === "reset" ? null : data.idtopic;
+    const query = !data.query || type === "reset" ? null : data.query.trim();
     const idcategory =
       !+data.idcategory || type === "reset" ? null : data.idcategory;
-    const newParams = _omit(params, ["idtopic", "idcategory"]);
-    onGetListQuiz({ ...newParams, page: 1, idtopic, idcategory });
+    const newParams = _omit(params, ["query", "idcategory"]);
+    onGetListQuiz({ ...newParams, page: 1, query, idcategory });
     setCurrentPage(1);
     if (type === "reset") setData(initialData);
   };
@@ -108,20 +108,15 @@ function Quiz() {
         filter={
           <div className="d-flex align-items-end">
             <div style={{ width: "100%", maxWidth: 250 }}>
-              <Form.Label htmlFor="topic">Chủ đề</Form.Label>
-              <Form.Select
-                id="topic"
-                aria-label="Chủ đề"
-                name="idtopic"
-                value={data.idtopic}
+              <Form.Label htmlFor="search">Tìm kiếm</Form.Label>
+              <Form.Control
+                id="search"
+                aria-label="Tìm kiếm"
+                placeholder="Tìm kiếm"
+                name="query"
+                value={data.query}
                 onChange={handleChange}
-              >
-                {_map([{ id: 0, name: "Tất cả" }, ...listTopic], (item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-              </Form.Select>
+              ></Form.Control>
             </div>
             <div className="ms-2" style={{ width: "100%", maxWidth: 250 }}>
               <Form.Label htmlFor="category">Danh mục</Form.Label>
@@ -140,11 +135,17 @@ function Quiz() {
               </Form.Select>
             </div>
             <div className="ms-2">
-              <Button onClick={() => handleSearch("filter")}>Tìm kiếm</Button>
+              <Button
+                onClick={() => handleSearch("filter")}
+                disabled={isLoading && _size(list) > 0}
+              >
+                Tìm kiếm
+              </Button>
             </div>
             <div className="ms-2">
               <Button
                 variant="outline-secondary"
+                disabled={isLoading && _size(list) > 0}
                 onClick={() => handleSearch("reset")}
               >
                 Đặt lại
@@ -165,9 +166,6 @@ function Quiz() {
                 </th>
                 <th scope="col" className="min-w-150px">
                   Hình ảnh
-                </th>
-                <th scope="col" className="min-w-100px">
-                  Chủ đề
                 </th>
                 <th scope="col" className="min-w-100px">
                   Danh mục
@@ -210,7 +208,6 @@ function Quiz() {
                       key={item.image}
                     />
                   </td>
-                  <td className="align-middle">{item.topic?.name || "-"}</td>
                   <td className="align-middle">{item.category?.name || "-"}</td>
                   <td className="align-middle">
                     {item.created?.username || "-"}
