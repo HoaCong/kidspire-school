@@ -1,5 +1,5 @@
 import { ROUTES } from "./routerWeb";
-const MENU = [
+export const MENU_ADMIN = [
   {
     label: "Dashboard",
     active: false,
@@ -12,22 +12,9 @@ const MENU = [
     src: ROUTES.ADMIN_USER,
     icon: <i className="fas fa-users"></i>,
   },
-  // {
-  //   label: "Người dùng",
-  //   active: false,
-  //   icon: <i className="fas fa-users"></i>,
-  //   sub: [
-  //     { label: "List", src: ROUTES.ADMIN_USER },
-  //     {
-  //       label: "Thêm mới",
-  //       src: ROUTES.ADMIN_ADD_USER,
-  //     },
-  //     {
-  //       label: "Cập nhật",
-  //       src: ROUTES.ADMIN_UPDATE_USER,
-  //     },
-  //   ],
-  // },
+];
+
+export const MENU_MANAGER = [
   {
     label: "Topic",
     active: false,
@@ -59,4 +46,3 @@ const MENU = [
     icon: <i className="far fa-question-circle"></i>,
   },
 ];
-export default MENU;

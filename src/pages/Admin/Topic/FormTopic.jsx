@@ -12,6 +12,8 @@ const initialData = {
   image: "",
   video: "",
   description: "",
+  nameessay: "",
+  contentessay: "",
 };
 function FormTopic({ data: { type, visible, info }, onClear }) {
   const {
@@ -148,6 +150,52 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
               bsPrefix="d-inline-block text-danger lh-1"
             >
               {error.description}
+            </Form.Text>
+          )}
+        </div>
+        <div>
+          <Form.Label htmlFor="NameEssay">
+            Tên tiểu luận <span className="required">*</span>
+          </Form.Label>
+          <Form.Control
+            type="text"
+            id="NameEssay"
+            name="nameessay"
+            defaultValue={data.nameessay}
+            aria-describedby="helperNameEssay"
+            disabled={type === "detail"}
+            onChange={handleChange}
+          />
+          {error.nameessay && (
+            <Form.Text
+              id="helperNameEssay"
+              danger="true"
+              bsPrefix="d-inline-block text-danger lh-1"
+            >
+              {error.nameessay}
+            </Form.Text>
+          )}
+        </div>
+        <div>
+          <Form.Label htmlFor="ContentEssay">
+            Nội dung tiểu luận <span className="required">*</span>
+          </Form.Label>
+          <Form.Control
+            type="text"
+            id="ContentEssay"
+            name="contentessay"
+            defaultValue={data.contentessay}
+            aria-describedby="helperContentEssay"
+            disabled={type === "detail"}
+            onChange={handleChange}
+          />
+          {error.contentessay && (
+            <Form.Text
+              id="helperContentEssay"
+              danger="true"
+              bsPrefix="d-inline-block text-danger lh-1"
+            >
+              {error.contentessay}
             </Form.Text>
           )}
         </div>

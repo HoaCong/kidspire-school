@@ -1,10 +1,24 @@
-import MENU from "constants/routerMenu";
-import React, { useCallback, useState } from "react";
+import { MENU_ADMIN, MENU_MANAGER } from "constants/routerMenu";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 // import style
+import { useSelector } from "react-redux";
 import "./menu.scss";
 function Menu({ collapsed }) {
-  const [list, setList] = useState(MENU);
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const adminMenu = MENU_ADMIN;
+    const managerMenu = MENU_MANAGER;
+    const EnumRoutes = {
+      1: adminMenu,
+      2: managerMenu,
+    };
+    setList(EnumRoutes[user?.roleid] || []);
+  }, [user?.roleid]);
 
   const [prevIndex, setPrevIndex] = useState(0);
   const activeSubItem = useCallback(

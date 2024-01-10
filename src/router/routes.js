@@ -39,6 +39,18 @@ export const adminRoutes = [
         element: <AdminDashboard />,
       },
       { path: ROUTES.ADMIN_USER, name: "Users", element: <AdminUsers /> },
+      { path: "*", name: "Not Found Page", element: <PageNotFound /> },
+    ],
+  },
+];
+
+export const managerRoutes = [
+  {
+    path: ROUTES.ADMIN_HOME_PAGE,
+    name: "Admin Layout",
+    element: <AdminLayout />,
+    children: [
+      { isRoot: true, name: "Topic", element: <AdminTopic /> },
       {
         path: ROUTES.ADMIN_TOPIC,
         name: "Topic",

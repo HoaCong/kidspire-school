@@ -5,7 +5,7 @@ import CheckTokenMiddleware from "middleware/checkToken";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { adminRoutes, publicRoutes, userRoutes } from "router";
+import { adminRoutes, managerRoutes, publicRoutes, userRoutes } from "router";
 import "./index.scss";
 
 function App() {
@@ -16,10 +16,11 @@ function App() {
 
   const listRouter = useCallback(() => {
     const adminMenu = [...publicRoutes, ...adminRoutes];
+    const managerMenu = [...publicRoutes, ...managerRoutes];
     const userMenu = [...publicRoutes, ...userRoutes];
     const EnumRoutes = {
       1: adminMenu,
-      2: adminMenu,
+      2: managerMenu,
       3: userMenu,
     };
     return EnumRoutes[user?.roleid] || EnumRoutes[3];

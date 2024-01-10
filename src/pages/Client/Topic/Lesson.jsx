@@ -56,6 +56,12 @@ function Lesson() {
                 <b>Video</b>
               </h4>
               <VideoPlayer item={list[0].topic} />
+              <div className="mt-3">
+                <h4 className="ff-title">
+                  <b>{list[0].topic.nameessay}</b>
+                </h4>
+                <p className="m-0">{list[0].topic.contentessay}</p>
+              </div>
             </Col>
             <h4 className="ff-title">
               <b>Lessons</b>

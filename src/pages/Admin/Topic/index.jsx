@@ -74,80 +74,104 @@ function Topic(props) {
             setDetail((prev) => ({ ...prev, visible: true, type: "create" })),
         }}
       >
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Chủ đề</th>
-              <th scope="col">Hình ảnh</th>
-              <th scope="col">Video</th>
-              <th scope="col">Mô tả</th>
-              <th scope="col">Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading && _size(list) === 0 && (
+        <div className="custom-scrollbar">
+          <table className="table">
+            <thead>
               <tr>
-                <td colSpan={6}>
-                  <div
-                    className="d-flex justify-content-center align-items-center w-full"
-                    style={{ height: 400 }}
-                  >
-                    <Spinner animation="border" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                  </div>
-                </td>
-              </tr>
-            )}
-            {list.map((item, index) => (
-              <tr key={item.updatedat + index}>
-                <th scope="row" className="align-middle">
-                  {index + 1}
+                <th scope="col" className="max-w-max">
+                  #
                 </th>
-                <td className="align-middle">{item.name}</td>
-                <td className="align-middle">
-                  <LazyLoadImage
-                    src={item.image}
-                    alt={item.name}
-                    witdh={50}
-                    height={50}
-                  />
-                </td>
-                <td className="align-middle">{item.video || "_"}</td>
-                <td className="align-middle">{item.description || "_"}</td>
-                <td className="align-middle" style={{ width: 200 }}>
-                  <ActionTable
-                    propsEdit={{
-                      disabled:
-                        item.idcreated !== +user.id && item.idcreated !== -1,
-                    }}
-                    propsDelete={{
-                      disabled:
-                        item.idcreated !== +user.id && item.idcreated !== -1,
-                    }}
-                    onDetail={() =>
-                      setDetail({ info: item, visible: true, type: "detail" })
-                    }
-                    onEdit={() =>
-                      setDetail({ info: item, visible: true, type: "edit" })
-                    }
-                    onDelete={(e) => {
-                      setTooltip((prev) => {
-                        return {
-                          visible:
-                            prev.target === e.target ? !tooltip.visible : true,
-                          target: e.target,
-                          id: item.id,
-                        };
-                      });
-                    }}
-                  />
-                </td>
+                <th scope="col" className="min-w-100px">
+                  Chủ đề
+                </th>
+                <th scope="col" className="min-w-100px">
+                  Hình ảnh
+                </th>
+                <th scope="col" className="min-w-150px">
+                  Video
+                </th>
+                <th scope="col" className="min-w-300px">
+                  Mô tả
+                </th>
+                <th scope="col" className="min-w-150px">
+                  Tên tiểu luận
+                </th>
+                <th scope="col" className="min-w-300px">
+                  Nội dung tiểu luận
+                </th>
+                <th scope="col" className="min-w-100px">
+                  Hành động
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {isLoading && _size(list) === 0 && (
+                <tr>
+                  <td colSpan={8}>
+                    <div
+                      className="d-flex justify-content-center align-items-center w-full"
+                      style={{ height: 400 }}
+                    >
+                      <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </Spinner>
+                    </div>
+                  </td>
+                </tr>
+              )}
+              {list.map((item, index) => (
+                <tr key={item.updatedat + index}>
+                  <th scope="row" className="align-middle">
+                    {index + 1}
+                  </th>
+                  <td className="align-middle">{item.name}</td>
+                  <td className="align-middle">
+                    <LazyLoadImage
+                      src={item.image}
+                      alt={item.name}
+                      witdh={50}
+                      height={50}
+                    />
+                  </td>
+                  <td className="align-middle">{item.video || "_"}</td>
+                  <td className="align-middle">{item.description || "_"}</td>
+                  <td className="align-middle">{item.nameessay || "_"}</td>
+                  <td className="align-middle">{item.contentessay || "_"}</td>
+                  <td className="align-middle" style={{ width: 200 }}>
+                    <ActionTable
+                      propsEdit={{
+                        disabled:
+                          item.idcreated !== +user.id && item.idcreated !== -1,
+                      }}
+                      propsDelete={{
+                        disabled:
+                          item.idcreated !== +user.id && item.idcreated !== -1,
+                      }}
+                      onDetail={() =>
+                        setDetail({ info: item, visible: true, type: "detail" })
+                      }
+                      onEdit={() =>
+                        setDetail({ info: item, visible: true, type: "edit" })
+                      }
+                      onDelete={(e) => {
+                        setTooltip((prev) => {
+                          return {
+                            visible:
+                              prev.target === e.target
+                                ? !tooltip.visible
+                                : true,
+                            target: e.target,
+                            id: item.id,
+                          };
+                        });
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <CustomPagination
           loading={isLoading}
           totalItems={meta.total}
