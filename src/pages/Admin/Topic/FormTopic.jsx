@@ -3,6 +3,7 @@ import ModalBlock from "components/common/Modal";
 import UploadImage from "components/common/UploadImage";
 import _capitalize from "lodash/capitalize";
 import _isEmpty from "lodash/isEmpty";
+import _omit from "lodash/omit";
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +47,7 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
   };
 
   const handleSubmit = () => {
-    const tmpKey = Object.keys(data);
+    const tmpKey = Object.keys(_omit(data, ["nameessay", "contentessay"]));
     let validates = true;
     tmpKey.forEach((key) => {
       if (data[key] === "") {
@@ -154,9 +155,7 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
           )}
         </div>
         <div>
-          <Form.Label htmlFor="NameEssay">
-            Tên tiểu luận <span className="required">*</span>
-          </Form.Label>
+          <Form.Label htmlFor="NameEssay">Tên tiểu luận</Form.Label>
           <Form.Control
             type="text"
             id="NameEssay"
@@ -166,20 +165,9 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
             disabled={type === "detail"}
             onChange={handleChange}
           />
-          {error.nameessay && (
-            <Form.Text
-              id="helperNameEssay"
-              danger="true"
-              bsPrefix="d-inline-block text-danger lh-1"
-            >
-              {error.nameessay}
-            </Form.Text>
-          )}
         </div>
         <div>
-          <Form.Label htmlFor="ContentEssay">
-            Nội dung tiểu luận <span className="required">*</span>
-          </Form.Label>
+          <Form.Label htmlFor="ContentEssay">Nội dung tiểu luận</Form.Label>
           <Form.Control
             type="text"
             id="ContentEssay"
@@ -189,15 +177,6 @@ function FormTopic({ data: { type, visible, info }, onClear }) {
             disabled={type === "detail"}
             onChange={handleChange}
           />
-          {error.contentessay && (
-            <Form.Text
-              id="helperContentEssay"
-              danger="true"
-              bsPrefix="d-inline-block text-danger lh-1"
-            >
-              {error.contentessay}
-            </Form.Text>
-          )}
         </div>
         <div className="mt-3">
           <Form.Label htmlFor="Image">
